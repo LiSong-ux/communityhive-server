@@ -20,4 +20,9 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping("/page")
+    public String page(){
+        return "index";
+    }
+
 }
