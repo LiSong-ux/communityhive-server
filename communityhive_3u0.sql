@@ -45,7 +45,9 @@ CREATE TABLE `reply` (
   `quote` int(11) NOT NULL DEFAULT '0' COMMENT '引用的楼层',
   `content` longtext NOT NULL COMMENT '回复内容',
   `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `topic_reply_id` (`topic_id`),
+  CONSTRAINT `topic_reply_id` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `reply` */
@@ -63,7 +65,6 @@ CREATE TABLE `topic` (
   `replyCount` int(11) NOT NULL DEFAULT '0' COMMENT '回复数量',
   `viewCount` int(11) NOT NULL DEFAULT '0' COMMENT '查看数量',
   `locked` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否锁定',
-  `hided` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否隐藏',
   `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
