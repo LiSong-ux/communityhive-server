@@ -15,9 +15,8 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public String addUser(User newUser) {
+    public void addUser(User newUser) {
         userMapper.insertSelective(newUser);
-        return "success";
     }
 
 }
