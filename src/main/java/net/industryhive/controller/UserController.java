@@ -1,9 +1,11 @@
 package net.industryhive.controller;
 
+import net.industryhive.bean.User;
 import net.industryhive.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -16,9 +18,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/register")
+    @RequestMapping(value="/register", method= RequestMethod.POST)
     @ResponseBody
-    public String register(){
+    public String register(User newUser) {
+        //String result = userService.addUser(newUser);
+        System.out.println(newUser.getUsername());
         return "success_api";
     }
 
