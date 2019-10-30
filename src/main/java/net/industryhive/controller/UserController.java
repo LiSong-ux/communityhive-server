@@ -2,6 +2,7 @@ package net.industryhive.controller;
 
 import net.industryhive.bean.User;
 import net.industryhive.service.UserService;
+import net.industryhive.utils.UnifiedResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ public class UserController {
     public String register(User newUser) {
         //String result = userService.addUser(newUser);
         System.out.println(newUser.getUsername());
-        return "success_api";
+        return UnifiedResult.ok();
     }
 
 }
