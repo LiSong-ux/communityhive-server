@@ -42,7 +42,7 @@
     <!-- 配置扫描器，将mybatis接口的实现加入到IOC容器中 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 扫描所有dao接口的实现，加入到IOC容器中 -->
-        <property name="basePackage" value="com.hive.community.dao"></property>
+        <property name="basePackage" value="net.industryhive.dao"></property>
     </bean>
 
     <!-- 配置一个可以执行批量的sqlSession -->

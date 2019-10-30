@@ -4,6 +4,15 @@
          xis:schemaLocation="http://java.sun.com/xml/ns/javaee
          http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
+  <!--Spring配置-->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
   <!--加载springMVC-->
   <servlet>
     <servlet-name>springmvc</servlet-name>
@@ -20,12 +29,16 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
-  <!--Spring配置-->
-  <!--<context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:applicationContext.xml</param-value>
-  </context-param>
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>-->
+
+  <filter>
+    <filter-name>accessOriginFilter</filter-name>
+    <filter-class>net.industryhive.filter.AccessOriginFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>accessOriginFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+
 </web-app>
