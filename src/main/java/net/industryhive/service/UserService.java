@@ -1,8 +1,8 @@
 package net.industryhive.service;
 
-//import net.industryhive.bean.User;
-//import net.industryhive.dao.UserMapper;
-//import org.springframework.beans.factory.annotation.Autowired;
+import net.industryhive.bean.User;
+import net.industryhive.dao.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-//    @Autowired
-//    private UserMapper userMapper;
+    @Autowired
+    private UserMapper userMapper;
 
-//    public void addUser(User newUser) {
-//        userMapper.insertSelective(newUser);
-//    }
+    public void addUser(User newUser) {
+        userMapper.insertSelective(newUser);
+    }
 
 }

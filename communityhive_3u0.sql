@@ -29,9 +29,11 @@ CREATE TABLE `authority` (
   `deleteTopic` tinyint(1) NOT NULL COMMENT '删除帖子',
   `deleteReply` tinyint(1) NOT NULL COMMENT '删除回复',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `authority` */
+
+insert  into `authority`(`id`,`banAccount`,`banSubmitTopic`,`banSubmitReply`,`banMessage`,`deleteTopic`,`deleteReply`) values (1,0,0,0,0,0,0);
 
 /*Table structure for table `reply` */
 
@@ -86,7 +88,7 @@ CREATE TABLE `user` (
   `account` varchar(32) NOT NULL COMMENT '账号',
   `password` varchar(32) NOT NULL COMMENT '密码',
   `username` varchar(24) NOT NULL COMMENT '用户名',
-  `authority_id` int(11) NOT NULL DEFAULT '0' COMMENT '权限id',
+  `authority_id` int(11) NOT NULL DEFAULT '1' COMMENT '权限id',
   `bannedTopic` tinyint(1) NOT NULL DEFAULT '0' COMMENT '禁止发帖',
   `bannedReply` tinyint(1) NOT NULL DEFAULT '0' COMMENT '禁止回复',
   `bannedMessage` tinyint(1) NOT NULL DEFAULT '0' COMMENT '禁止私信',
@@ -103,7 +105,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   KEY `user_authority_id` (`authority_id`),
   CONSTRAINT `user_authority_id` FOREIGN KEY (`authority_id`) REFERENCES `authority` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `user` */
 
