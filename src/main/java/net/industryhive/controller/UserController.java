@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -25,6 +26,21 @@ public class UserController {
     public UnifiedResult register(User newUser) {
         newUser.setRegistertime(new Date());
         userService.addUser(newUser);
+        return UnifiedResult.ok();
+    }
+
+    @RequestMapping("/login")
+    @ResponseBody
+    public UnifiedResult login(HttpServletRequest request){
+        String account = request.getParameter("account");
+        String password = request.getParameter("password");
+
+        User user = userService.getUser(account);
+        if (user==null||!user.getPassword().equals(password)){
+            return UnifiedResult.build(400, "账号或密码错误", null);
+        }
+        request.getSession().setAttribute("user", user);
+
         return UnifiedResult.ok();
     }
 
