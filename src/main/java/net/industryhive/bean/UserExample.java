@@ -985,6 +985,66 @@ public class UserExample {
             return (Criteria) this;
         }
 
+        public Criteria andLogincountIsNull() {
+            addCriterion("loginCount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogincountIsNotNull() {
+            addCriterion("loginCount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogincountEqualTo(Integer value) {
+            addCriterion("loginCount =", value, "logincount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogincountNotEqualTo(Integer value) {
+            addCriterion("loginCount <>", value, "logincount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogincountGreaterThan(Integer value) {
+            addCriterion("loginCount >", value, "logincount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogincountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("loginCount >=", value, "logincount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogincountLessThan(Integer value) {
+            addCriterion("loginCount <", value, "logincount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogincountLessThanOrEqualTo(Integer value) {
+            addCriterion("loginCount <=", value, "logincount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogincountIn(List<Integer> values) {
+            addCriterion("loginCount in", values, "logincount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogincountNotIn(List<Integer> values) {
+            addCriterion("loginCount not in", values, "logincount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogincountBetween(Integer value1, Integer value2) {
+            addCriterion("loginCount between", value1, value2, "logincount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogincountNotBetween(Integer value1, Integer value2) {
+            addCriterion("loginCount not between", value1, value2, "logincount");
+            return (Criteria) this;
+        }
+
         public Criteria andRegistertimeIsNull() {
             addCriterion("registerTime is null");
             return (Criteria) this;

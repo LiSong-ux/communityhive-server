@@ -100,6 +100,7 @@ CREATE TABLE `user` (
   `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
   `topicCount` int(11) NOT NULL DEFAULT '0' COMMENT '发帖数量',
   `replyCount` int(11) NOT NULL DEFAULT '0' COMMENT '回复数量',
+  `loginCount` int(11) NOT NULL DEFAULT '1' COMMENT '登录次数',
   `registerTime` datetime(6) NOT NULL COMMENT '注册时间',
   `photo` varchar(255) DEFAULT NULL COMMENT '头像路径',
   `comeFrom` varchar(255) DEFAULT NULL COMMENT '来自',

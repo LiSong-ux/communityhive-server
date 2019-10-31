@@ -31,6 +31,8 @@ public class User {
 
     private Integer replycount;
 
+    private Integer logincount;
+
     private Date registertime;
 
     private String photo;
@@ -149,6 +151,14 @@ public class User {
 
     public void setReplycount(Integer replycount) {
         this.replycount = replycount;
+    }
+
+    public Integer getLogincount() {
+        return logincount;
+    }
+
+    public void setLogincount(Integer logincount) {
+        this.logincount = logincount;
     }
 
     public Date getRegistertime() {

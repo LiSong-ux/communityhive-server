@@ -16,6 +16,7 @@
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="topicCount" jdbcType="INTEGER" property="topiccount" />
     <result column="replyCount" jdbcType="INTEGER" property="replycount" />
+    <result column="loginCount" jdbcType="INTEGER" property="logincount" />
     <result column="registerTime" jdbcType="TIMESTAMP" property="registertime" />
     <result column="photo" jdbcType="VARCHAR" property="photo" />
     <result column="comeFrom" jdbcType="VARCHAR" property="comefrom" />
@@ -81,8 +82,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, account, password, username, email, gender, authority_id, bannedTopic, bannedReply, 
-    bannedMessage, locded, deleted, topicCount, replyCount, registerTime, photo, comeFrom, 
-    introduction
+    bannedMessage, locded, deleted, topicCount, replyCount, loginCount, registerTime, 
+    photo, comeFrom, introduction
   </sql>
   <select id="selectByExample" parameterType="net.industryhive.bean.UserExample" resultMap="BaseResultMap">
     select
@@ -119,16 +120,16 @@
       username, email, gender, 
       authority_id, bannedTopic, bannedReply, 
       bannedMessage, locded, deleted, 
-      topicCount, replyCount, registerTime, 
-      photo, comeFrom, introduction
-      )
+      topicCount, replyCount, loginCount, 
+      registerTime, photo, comeFrom, 
+      introduction)
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{username,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
       #{authorityId,jdbcType=INTEGER}, #{bannedtopic,jdbcType=BIT}, #{bannedreply,jdbcType=BIT}, 
       #{bannedmessage,jdbcType=BIT}, #{locded,jdbcType=BIT}, #{deleted,jdbcType=BIT}, 
-      #{topiccount,jdbcType=INTEGER}, #{replycount,jdbcType=INTEGER}, #{registertime,jdbcType=TIMESTAMP}, 
-      #{photo,jdbcType=VARCHAR}, #{comefrom,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}
-      )
+      #{topiccount,jdbcType=INTEGER}, #{replycount,jdbcType=INTEGER}, #{logincount,jdbcType=INTEGER}, 
+      #{registertime,jdbcType=TIMESTAMP}, #{photo,jdbcType=VARCHAR}, #{comefrom,jdbcType=VARCHAR}, 
+      #{introduction,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.industryhive.bean.User">
     insert into user
@@ -174,6 +175,9 @@
       </if>
       <if test="replycount != null">
         replyCount,
+      </if>
+      <if test="logincount != null">
+        loginCount,
       </if>
       <if test="registertime != null">
         registerTime,
@@ -230,6 +234,9 @@
       </if>
       <if test="replycount != null">
         #{replycount,jdbcType=INTEGER},
+      </if>
+      <if test="logincount != null">
+        #{logincount,jdbcType=INTEGER},
       </if>
       <if test="registertime != null">
         #{registertime,jdbcType=TIMESTAMP},
@@ -296,6 +303,9 @@
       <if test="record.replycount != null">
         replyCount = #{record.replycount,jdbcType=INTEGER},
       </if>
+      <if test="record.logincount != null">
+        loginCount = #{record.logincount,jdbcType=INTEGER},
+      </if>
       <if test="record.registertime != null">
         registerTime = #{record.registertime,jdbcType=TIMESTAMP},
       </if>
@@ -329,6 +339,7 @@
       deleted = #{record.deleted,jdbcType=BIT},
       topicCount = #{record.topiccount,jdbcType=INTEGER},
       replyCount = #{record.replycount,jdbcType=INTEGER},
+      loginCount = #{record.logincount,jdbcType=INTEGER},
       registerTime = #{record.registertime,jdbcType=TIMESTAMP},
       photo = #{record.photo,jdbcType=VARCHAR},
       comeFrom = #{record.comefrom,jdbcType=VARCHAR},
@@ -379,6 +390,9 @@
       <if test="replycount != null">
         replyCount = #{replycount,jdbcType=INTEGER},
       </if>
+      <if test="logincount != null">
+        loginCount = #{logincount,jdbcType=INTEGER},
+      </if>
       <if test="registertime != null">
         registerTime = #{registertime,jdbcType=TIMESTAMP},
       </if>
@@ -409,6 +423,7 @@
       deleted = #{deleted,jdbcType=BIT},
       topicCount = #{topiccount,jdbcType=INTEGER},
       replyCount = #{replycount,jdbcType=INTEGER},
+      loginCount = #{logincount,jdbcType=INTEGER},
       registerTime = #{registertime,jdbcType=TIMESTAMP},
       photo = #{photo,jdbcType=VARCHAR},
       comeFrom = #{comefrom,jdbcType=VARCHAR},
