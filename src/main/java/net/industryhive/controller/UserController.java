@@ -31,17 +31,17 @@ public class UserController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public UnifiedResult login(HttpServletRequest request){
+    public UnifiedResult login(HttpServletRequest request) {
         String account = request.getParameter("account");
         String password = request.getParameter("password");
 
         User user = userService.getUser(account);
-        if (user==null||!user.getPassword().equals(password)){
+        if (user == null || !user.getPassword().equals(password)) {
             return UnifiedResult.build(400, "账号或密码错误", null);
         }
         request.getSession().setAttribute("user", user);
 
-        return UnifiedResult.ok();
+        return UnifiedResult.ok(user);
     }
 
 }

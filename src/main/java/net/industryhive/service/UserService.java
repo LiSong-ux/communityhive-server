@@ -22,7 +22,7 @@ public class UserService {
         userMapper.insertSelective(newUser);
     }
 
-    public User getUser(String account){
+    public User getUser(String account) {
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andUsernameEqualTo(account);
