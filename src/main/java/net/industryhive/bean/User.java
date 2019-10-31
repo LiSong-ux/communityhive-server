@@ -11,6 +11,10 @@ public class User {
 
     private String username;
 
+    private String email;
+
+    private Integer gender;
+
     private Integer authorityId;
 
     private Boolean bannedtopic;
@@ -19,13 +23,9 @@ public class User {
 
     private Boolean bannedmessage;
 
-    private Boolean locked;
+    private Boolean locded;
 
     private Boolean deleted;
-
-    private String email;
-
-    private Integer gender;
 
     private Integer topiccount;
 
@@ -33,11 +33,11 @@ public class User {
 
     private Date registertime;
 
-    private String introduction;
+    private String photo;
 
     private String comefrom;
 
-    private String photo;
+    private String introduction;
 
     public Integer getId() {
         return id;
@@ -69,6 +69,22 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
     }
 
     public Integer getAuthorityId() {
@@ -103,12 +119,12 @@ public class User {
         this.bannedmessage = bannedmessage;
     }
 
-    public Boolean getLocked() {
-        return locked;
+    public Boolean getLocded() {
+        return locded;
     }
 
-    public void setLocked(Boolean locked) {
-        this.locked = locked;
+    public void setLocded(Boolean locded) {
+        this.locded = locded;
     }
 
     public Boolean getDeleted() {
@@ -117,22 +133,6 @@ public class User {
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
-
-    public Integer getGender() {
-        return gender;
-    }
-
-    public void setGender(Integer gender) {
-        this.gender = gender;
     }
 
     public Integer getTopiccount() {
@@ -159,12 +159,12 @@ public class User {
         this.registertime = registertime;
     }
 
-    public String getIntroduction() {
-        return introduction;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction == null ? null : introduction.trim();
+    public void setPhoto(String photo) {
+        this.photo = photo == null ? null : photo.trim();
     }
 
     public String getComefrom() {
@@ -175,11 +175,11 @@ public class User {
         this.comefrom = comefrom == null ? null : comefrom.trim();
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getIntroduction() {
+        return introduction;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo == null ? null : photo.trim();
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction == null ? null : introduction.trim();
     }
 }

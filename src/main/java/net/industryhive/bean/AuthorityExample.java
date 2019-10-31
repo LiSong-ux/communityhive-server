@@ -523,6 +523,66 @@ public class AuthorityExample {
             addCriterion("deleteReply not between", value1, value2, "deletereply");
             return (Criteria) this;
         }
+
+        public Criteria andLocktopicIsNull() {
+            addCriterion("lockTopic is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocktopicIsNotNull() {
+            addCriterion("lockTopic is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocktopicEqualTo(Boolean value) {
+            addCriterion("lockTopic =", value, "locktopic");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocktopicNotEqualTo(Boolean value) {
+            addCriterion("lockTopic <>", value, "locktopic");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocktopicGreaterThan(Boolean value) {
+            addCriterion("lockTopic >", value, "locktopic");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocktopicGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("lockTopic >=", value, "locktopic");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocktopicLessThan(Boolean value) {
+            addCriterion("lockTopic <", value, "locktopic");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocktopicLessThanOrEqualTo(Boolean value) {
+            addCriterion("lockTopic <=", value, "locktopic");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocktopicIn(List<Boolean> values) {
+            addCriterion("lockTopic in", values, "locktopic");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocktopicNotIn(List<Boolean> values) {
+            addCriterion("lockTopic not in", values, "locktopic");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocktopicBetween(Boolean value1, Boolean value2) {
+            addCriterion("lockTopic between", value1, value2, "locktopic");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocktopicNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("lockTopic not between", value1, value2, "locktopic");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

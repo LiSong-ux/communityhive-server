@@ -5,19 +5,21 @@ import java.util.Date;
 public class Topic {
     private Integer id;
 
-    private String label;
-
-    private String title;
-
     private Integer userId;
 
     private Date submittime;
+
+    private String label;
+
+    private String title;
 
     private Integer replycount;
 
     private Integer viewcount;
 
     private Boolean locked;
+
+    private Boolean hided;
 
     private Boolean deleted;
 
@@ -29,22 +31,6 @@ public class Topic {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label == null ? null : label.trim();
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
     }
 
     public Integer getUserId() {
@@ -61,6 +47,22 @@ public class Topic {
 
     public void setSubmittime(Date submittime) {
         this.submittime = submittime;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label == null ? null : label.trim();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
     }
 
     public Integer getReplycount() {
@@ -85,6 +87,14 @@ public class Topic {
 
     public void setLocked(Boolean locked) {
         this.locked = locked;
+    }
+
+    public Boolean getHided() {
+        return hided;
+    }
+
+    public void setHided(Boolean hided) {
+        this.hided = hided;
     }
 
     public Boolean getDeleted() {

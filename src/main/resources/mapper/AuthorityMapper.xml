@@ -9,6 +9,7 @@
     <result column="banMessage" jdbcType="BIT" property="banmessage" />
     <result column="deleteTopic" jdbcType="BIT" property="deletetopic" />
     <result column="deleteReply" jdbcType="BIT" property="deletereply" />
+    <result column="lockTopic" jdbcType="BIT" property="locktopic" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, banAccount, banSubmitTopic, banSubmitReply, banMessage, deleteTopic, deleteReply
+    id, banAccount, banSubmitTopic, banSubmitReply, banMessage, deleteTopic, deleteReply, 
+    lockTopic
   </sql>
   <select id="selectByExample" parameterType="net.industryhive.bean.AuthorityExample" resultMap="BaseResultMap">
     select
@@ -104,10 +106,10 @@
   <insert id="insert" parameterType="net.industryhive.bean.Authority">
     insert into authority (id, banAccount, banSubmitTopic, 
       banSubmitReply, banMessage, deleteTopic, 
-      deleteReply)
+      deleteReply, lockTopic)
     values (#{id,jdbcType=INTEGER}, #{banaccount,jdbcType=BIT}, #{bansubmittopic,jdbcType=BIT}, 
       #{bansubmitreply,jdbcType=BIT}, #{banmessage,jdbcType=BIT}, #{deletetopic,jdbcType=BIT}, 
-      #{deletereply,jdbcType=BIT})
+      #{deletereply,jdbcType=BIT}, #{locktopic,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="net.industryhive.bean.Authority">
     insert into authority
@@ -133,6 +135,9 @@
       <if test="deletereply != null">
         deleteReply,
       </if>
+      <if test="locktopic != null">
+        lockTopic,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -155,6 +160,9 @@
       </if>
       <if test="deletereply != null">
         #{deletereply,jdbcType=BIT},
+      </if>
+      <if test="locktopic != null">
+        #{locktopic,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -188,6 +196,9 @@
       <if test="record.deletereply != null">
         deleteReply = #{record.deletereply,jdbcType=BIT},
       </if>
+      <if test="record.locktopic != null">
+        lockTopic = #{record.locktopic,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -201,7 +212,8 @@
       banSubmitReply = #{record.bansubmitreply,jdbcType=BIT},
       banMessage = #{record.banmessage,jdbcType=BIT},
       deleteTopic = #{record.deletetopic,jdbcType=BIT},
-      deleteReply = #{record.deletereply,jdbcType=BIT}
+      deleteReply = #{record.deletereply,jdbcType=BIT},
+      lockTopic = #{record.locktopic,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -227,6 +239,9 @@
       <if test="deletereply != null">
         deleteReply = #{deletereply,jdbcType=BIT},
       </if>
+      <if test="locktopic != null">
+        lockTopic = #{locktopic,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -237,7 +252,8 @@
       banSubmitReply = #{bansubmitreply,jdbcType=BIT},
       banMessage = #{banmessage,jdbcType=BIT},
       deleteTopic = #{deletetopic,jdbcType=BIT},
-      deleteReply = #{deletereply,jdbcType=BIT}
+      deleteReply = #{deletereply,jdbcType=BIT},
+      lockTopic = #{locktopic,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

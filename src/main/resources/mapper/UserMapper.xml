@@ -6,20 +6,20 @@
     <result column="account" jdbcType="VARCHAR" property="account" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
     <result column="authority_id" jdbcType="INTEGER" property="authorityId" />
     <result column="bannedTopic" jdbcType="BIT" property="bannedtopic" />
     <result column="bannedReply" jdbcType="BIT" property="bannedreply" />
     <result column="bannedMessage" jdbcType="BIT" property="bannedmessage" />
-    <result column="locked" jdbcType="BIT" property="locked" />
+    <result column="locded" jdbcType="BIT" property="locded" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="gender" jdbcType="INTEGER" property="gender" />
     <result column="topicCount" jdbcType="INTEGER" property="topiccount" />
     <result column="replyCount" jdbcType="INTEGER" property="replycount" />
     <result column="registerTime" jdbcType="TIMESTAMP" property="registertime" />
-    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
-    <result column="comeFrom" jdbcType="VARCHAR" property="comefrom" />
     <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="comeFrom" jdbcType="VARCHAR" property="comefrom" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -80,9 +80,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, account, password, username, authority_id, bannedTopic, bannedReply, bannedMessage, 
-    locked, deleted, email, gender, topicCount, replyCount, registerTime, introduction, 
-    comeFrom, photo
+    id, account, password, username, email, gender, authority_id, bannedTopic, bannedReply, 
+    bannedMessage, locded, deleted, topicCount, replyCount, registerTime, photo, comeFrom, 
+    introduction
   </sql>
   <select id="selectByExample" parameterType="net.industryhive.bean.UserExample" resultMap="BaseResultMap">
     select
@@ -116,18 +116,18 @@
   </delete>
   <insert id="insert" parameterType="net.industryhive.bean.User">
     insert into user (id, account, password, 
-      username, authority_id, bannedTopic, 
-      bannedReply, bannedMessage, locked, 
-      deleted, email, gender, 
+      username, email, gender, 
+      authority_id, bannedTopic, bannedReply, 
+      bannedMessage, locded, deleted, 
       topicCount, replyCount, registerTime, 
-      introduction, comeFrom, photo
+      photo, comeFrom, introduction
       )
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{username,jdbcType=VARCHAR}, #{authorityId,jdbcType=INTEGER}, #{bannedtopic,jdbcType=BIT}, 
-      #{bannedreply,jdbcType=BIT}, #{bannedmessage,jdbcType=BIT}, #{locked,jdbcType=BIT}, 
-      #{deleted,jdbcType=BIT}, #{email,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{username,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{authorityId,jdbcType=INTEGER}, #{bannedtopic,jdbcType=BIT}, #{bannedreply,jdbcType=BIT}, 
+      #{bannedmessage,jdbcType=BIT}, #{locded,jdbcType=BIT}, #{deleted,jdbcType=BIT}, 
       #{topiccount,jdbcType=INTEGER}, #{replycount,jdbcType=INTEGER}, #{registertime,jdbcType=TIMESTAMP}, 
-      #{introduction,jdbcType=VARCHAR}, #{comefrom,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}
+      #{photo,jdbcType=VARCHAR}, #{comefrom,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="net.industryhive.bean.User">
@@ -145,6 +145,12 @@
       <if test="username != null">
         username,
       </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
       <if test="authorityId != null">
         authority_id,
       </if>
@@ -157,17 +163,11 @@
       <if test="bannedmessage != null">
         bannedMessage,
       </if>
-      <if test="locked != null">
-        locked,
+      <if test="locded != null">
+        locded,
       </if>
       <if test="deleted != null">
         deleted,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="gender != null">
-        gender,
       </if>
       <if test="topiccount != null">
         topicCount,
@@ -178,14 +178,14 @@
       <if test="registertime != null">
         registerTime,
       </if>
-      <if test="introduction != null">
-        introduction,
+      <if test="photo != null">
+        photo,
       </if>
       <if test="comefrom != null">
         comeFrom,
       </if>
-      <if test="photo != null">
-        photo,
+      <if test="introduction != null">
+        introduction,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -201,6 +201,12 @@
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
       <if test="authorityId != null">
         #{authorityId,jdbcType=INTEGER},
       </if>
@@ -213,17 +219,11 @@
       <if test="bannedmessage != null">
         #{bannedmessage,jdbcType=BIT},
       </if>
-      <if test="locked != null">
-        #{locked,jdbcType=BIT},
+      <if test="locded != null">
+        #{locded,jdbcType=BIT},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null">
-        #{gender,jdbcType=INTEGER},
       </if>
       <if test="topiccount != null">
         #{topiccount,jdbcType=INTEGER},
@@ -234,14 +234,14 @@
       <if test="registertime != null">
         #{registertime,jdbcType=TIMESTAMP},
       </if>
-      <if test="introduction != null">
-        #{introduction,jdbcType=VARCHAR},
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
       </if>
       <if test="comefrom != null">
         #{comefrom,jdbcType=VARCHAR},
       </if>
-      <if test="photo != null">
-        #{photo,jdbcType=VARCHAR},
+      <if test="introduction != null">
+        #{introduction,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -266,6 +266,12 @@
       <if test="record.username != null">
         username = #{record.username,jdbcType=VARCHAR},
       </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=INTEGER},
+      </if>
       <if test="record.authorityId != null">
         authority_id = #{record.authorityId,jdbcType=INTEGER},
       </if>
@@ -278,17 +284,11 @@
       <if test="record.bannedmessage != null">
         bannedMessage = #{record.bannedmessage,jdbcType=BIT},
       </if>
-      <if test="record.locked != null">
-        locked = #{record.locked,jdbcType=BIT},
+      <if test="record.locded != null">
+        locded = #{record.locded,jdbcType=BIT},
       </if>
       <if test="record.deleted != null">
         deleted = #{record.deleted,jdbcType=BIT},
-      </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.gender != null">
-        gender = #{record.gender,jdbcType=INTEGER},
       </if>
       <if test="record.topiccount != null">
         topicCount = #{record.topiccount,jdbcType=INTEGER},
@@ -299,14 +299,14 @@
       <if test="record.registertime != null">
         registerTime = #{record.registertime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.introduction != null">
-        introduction = #{record.introduction,jdbcType=VARCHAR},
+      <if test="record.photo != null">
+        photo = #{record.photo,jdbcType=VARCHAR},
       </if>
       <if test="record.comefrom != null">
         comeFrom = #{record.comefrom,jdbcType=VARCHAR},
       </if>
-      <if test="record.photo != null">
-        photo = #{record.photo,jdbcType=VARCHAR},
+      <if test="record.introduction != null">
+        introduction = #{record.introduction,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -319,20 +319,20 @@
       account = #{record.account,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=INTEGER},
       authority_id = #{record.authorityId,jdbcType=INTEGER},
       bannedTopic = #{record.bannedtopic,jdbcType=BIT},
       bannedReply = #{record.bannedreply,jdbcType=BIT},
       bannedMessage = #{record.bannedmessage,jdbcType=BIT},
-      locked = #{record.locked,jdbcType=BIT},
+      locded = #{record.locded,jdbcType=BIT},
       deleted = #{record.deleted,jdbcType=BIT},
-      email = #{record.email,jdbcType=VARCHAR},
-      gender = #{record.gender,jdbcType=INTEGER},
       topicCount = #{record.topiccount,jdbcType=INTEGER},
       replyCount = #{record.replycount,jdbcType=INTEGER},
       registerTime = #{record.registertime,jdbcType=TIMESTAMP},
-      introduction = #{record.introduction,jdbcType=VARCHAR},
+      photo = #{record.photo,jdbcType=VARCHAR},
       comeFrom = #{record.comefrom,jdbcType=VARCHAR},
-      photo = #{record.photo,jdbcType=VARCHAR}
+      introduction = #{record.introduction,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -349,6 +349,12 @@
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
       </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
       <if test="authorityId != null">
         authority_id = #{authorityId,jdbcType=INTEGER},
       </if>
@@ -361,17 +367,11 @@
       <if test="bannedmessage != null">
         bannedMessage = #{bannedmessage,jdbcType=BIT},
       </if>
-      <if test="locked != null">
-        locked = #{locked,jdbcType=BIT},
+      <if test="locded != null">
+        locded = #{locded,jdbcType=BIT},
       </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},
-      </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null">
-        gender = #{gender,jdbcType=INTEGER},
       </if>
       <if test="topiccount != null">
         topicCount = #{topiccount,jdbcType=INTEGER},
@@ -382,14 +382,14 @@
       <if test="registertime != null">
         registerTime = #{registertime,jdbcType=TIMESTAMP},
       </if>
-      <if test="introduction != null">
-        introduction = #{introduction,jdbcType=VARCHAR},
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
       </if>
       <if test="comefrom != null">
         comeFrom = #{comefrom,jdbcType=VARCHAR},
       </if>
-      <if test="photo != null">
-        photo = #{photo,jdbcType=VARCHAR},
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -399,20 +399,20 @@
     set account = #{account,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
       authority_id = #{authorityId,jdbcType=INTEGER},
       bannedTopic = #{bannedtopic,jdbcType=BIT},
       bannedReply = #{bannedreply,jdbcType=BIT},
       bannedMessage = #{bannedmessage,jdbcType=BIT},
-      locked = #{locked,jdbcType=BIT},
+      locded = #{locded,jdbcType=BIT},
       deleted = #{deleted,jdbcType=BIT},
-      email = #{email,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=INTEGER},
       topicCount = #{topiccount,jdbcType=INTEGER},
       replyCount = #{replycount,jdbcType=INTEGER},
       registerTime = #{registertime,jdbcType=TIMESTAMP},
-      introduction = #{introduction,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
       comeFrom = #{comefrom,jdbcType=VARCHAR},
-      photo = #{photo,jdbcType=VARCHAR}
+      introduction = #{introduction,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

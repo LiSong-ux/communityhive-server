@@ -3,13 +3,14 @@
 <mapper namespace="net.industryhive.dao.TopicMapper">
   <resultMap id="BaseResultMap" type="net.industryhive.bean.Topic">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="label" jdbcType="VARCHAR" property="label" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="submitTime" jdbcType="TIMESTAMP" property="submittime" />
+    <result column="label" jdbcType="VARCHAR" property="label" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="replyCount" jdbcType="INTEGER" property="replycount" />
     <result column="viewCount" jdbcType="INTEGER" property="viewcount" />
     <result column="locked" jdbcType="BIT" property="locked" />
+    <result column="hided" jdbcType="BIT" property="hided" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.industryhive.bean.Topic">
@@ -74,7 +75,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, label, title, user_id, submitTime, replyCount, viewCount, locked, deleted
+    id, user_id, submitTime, label, title, replyCount, viewCount, locked, hided, deleted
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -128,13 +129,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.industryhive.bean.Topic">
-    insert into topic (id, label, title, 
-      user_id, submitTime, replyCount, 
-      viewCount, locked, deleted, 
+    insert into topic (id, user_id, submitTime, 
+      label, title, replyCount, 
+      viewCount, locked, hided, deleted, 
       content)
-    values (#{id,jdbcType=INTEGER}, #{label,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=INTEGER}, #{submittime,jdbcType=TIMESTAMP}, #{replycount,jdbcType=INTEGER}, 
-      #{viewcount,jdbcType=INTEGER}, #{locked,jdbcType=BIT}, #{deleted,jdbcType=BIT}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{submittime,jdbcType=TIMESTAMP}, 
+      #{label,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{replycount,jdbcType=INTEGER}, 
+      #{viewcount,jdbcType=INTEGER}, #{locked,jdbcType=BIT}, #{hided,jdbcType=BIT}, #{deleted,jdbcType=BIT}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.industryhive.bean.Topic">
@@ -143,17 +144,17 @@
       <if test="id != null">
         id,
       </if>
-      <if test="label != null">
-        label,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
       <if test="userId != null">
         user_id,
       </if>
       <if test="submittime != null">
         submitTime,
+      </if>
+      <if test="label != null">
+        label,
+      </if>
+      <if test="title != null">
+        title,
       </if>
       <if test="replycount != null">
         replyCount,
@@ -163,6 +164,9 @@
       </if>
       <if test="locked != null">
         locked,
+      </if>
+      <if test="hided != null">
+        hided,
       </if>
       <if test="deleted != null">
         deleted,
@@ -175,17 +179,17 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="label != null">
-        #{label,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
       <if test="submittime != null">
         #{submittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
       </if>
       <if test="replycount != null">
         #{replycount,jdbcType=INTEGER},
@@ -195,6 +199,9 @@
       </if>
       <if test="locked != null">
         #{locked,jdbcType=BIT},
+      </if>
+      <if test="hided != null">
+        #{hided,jdbcType=BIT},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
@@ -216,17 +223,17 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.label != null">
-        label = #{record.label,jdbcType=VARCHAR},
-      </if>
-      <if test="record.title != null">
-        title = #{record.title,jdbcType=VARCHAR},
-      </if>
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.submittime != null">
         submitTime = #{record.submittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.label != null">
+        label = #{record.label,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
       </if>
       <if test="record.replycount != null">
         replyCount = #{record.replycount,jdbcType=INTEGER},
@@ -236,6 +243,9 @@
       </if>
       <if test="record.locked != null">
         locked = #{record.locked,jdbcType=BIT},
+      </if>
+      <if test="record.hided != null">
+        hided = #{record.hided,jdbcType=BIT},
       </if>
       <if test="record.deleted != null">
         deleted = #{record.deleted,jdbcType=BIT},
@@ -251,13 +261,14 @@
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update topic
     set id = #{record.id,jdbcType=INTEGER},
-      label = #{record.label,jdbcType=VARCHAR},
-      title = #{record.title,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=INTEGER},
       submitTime = #{record.submittime,jdbcType=TIMESTAMP},
+      label = #{record.label,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
       replyCount = #{record.replycount,jdbcType=INTEGER},
       viewCount = #{record.viewcount,jdbcType=INTEGER},
       locked = #{record.locked,jdbcType=BIT},
+      hided = #{record.hided,jdbcType=BIT},
       deleted = #{record.deleted,jdbcType=BIT},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
@@ -267,13 +278,14 @@
   <update id="updateByExample" parameterType="map">
     update topic
     set id = #{record.id,jdbcType=INTEGER},
-      label = #{record.label,jdbcType=VARCHAR},
-      title = #{record.title,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=INTEGER},
       submitTime = #{record.submittime,jdbcType=TIMESTAMP},
+      label = #{record.label,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
       replyCount = #{record.replycount,jdbcType=INTEGER},
       viewCount = #{record.viewcount,jdbcType=INTEGER},
       locked = #{record.locked,jdbcType=BIT},
+      hided = #{record.hided,jdbcType=BIT},
       deleted = #{record.deleted,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -282,17 +294,17 @@
   <update id="updateByPrimaryKeySelective" parameterType="net.industryhive.bean.Topic">
     update topic
     <set>
-      <if test="label != null">
-        label = #{label,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="submittime != null">
         submitTime = #{submittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="label != null">
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="replycount != null">
         replyCount = #{replycount,jdbcType=INTEGER},
@@ -302,6 +314,9 @@
       </if>
       <if test="locked != null">
         locked = #{locked,jdbcType=BIT},
+      </if>
+      <if test="hided != null">
+        hided = #{hided,jdbcType=BIT},
       </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},
@@ -314,26 +329,28 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.industryhive.bean.Topic">
     update topic
-    set label = #{label,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER},
+    set user_id = #{userId,jdbcType=INTEGER},
       submitTime = #{submittime,jdbcType=TIMESTAMP},
+      label = #{label,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
       replyCount = #{replycount,jdbcType=INTEGER},
       viewCount = #{viewcount,jdbcType=INTEGER},
       locked = #{locked,jdbcType=BIT},
+      hided = #{hided,jdbcType=BIT},
       deleted = #{deleted,jdbcType=BIT},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.industryhive.bean.Topic">
     update topic
-    set label = #{label,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER},
+    set user_id = #{userId,jdbcType=INTEGER},
       submitTime = #{submittime,jdbcType=TIMESTAMP},
+      label = #{label,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
       replyCount = #{replycount,jdbcType=INTEGER},
       viewCount = #{viewcount,jdbcType=INTEGER},
       locked = #{locked,jdbcType=BIT},
+      hided = #{hided,jdbcType=BIT},
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>

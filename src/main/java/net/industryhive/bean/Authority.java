@@ -15,6 +15,8 @@ public class Authority {
 
     private Boolean deletereply;
 
+    private Boolean locktopic;
+
     public Integer getId() {
         return id;
     }
@@ -69,5 +71,13 @@ public class Authority {
 
     public void setDeletereply(Boolean deletereply) {
         this.deletereply = deletereply;
+    }
+
+    public Boolean getLocktopic() {
+        return locktopic;
+    }
+
+    public void setLocktopic(Boolean locktopic) {
+        this.locktopic = locktopic;
     }
 }
