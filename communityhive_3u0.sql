@@ -40,6 +40,7 @@ DROP TABLE IF EXISTS `reply`;
 CREATE TABLE `reply` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键自增',
   `topic_id` int(11) NOT NULL COMMENT '外键，帖子id',
+  `user_id` int(11) NOT NULL COMMENT '外键，作者id',
   `submitTime` datetime(6) NOT NULL COMMENT '发布时间',
   `floor` int(11) NOT NULL COMMENT '楼层数',
   `quote` int(11) NOT NULL DEFAULT '0' COMMENT '引用的楼层',
@@ -47,6 +48,8 @@ CREATE TABLE `reply` (
   `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`),
   KEY `topic_reply_id` (`topic_id`),
+  KEY `reply_user_id` (`user_id`),
+  CONSTRAINT `reply_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `topic_reply_id` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -60,13 +63,16 @@ CREATE TABLE `topic` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键自增',
   `label` varchar(4) NOT NULL COMMENT '帖子标签',
   `title` varchar(35) NOT NULL COMMENT '帖子标题',
+  `user_id` int(11) NOT NULL COMMENT '外键，作者id',
   `submitTime` datetime(6) NOT NULL COMMENT '发布时间',
   `content` longtext NOT NULL COMMENT '帖子内容',
   `replyCount` int(11) NOT NULL DEFAULT '0' COMMENT '回复数量',
   `viewCount` int(11) NOT NULL DEFAULT '0' COMMENT '查看数量',
   `locked` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否锁定',
   `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `topic_user_id` (`user_id`),
+  CONSTRAINT `topic_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `topic` */
@@ -94,7 +100,9 @@ CREATE TABLE `user` (
   `introduction` varchar(255) DEFAULT NULL COMMENT '自我介绍',
   `comeFrom` varchar(255) DEFAULT NULL COMMENT '来自于',
   `photo` varchar(255) DEFAULT NULL COMMENT '头像',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `user_authority_id` (`authority_id`),
+  CONSTRAINT `user_authority_id` FOREIGN KEY (`authority_id`) REFERENCES `authority` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `user` */
