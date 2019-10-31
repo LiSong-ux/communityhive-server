@@ -22,18 +22,19 @@ DROP TABLE IF EXISTS `authority`;
 
 CREATE TABLE `authority` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键自增',
-  `banAccount` tinyint(1) NOT NULL COMMENT '封禁用户账号',
-  `banSubmitTopic` tinyint(1) NOT NULL COMMENT '禁止用户发帖',
-  `banSubmitReply` tinyint(1) NOT NULL COMMENT '禁止用户回复',
-  `banMessage` tinyint(1) NOT NULL COMMENT '禁止用户私信',
+  `banAccount` tinyint(1) NOT NULL COMMENT '封禁账号',
+  `banSubmitTopic` tinyint(1) NOT NULL COMMENT '禁止发帖',
+  `banSubmitReply` tinyint(1) NOT NULL COMMENT '禁止回复',
+  `banMessage` tinyint(1) NOT NULL COMMENT '禁止私信',
   `deleteTopic` tinyint(1) NOT NULL COMMENT '删除帖子',
   `deleteReply` tinyint(1) NOT NULL COMMENT '删除回复',
+  `lockTopic` tinyint(1) NOT NULL COMMENT '锁定帖子',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `authority` */
 
-insert  into `authority`(`id`,`banAccount`,`banSubmitTopic`,`banSubmitReply`,`banMessage`,`deleteTopic`,`deleteReply`) values (1,0,0,0,0,0,0);
+insert  into `authority`(`id`,`banAccount`,`banSubmitTopic`,`banSubmitReply`,`banMessage`,`deleteTopic`,`deleteReply`,`lockTopic`) values (1,0,0,0,0,0,0,0);
 
 /*Table structure for table `reply` */
 
@@ -45,14 +46,14 @@ CREATE TABLE `reply` (
   `user_id` int(11) NOT NULL COMMENT '外键，作者id',
   `submitTime` datetime(6) NOT NULL COMMENT '发布时间',
   `floor` int(11) NOT NULL COMMENT '楼层数',
-  `quote` int(11) NOT NULL DEFAULT '0' COMMENT '引用的楼层',
+  `quote` int(11) NOT NULL DEFAULT '0' COMMENT '引用楼层',
   `content` longtext NOT NULL COMMENT '回复内容',
   `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`),
-  KEY `topic_reply_id` (`topic_id`),
+  KEY `reply_topic_id` (`topic_id`),
   KEY `reply_user_id` (`user_id`),
-  CONSTRAINT `reply_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `topic_reply_id` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id`)
+  CONSTRAINT `reply_topic_id` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id`),
+  CONSTRAINT `reply_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `reply` */
@@ -63,14 +64,15 @@ DROP TABLE IF EXISTS `topic`;
 
 CREATE TABLE `topic` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键自增',
-  `label` varchar(4) NOT NULL COMMENT '帖子标签',
-  `title` varchar(35) NOT NULL COMMENT '帖子标题',
   `user_id` int(11) NOT NULL COMMENT '外键，作者id',
   `submitTime` datetime(6) NOT NULL COMMENT '发布时间',
+  `label` varchar(4) NOT NULL COMMENT '帖子标签',
+  `title` varchar(36) NOT NULL COMMENT '帖子标题',
   `content` longtext NOT NULL COMMENT '帖子内容',
   `replyCount` int(11) NOT NULL DEFAULT '0' COMMENT '回复数量',
   `viewCount` int(11) NOT NULL DEFAULT '0' COMMENT '查看数量',
   `locked` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否锁定',
+  `hided` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否隐藏',
   `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`),
   KEY `topic_user_id` (`user_id`),
@@ -88,24 +90,24 @@ CREATE TABLE `user` (
   `account` varchar(32) NOT NULL COMMENT '账号',
   `password` varchar(32) NOT NULL COMMENT '密码',
   `username` varchar(24) NOT NULL COMMENT '用户名',
-  `authority_id` int(11) NOT NULL DEFAULT '1' COMMENT '权限id',
+  `email` varchar(48) NOT NULL COMMENT '邮箱',
+  `gender` int(1) NOT NULL COMMENT '性别',
+  `authority_id` int(11) NOT NULL DEFAULT '1' COMMENT '外键，权限id',
   `bannedTopic` tinyint(1) NOT NULL DEFAULT '0' COMMENT '禁止发帖',
   `bannedReply` tinyint(1) NOT NULL DEFAULT '0' COMMENT '禁止回复',
   `bannedMessage` tinyint(1) NOT NULL DEFAULT '0' COMMENT '禁止私信',
-  `locked` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否封禁',
+  `locded` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否封禁',
   `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
-  `email` varchar(48) NOT NULL COMMENT '用户邮箱',
-  `gender` int(1) NOT NULL COMMENT '性别',
   `topicCount` int(11) NOT NULL DEFAULT '0' COMMENT '发帖数量',
   `replyCount` int(11) NOT NULL DEFAULT '0' COMMENT '回复数量',
   `registerTime` datetime(6) NOT NULL COMMENT '注册时间',
+  `photo` varchar(255) DEFAULT NULL COMMENT '头像路径',
+  `comeFrom` varchar(255) DEFAULT NULL COMMENT '来自',
   `introduction` varchar(255) DEFAULT NULL COMMENT '自我介绍',
-  `comeFrom` varchar(255) DEFAULT NULL COMMENT '来自于',
-  `photo` varchar(255) DEFAULT NULL COMMENT '头像',
   PRIMARY KEY (`id`),
   KEY `user_authority_id` (`authority_id`),
   CONSTRAINT `user_authority_id` FOREIGN KEY (`authority_id`) REFERENCES `authority` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `user` */
 
