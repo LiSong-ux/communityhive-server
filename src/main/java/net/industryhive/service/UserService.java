@@ -18,14 +18,15 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public void addUser(User newUser) {
+    public User addUser(User newUser) {
         userMapper.insertSelective(newUser);
+        return getUser(newUser.getAccount());
     }
 
     public User getUser(String account) {
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
-        criteria.andUsernameEqualTo(account);
+        criteria.andAccountEqualTo(account);
         List<User> listUser = userMapper.selectByExample(example);
         if (listUser.isEmpty()) {
             return null;

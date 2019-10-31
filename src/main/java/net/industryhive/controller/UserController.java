@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 /**
@@ -25,13 +26,20 @@ public class UserController {
     @ResponseBody
     public UnifiedResult register(User newUser) {
         newUser.setRegistertime(new Date());
-        userService.addUser(newUser);
-        return UnifiedResult.ok();
+        User user = userService.addUser(newUser);
+        return UnifiedResult.ok(user);
     }
 
     @RequestMapping("/login")
     @ResponseBody
     public UnifiedResult login(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        // 先判断用户是否已经登录
+        if (session.getAttribute("user")!=null){
+            return UnifiedResult.build(400, "用户已登录", null);
+        }
+
         String account = request.getParameter("account");
         String password = request.getParameter("password");
 
@@ -39,7 +47,7 @@ public class UserController {
         if (user == null || !user.getPassword().equals(password)) {
             return UnifiedResult.build(400, "账号或密码错误", null);
         }
-        request.getSession().setAttribute("user", user);
+        session.setAttribute("user", user);
 
         return UnifiedResult.ok(user);
     }
