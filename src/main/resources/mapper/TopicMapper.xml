@@ -5,6 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="label" jdbcType="VARCHAR" property="label" />
     <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="submitTime" jdbcType="TIMESTAMP" property="submittime" />
     <result column="replyCount" jdbcType="INTEGER" property="replycount" />
     <result column="viewCount" jdbcType="INTEGER" property="viewcount" />
@@ -73,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, label, title, submitTime, replyCount, viewCount, locked, deleted
+    id, label, title, user_id, submitTime, replyCount, viewCount, locked, deleted
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -128,13 +129,13 @@
   </delete>
   <insert id="insert" parameterType="net.industryhive.bean.Topic">
     insert into topic (id, label, title, 
-      submitTime, replyCount, viewCount, 
-      locked, deleted, content
-      )
+      user_id, submitTime, replyCount, 
+      viewCount, locked, deleted, 
+      content)
     values (#{id,jdbcType=INTEGER}, #{label,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{submittime,jdbcType=TIMESTAMP}, #{replycount,jdbcType=INTEGER}, #{viewcount,jdbcType=INTEGER}, 
-      #{locked,jdbcType=BIT}, #{deleted,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR}
-      )
+      #{userId,jdbcType=INTEGER}, #{submittime,jdbcType=TIMESTAMP}, #{replycount,jdbcType=INTEGER}, 
+      #{viewcount,jdbcType=INTEGER}, #{locked,jdbcType=BIT}, #{deleted,jdbcType=BIT}, 
+      #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.industryhive.bean.Topic">
     insert into topic
@@ -147,6 +148,9 @@
       </if>
       <if test="title != null">
         title,
+      </if>
+      <if test="userId != null">
+        user_id,
       </if>
       <if test="submittime != null">
         submitTime,
@@ -176,6 +180,9 @@
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="submittime != null">
         #{submittime,jdbcType=TIMESTAMP},
@@ -215,6 +222,9 @@
       <if test="record.title != null">
         title = #{record.title,jdbcType=VARCHAR},
       </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
       <if test="record.submittime != null">
         submitTime = #{record.submittime,jdbcType=TIMESTAMP},
       </if>
@@ -243,6 +253,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       label = #{record.label,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
       submitTime = #{record.submittime,jdbcType=TIMESTAMP},
       replyCount = #{record.replycount,jdbcType=INTEGER},
       viewCount = #{record.viewcount,jdbcType=INTEGER},
@@ -258,6 +269,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       label = #{record.label,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
       submitTime = #{record.submittime,jdbcType=TIMESTAMP},
       replyCount = #{record.replycount,jdbcType=INTEGER},
       viewCount = #{record.viewcount,jdbcType=INTEGER},
@@ -275,6 +287,9 @@
       </if>
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="submittime != null">
         submitTime = #{submittime,jdbcType=TIMESTAMP},
@@ -301,6 +316,7 @@
     update topic
     set label = #{label,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
       submitTime = #{submittime,jdbcType=TIMESTAMP},
       replyCount = #{replycount,jdbcType=INTEGER},
       viewCount = #{viewcount,jdbcType=INTEGER},
@@ -313,6 +329,7 @@
     update topic
     set label = #{label,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
       submitTime = #{submittime,jdbcType=TIMESTAMP},
       replyCount = #{replycount,jdbcType=INTEGER},
       viewCount = #{viewcount,jdbcType=INTEGER},

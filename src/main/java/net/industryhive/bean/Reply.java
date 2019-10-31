@@ -7,6 +7,8 @@ public class Reply {
 
     private Integer topicId;
 
+    private Integer userId;
+
     private Date submittime;
 
     private Integer floor;
@@ -31,6 +33,14 @@ public class Reply {
 
     public void setTopicId(Integer topicId) {
         this.topicId = topicId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Date getSubmittime() {

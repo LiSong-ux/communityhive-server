@@ -9,6 +9,8 @@ public class Topic {
 
     private String title;
 
+    private Integer userId;
+
     private Date submittime;
 
     private Integer replycount;
@@ -43,6 +45,14 @@ public class Topic {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Date getSubmittime() {

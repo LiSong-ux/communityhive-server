@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="net.industryhive.bean.Reply">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="topic_id" jdbcType="INTEGER" property="topicId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="submitTime" jdbcType="TIMESTAMP" property="submittime" />
     <result column="floor" jdbcType="INTEGER" property="floor" />
     <result column="quote" jdbcType="INTEGER" property="quote" />
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, topic_id, submitTime, floor, quote, deleted
+    id, topic_id, user_id, submitTime, floor, quote, deleted
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -125,12 +126,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.industryhive.bean.Reply">
-    insert into reply (id, topic_id, submitTime, 
-      floor, quote, deleted, 
-      content)
-    values (#{id,jdbcType=INTEGER}, #{topicId,jdbcType=INTEGER}, #{submittime,jdbcType=TIMESTAMP}, 
-      #{floor,jdbcType=INTEGER}, #{quote,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, 
-      #{content,jdbcType=LONGVARCHAR})
+    insert into reply (id, topic_id, user_id, 
+      submitTime, floor, quote, 
+      deleted, content)
+    values (#{id,jdbcType=INTEGER}, #{topicId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{submittime,jdbcType=TIMESTAMP}, #{floor,jdbcType=INTEGER}, #{quote,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.industryhive.bean.Reply">
     insert into reply
@@ -140,6 +141,9 @@
       </if>
       <if test="topicId != null">
         topic_id,
+      </if>
+      <if test="userId != null">
+        user_id,
       </if>
       <if test="submittime != null">
         submitTime,
@@ -163,6 +167,9 @@
       </if>
       <if test="topicId != null">
         #{topicId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="submittime != null">
         #{submittime,jdbcType=TIMESTAMP},
@@ -196,6 +203,9 @@
       <if test="record.topicId != null">
         topic_id = #{record.topicId,jdbcType=INTEGER},
       </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
       <if test="record.submittime != null">
         submitTime = #{record.submittime,jdbcType=TIMESTAMP},
       </if>
@@ -220,6 +230,7 @@
     update reply
     set id = #{record.id,jdbcType=INTEGER},
       topic_id = #{record.topicId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
       submitTime = #{record.submittime,jdbcType=TIMESTAMP},
       floor = #{record.floor,jdbcType=INTEGER},
       quote = #{record.quote,jdbcType=INTEGER},
@@ -233,6 +244,7 @@
     update reply
     set id = #{record.id,jdbcType=INTEGER},
       topic_id = #{record.topicId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
       submitTime = #{record.submittime,jdbcType=TIMESTAMP},
       floor = #{record.floor,jdbcType=INTEGER},
       quote = #{record.quote,jdbcType=INTEGER},
@@ -246,6 +258,9 @@
     <set>
       <if test="topicId != null">
         topic_id = #{topicId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="submittime != null">
         submitTime = #{submittime,jdbcType=TIMESTAMP},
@@ -268,6 +283,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.industryhive.bean.Reply">
     update reply
     set topic_id = #{topicId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
       submitTime = #{submittime,jdbcType=TIMESTAMP},
       floor = #{floor,jdbcType=INTEGER},
       quote = #{quote,jdbcType=INTEGER},
@@ -278,6 +294,7 @@
   <update id="updateByPrimaryKey" parameterType="net.industryhive.bean.Reply">
     update reply
     set topic_id = #{topicId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
       submitTime = #{submittime,jdbcType=TIMESTAMP},
       floor = #{floor,jdbcType=INTEGER},
       quote = #{quote,jdbcType=INTEGER},
