@@ -22,8 +22,8 @@ public class ContentController {
     @RequestMapping("/submitTopic")
     @ResponseBody
     public UnifiedResult submitTopic(Topic newTopic){
-//        contentService.addTopic
-        return UnifiedResult.ok();
+        Topic topic = contentService.addTopic(newTopic);
+        return UnifiedResult.ok(topic.getId());
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * 内容处理Service
+ *
  * @author 未央
  * @create 2019-11-01 14:30
  */
@@ -20,12 +21,14 @@ public class ContentService {
     @Autowired
     private ReplyMapper replyMapper;
 
-//    public Topic addTopic(Topic newTopic){
-//        topicMapper.insertSelective(newTopic);
-//    }
-//
-//    public Topic getTopic(int id) {
-//
-//    }
+    public Topic addTopic(Topic newTopic) {
+        topicMapper.insertSelective(newTopic);
+        return getTopic(newTopic.getId());
+    }
+
+    public Topic getTopic(int id) {
+        Topic topic = topicMapper.selectByPrimaryKey(id);
+        return topic;
+    }
 
 }

@@ -111,7 +111,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -129,16 +129,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.industryhive.bean.Topic">
-    insert into topic (id, user_id, submitTime, 
-      label, title, replyCount, 
-      viewCount, locked, hided, deleted, 
+    insert into topic (id, user_id, submitTime,
+      label, title, replyCount,
+      viewCount, locked, hided, deleted,
       content)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{submittime,jdbcType=TIMESTAMP}, 
-      #{label,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{replycount,jdbcType=INTEGER}, 
-      #{viewcount,jdbcType=INTEGER}, #{locked,jdbcType=BIT}, #{hided,jdbcType=BIT}, #{deleted,jdbcType=BIT}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{submittime,jdbcType=TIMESTAMP},
+      #{label,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{replycount,jdbcType=INTEGER},
+      #{viewcount,jdbcType=INTEGER}, #{locked,jdbcType=BIT}, #{hided,jdbcType=BIT}, #{deleted,jdbcType=BIT},
       #{content,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="net.industryhive.bean.Topic">
+  <insert id="insertSelective" parameterType="net.industryhive.bean.Topic" useGeneratedKeys="true" keyProperty="id">
     insert into topic
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
