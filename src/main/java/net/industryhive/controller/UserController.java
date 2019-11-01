@@ -36,7 +36,7 @@ public class UserController {
         HttpSession session = request.getSession();
 
         // 先判断用户是否已经登录
-        if (session.getAttribute("user")!=null){
+        if (session.getAttribute("user") != null) {
             return UnifiedResult.build(400, "用户已登录", null);
         }
 
@@ -48,6 +48,10 @@ public class UserController {
             return UnifiedResult.build(400, "账号或密码错误", null);
         }
         session.setAttribute("user", user);
+
+        // 用户登录次数+1
+        user.setLogincount(user.getLogincount() + 1);
+        userService.updateUser(user);
 
         return UnifiedResult.ok(user);
     }
