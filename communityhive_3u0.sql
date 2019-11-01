@@ -16,6 +16,22 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`communityhive_3u0` /*!40100 DEFAULT CHA
 
 USE `communityhive_3u0`;
 
+/*Table structure for table `access` */
+
+DROP TABLE IF EXISTS `access`;
+
+CREATE TABLE `access` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键自增',
+  `ip` varchar(255) NOT NULL COMMENT 'ip地址',
+  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
+  `accessTime` datetime(6) NOT NULL COMMENT '访问时间',
+  PRIMARY KEY (`id`),
+  KEY `access_user_id` (`user_id`),
+  CONSTRAINT `access_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `access` */
+
 /*Table structure for table `authority` */
 
 DROP TABLE IF EXISTS `authority`;
