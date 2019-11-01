@@ -46,10 +46,11 @@
     </bean>
 
     <!-- 配置一个可以执行批量的sqlSession -->
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+    <!-- 不要加这个配置，否则mapper插入数据无法返回自增id -->
+    <!--<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
         <constructor-arg name="executorType" value="BATCH"></constructor-arg>
-    </bean>
+    </bean>-->
 
     <!-- ===================================================================================================== -->
     <!-- 事务控制的配置 -->

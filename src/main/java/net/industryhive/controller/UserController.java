@@ -27,6 +27,7 @@ public class UserController {
     public UnifiedResult register(User newUser) {
         newUser.setRegistertime(new Date());
         User user = userService.addUser(newUser);
+//        System.out.println(user);
         return UnifiedResult.ok(user);
     }
 

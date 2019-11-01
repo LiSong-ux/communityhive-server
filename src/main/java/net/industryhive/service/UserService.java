@@ -20,9 +20,16 @@ public class UserService {
 
     public User addUser(User newUser) {
         userMapper.insertSelective(newUser);
-        return getUser(newUser.getAccount());
+        return getUser(newUser.getId());
     }
 
+    //根据id获取用户
+    public User getUser(int id){
+        User user = userMapper.selectByPrimaryKey(id);
+        return user;
+    }
+
+    //根据账号获取用户
     public User getUser(String account) {
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
