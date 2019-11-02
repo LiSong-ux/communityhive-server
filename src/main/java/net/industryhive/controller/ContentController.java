@@ -5,7 +5,6 @@ import net.industryhive.bean.Topic;
 import net.industryhive.bean.User;
 import net.industryhive.been.wrap.WrapTopic;
 import net.industryhive.service.ContentService;
-import net.industryhive.service.UserService;
 import net.industryhive.utils.UnifiedResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,9 +28,6 @@ public class ContentController {
     @Autowired
     private ContentService contentService;
 
-    @Autowired
-    private UserService userService;
-
     @RequestMapping("/submitTopic")
     @ResponseBody
     public UnifiedResult submitTopic(HttpSession session, Topic newTopic){
@@ -44,6 +40,20 @@ public class ContentController {
         newTopic.setSubmittime(new Date());
         Topic topic = contentService.addTopic(newTopic);
         return UnifiedResult.ok(topic.getId());
+    }
+
+    @RequestMapping("/submitReply")
+    @ResponseBody
+    public UnifiedResult submitReply(HttpSession session, Reply newReply){
+        User user = (User) session.getAttribute("user");
+        if (user==null){
+            return UnifiedResult.build(400, "请登录后再回复！", null);
+        }
+
+        newReply.setUserId(user.getId());
+        newReply.setSubmittime(new Date());
+        contentService.addReply(newReply);
+        return UnifiedResult.ok();
     }
 
     @RequestMapping("/topic")

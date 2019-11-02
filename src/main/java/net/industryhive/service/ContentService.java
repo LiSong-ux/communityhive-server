@@ -41,6 +41,11 @@ public class ContentService {
         return wrapTopic;
     }
 
+    /**
+     * 获取帖子回复列表
+     * @param topicId
+     * @return
+     */
     public List<Reply> getReplyList(int topicId){
         ReplyExample example = new ReplyExample();
         ReplyExample.Criteria criteria = example.createCriteria();
@@ -49,4 +54,13 @@ public class ContentService {
         return replyList;
     }
 
+    /**
+     * 新增回复
+     * @param newReply
+     */
+    public void addReply(Reply newReply) {
+        Topic topic = topicMapper.selectByPrimaryKey(newReply.getTopicId());
+        newReply.setFloor(topic.getReplycount()+1);
+        replyMapper.insertSelective(newReply);
+    }
 }
