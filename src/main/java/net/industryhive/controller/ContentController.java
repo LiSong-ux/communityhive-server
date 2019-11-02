@@ -3,6 +3,7 @@ package net.industryhive.controller;
 import net.industryhive.bean.Reply;
 import net.industryhive.bean.Topic;
 import net.industryhive.bean.User;
+import net.industryhive.been.wrap.WrapReply;
 import net.industryhive.been.wrap.WrapTopic;
 import net.industryhive.service.ContentService;
 import net.industryhive.utils.UnifiedResult;
@@ -19,6 +20,7 @@ import java.util.Map;
 
 /**
  * 内容处理Controller
+ *
  * @author 未央
  * @create 2019-11-01 14:29
  */
@@ -30,9 +32,9 @@ public class ContentController {
 
     @RequestMapping("/submitTopic")
     @ResponseBody
-    public UnifiedResult submitTopic(HttpSession session, Topic newTopic){
+    public UnifiedResult submitTopic(HttpSession session, Topic newTopic) {
         User user = (User) session.getAttribute("user");
-        if (user==null){
+        if (user == null) {
             return UnifiedResult.build(400, "请登录后再发帖！", null);
         }
 
@@ -44,9 +46,9 @@ public class ContentController {
 
     @RequestMapping("/submitReply")
     @ResponseBody
-    public UnifiedResult submitReply(HttpSession session, Reply newReply){
+    public UnifiedResult submitReply(HttpSession session, Reply newReply) {
         User user = (User) session.getAttribute("user");
-        if (user==null){
+        if (user == null) {
             return UnifiedResult.build(400, "请登录后再回复！", null);
         }
 
@@ -58,14 +60,19 @@ public class ContentController {
 
     @RequestMapping("/topic")
     @ResponseBody
-    public UnifiedResult topic(int id){
+    public UnifiedResult topic(int id) {
         Map<String, Object> topicMap = new HashMap<>();
 
         WrapTopic wrapTopic = contentService.getWrapTopic(id);
-        List<Reply> replyList = contentService.getReplyList(id);
+        List<WrapReply> wrapReplyList = contentService.getWrapReplyList(id);
+        for (WrapReply wrapReply : wrapReplyList) {
+            if (wrapReply.getQuote() != 0) {
+                wrapReply.setQuoteIndex(wrapReply.getQuote() - 1);
+            }
+        }
 
         topicMap.put("topic", wrapTopic);
-        topicMap.put("replyList", replyList);
+        topicMap.put("replyList", wrapReplyList);
         return UnifiedResult.ok(topicMap);
     }
 

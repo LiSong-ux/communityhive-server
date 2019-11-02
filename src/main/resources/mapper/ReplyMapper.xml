@@ -13,6 +13,11 @@
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.industryhive.bean.Reply">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
+  <!--=========================================================================================================================-->
+  <resultMap extends="ResultMapWithBLOBs" id="ResultMapWithUsername" type="net.industryhive.been.wrap.WrapReply">
+    <result column="username" jdbcType="VARCHAR" property="username"/>
+  </resultMap>
+  <!--=========================================================================================================================-->
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -93,6 +98,11 @@
       order by ${orderByClause}
     </if>
   </select>
+  <!--===============================================================================================================-->
+  <select id="findWithUsername" parameterType="java.lang.Integer" resultMap="ResultMapWithUsername">
+      select reply.*,user.username from reply,user where reply.topic_id=#{id} and reply.user_id=user.id
+  </select>
+  <!--===============================================================================================================-->
   <select id="selectByExample" parameterType="net.industryhive.bean.ReplyExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

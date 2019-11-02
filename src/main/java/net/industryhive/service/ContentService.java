@@ -3,6 +3,7 @@ package net.industryhive.service;
 import net.industryhive.bean.Reply;
 import net.industryhive.bean.ReplyExample;
 import net.industryhive.bean.Topic;
+import net.industryhive.been.wrap.WrapReply;
 import net.industryhive.been.wrap.WrapTopic;
 import net.industryhive.dao.ReplyMapper;
 import net.industryhive.dao.TopicMapper;
@@ -41,6 +42,11 @@ public class ContentService {
         return wrapTopic;
     }
 
+    public List<WrapReply> getWrapReplyList(int topicId){
+        List<WrapReply> wrapReplyList = replyMapper.findWithUsername(topicId);
+        return wrapReplyList;
+    }
+
     /**
      * 获取帖子回复列表
      * @param topicId
@@ -60,7 +66,12 @@ public class ContentService {
      */
     public void addReply(Reply newReply) {
         Topic topic = topicMapper.selectByPrimaryKey(newReply.getTopicId());
-        newReply.setFloor(topic.getReplycount()+1);
+        int replyCount = topic.getReplycount();
+
+        newReply.setFloor(replyCount+1);
         replyMapper.insertSelective(newReply);
+
+        topic.setReplycount(replyCount+1);
+        topicMapper.updateByPrimaryKeySelective(topic);
     }
 }
