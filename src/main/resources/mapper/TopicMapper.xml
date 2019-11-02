@@ -16,6 +16,13 @@
     <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.industryhive.bean.Topic">
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
     </resultMap>
+    <!--=============================================================================================================-->
+    <resultMap extends="ResultMapWithBLOBs" id="ResultMapWithUsername" type="net.industryhive.been.wrap.WrapTopic">
+        <result column="username" jdbcType="VARCHAR" property="username"></result>
+        <result column="username" jdbcType="VARCHAR" property="lastReply"></result>
+        <result column="submitTime" jdbcType="TIMESTAMP" property="lastSubmit"></result>
+    </resultMap>
+    <!--=============================================================================================================-->
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -98,6 +105,15 @@
         <if test="orderByClause != null">
             order by ${orderByClause}
         </if>
+    </select>
+    <select id="findListWithUsername" resultMap="ResultMapWithUsername">
+        SELECT a.*,IFNULL(b.lastSubmit,a.submitTime) lastSubmit,IFNULL(b.lastReply,a.username) lastReply FROM
+        (SELECT topic.*,user.username FROM topic,USER WHERE topic.user_id=user.id) a
+        LEFT JOIN
+        (SELECT lastSubmit,user.username lastReply,reply.topic_id rti FROM
+        (SELECT MAX(reply.submitTime) lastSubmit FROM reply GROUP BY reply.topic_id) ma,reply,USER
+        WHERE lastSubmit=reply.submitTime AND reply.user_id=user.id) b
+        ON a.id=b.rti ORDER BY lastSubmit DESC
     </select>
     <select id="selectByExample" parameterType="net.industryhive.bean.TopicExample" resultMap="BaseResultMap">
         select

@@ -42,6 +42,13 @@ public class ContentService {
         return wrapTopic;
     }
 
+
+    public List<WrapTopic> getWrapTopicList() {
+        List<WrapTopic> wrapTopicList = topicMapper.findListWithUsername();
+        return wrapTopicList;
+    }
+
+
     public List<WrapReply> getWrapReplyList(int topicId){
         List<WrapReply> wrapReplyList = replyMapper.findWithUsername(topicId);
         return wrapReplyList;

@@ -60,7 +60,7 @@ public class ContentController {
 
     @RequestMapping("/topic")
     @ResponseBody
-    public UnifiedResult topic(int id) {
+    public UnifiedResult getTopic(int id) {
         Map<String, Object> topicMap = new HashMap<>();
 
         WrapTopic wrapTopic = contentService.getWrapTopic(id);
@@ -74,6 +74,14 @@ public class ContentController {
         topicMap.put("topic", wrapTopic);
         topicMap.put("replyList", wrapReplyList);
         return UnifiedResult.ok(topicMap);
+    }
+
+
+    @RequestMapping("/topicList")
+    @ResponseBody
+    public UnifiedResult getTopicList(){
+        List<WrapTopic> wrapTopicList = contentService.getWrapTopicList();
+        return UnifiedResult.ok(wrapTopicList);
     }
 
 }

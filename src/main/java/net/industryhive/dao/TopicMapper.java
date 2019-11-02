@@ -20,6 +20,8 @@ public interface TopicMapper {
 
     List<Topic> selectByExampleWithBLOBs(TopicExample example);
 
+    List<WrapTopic> findListWithUsername();
+
     List<Topic> selectByExample(TopicExample example);
 
     Topic selectByPrimaryKey(Integer id);
