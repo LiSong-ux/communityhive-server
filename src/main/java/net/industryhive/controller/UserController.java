@@ -24,10 +24,11 @@ public class UserController {
 
     @RequestMapping("/register")
     @ResponseBody
-    public UnifiedResult register(User newUser) {
+    public UnifiedResult register(HttpSession session, User newUser) {
         newUser.setRegistertime(new Date());
         User user = userService.addUser(newUser);
-//        System.out.println(user);
+
+        session.setAttribute("user", user);
         return UnifiedResult.ok(user);
     }
 

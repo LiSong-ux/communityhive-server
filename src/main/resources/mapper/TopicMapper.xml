@@ -19,8 +19,8 @@
     <!--=============================================================================================================-->
     <resultMap extends="ResultMapWithBLOBs" id="ResultMapWithUsername" type="net.industryhive.been.wrap.WrapTopic">
         <result column="username" jdbcType="VARCHAR" property="username"></result>
-        <result column="username" jdbcType="VARCHAR" property="lastReply"></result>
-        <result column="submitTime" jdbcType="TIMESTAMP" property="lastSubmit"></result>
+        <result column="lastReply" jdbcType="VARCHAR" property="lastReply"></result>
+        <result column="lastSubmit" jdbcType="TIMESTAMP" property="lastSubmit"></result>
     </resultMap>
     <!--=============================================================================================================-->
     <sql id="Example_Where_Clause">
