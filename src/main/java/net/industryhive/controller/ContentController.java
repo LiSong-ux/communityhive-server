@@ -80,6 +80,21 @@ public class ContentController {
             return UnifiedResult.build(400, "请登录后再回复！", null);
         }
 
+        String validate = newReply.getContent();
+        String validateA = validate.replaceAll(" ","");
+        String validateB = validateA.replaceAll("<p>","");
+        String validateC = validateB.replaceAll("</p>","");
+        String validateD = validateC.replaceAll("&nbsp;","");
+        String validateE = validateD.replaceAll("<br>","");
+        if (validateE.length()==0){
+            return UnifiedResult.build(400, "回复内容不能为空！", null);
+        }
+
+
+        if (newReply.getContent().length()>11264){
+            return UnifiedResult.build(400, "回复的长度不得超过11000个字符", null);
+        }
+
         newReply.setUserId(user.getId());
         newReply.setSubmittime(new Date());
         contentService.addReply(newReply);
