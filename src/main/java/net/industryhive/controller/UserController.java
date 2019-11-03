@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author 未央
@@ -25,6 +27,33 @@ public class UserController {
     @RequestMapping("/register")
     @ResponseBody
     public UnifiedResult register(HttpSession session, User newUser) {
+        String regAccount = "^[a-zA-Z]([-_a-zA-Z0-9]{9,32})$";
+        String regEmail = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
+
+        Pattern pattern = Pattern.compile(regAccount);
+        Matcher matcher = pattern.matcher(newUser.getAccount());
+        if (!matcher.matches()){
+            return UnifiedResult.build(400, "账号必须以英文字母开头，长度不得低于9位且不得超过32位", null);
+        }
+
+        if (newUser.getPassword().length()<12||newUser.getPassword().length()>32){
+            return UnifiedResult.build(400, "密码长度不得低于12位且不得超过32位", null);
+        }
+        if (newUser.getUsername().length()<2||newUser.getUsername().length()>24){
+            return UnifiedResult.build(400, "密码长度不得低于12位且不得超过24位", null);
+        }
+
+        Pattern patternEmail = Pattern.compile(regEmail);
+        Matcher matcherEmail = patternEmail.matcher(newUser.getEmail());
+        if (!matcherEmail.matches()){
+            return UnifiedResult.build(400, "邮箱格式错误", null);
+        }
+
+        if (newUser.getGender()!=0&&newUser.getGender()!=1&&newUser.getGender()!=2){
+            return UnifiedResult.build(400, "未知选项", null);
+        }
+
+
         newUser.setRegistertime(new Date());
         User user = userService.addUser(newUser);
 
