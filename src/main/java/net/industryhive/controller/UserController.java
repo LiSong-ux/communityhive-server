@@ -27,13 +27,13 @@ public class UserController {
     @RequestMapping("/register")
     @ResponseBody
     public UnifiedResult register(HttpSession session, User newUser) {
-        String regAccount = "^[a-zA-Z]([-_a-zA-Z0-9]{9,32})$";
+        String regAccount = "^[a-zA-Z]([-_a-zA-Z0-9]{8,31})$";
         String regEmail = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
 
         Pattern pattern = Pattern.compile(regAccount);
         Matcher matcher = pattern.matcher(newUser.getAccount());
         if (!matcher.matches()){
-            return UnifiedResult.build(400, "账号必须以英文字母开头，长度不得低于9位且不得超过32位", null);
+            return UnifiedResult.build(400, "账号必须以英文字母开头，为字母、数字、下划线和中划线的组合，长度不得低于9位不得超过32位", null);
         }
 
         if (newUser.getPassword().length()<12||newUser.getPassword().length()>32){

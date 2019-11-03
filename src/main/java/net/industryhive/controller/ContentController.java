@@ -17,6 +17,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 内容处理Controller
@@ -30,6 +32,12 @@ public class ContentController {
     @Autowired
     private ContentService contentService;
 
+    /**
+     * 发帖
+     * @param session
+     * @param newTopic
+     * @return
+     */
     @RequestMapping("/submitTopic")
     @ResponseBody
     public UnifiedResult submitTopic(HttpSession session, Topic newTopic) {
@@ -38,12 +46,32 @@ public class ContentController {
             return UnifiedResult.build(400, "请登录后再发帖！", null);
         }
 
+        String regLabel = "^[\\u4e00-\\u9fa5]{2,4}$";
+        Pattern pattern = Pattern.compile(regLabel);
+        Matcher matcher = pattern.matcher(newTopic.getLabel());
+        if (!matcher.matches()){
+            return UnifiedResult.build(400, "帖子标签为2至4位汉字", null);
+        }
+
+        if (newTopic.getTitle().length()<4||newTopic.getTitle().length()>35){
+            return UnifiedResult.build(400, "帖子标题的长度为4至35个字符", null);
+        }
+        if (newTopic.getContent().length()>16384){
+            return UnifiedResult.build(400, "帖子内容的长度不得超过16000个字符", null);
+        }
+
         newTopic.setUserId(user.getId());
         newTopic.setSubmittime(new Date());
         Topic topic = contentService.addTopic(newTopic);
         return UnifiedResult.ok(topic.getId());
     }
 
+    /**
+     * 回复
+     * @param session
+     * @param newReply
+     * @return
+     */
     @RequestMapping("/submitReply")
     @ResponseBody
     public UnifiedResult submitReply(HttpSession session, Reply newReply) {
@@ -58,6 +86,11 @@ public class ContentController {
         return UnifiedResult.ok();
     }
 
+    /**
+     * 获取帖子详情
+     * @param id
+     * @return
+     */
     @RequestMapping("/topic")
     @ResponseBody
     public UnifiedResult getTopic(int id) {
@@ -76,7 +109,10 @@ public class ContentController {
         return UnifiedResult.ok(topicMap);
     }
 
-
+    /**
+     * 获取帖子列表
+     * @return
+     */
     @RequestMapping("/topicList")
     @ResponseBody
     public UnifiedResult getTopicList(){
