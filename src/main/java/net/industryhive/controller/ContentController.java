@@ -56,6 +56,17 @@ public class ContentController {
         if (newTopic.getTitle().length()<4||newTopic.getTitle().length()>35){
             return UnifiedResult.build(400, "帖子标题的长度为4至35个字符", null);
         }
+
+        String validate = newTopic.getContent();
+        String validateA = validate.replaceAll(" ","");
+        String validateB = validateA.replaceAll("<p>","");
+        String validateC = validateB.replaceAll("</p>","");
+        String validateD = validateC.replaceAll("&nbsp;","");
+        String validateE = validateD.replaceAll("<br>","");
+        if (validateE.length()==0){
+            return UnifiedResult.build(400, "帖子内容不能为空！", null);
+        }
+
         if (newTopic.getContent().length()>16384){
             return UnifiedResult.build(400, "帖子内容的长度不得超过16000个字符", null);
         }

@@ -32,27 +32,36 @@ public class UserController {
 
         Pattern pattern = Pattern.compile(regAccount);
         Matcher matcher = pattern.matcher(newUser.getAccount());
-        if (!matcher.matches()){
+        if (!matcher.matches()) {
             return UnifiedResult.build(400, "账号必须以英文字母开头，为字母、数字、下划线和中划线的组合，长度不得低于9位不得超过32位", null);
         }
 
-        if (newUser.getPassword().length()<12||newUser.getPassword().length()>32){
+        if (newUser.getPassword().length() < 12 || newUser.getPassword().length() > 32) {
             return UnifiedResult.build(400, "密码长度不得低于12位且不得超过32位", null);
         }
-        if (newUser.getUsername().length()<2||newUser.getUsername().length()>24){
+        if (newUser.getUsername().length() < 2 || newUser.getUsername().length() > 24) {
             return UnifiedResult.build(400, "密码长度不得低于12位且不得超过24位", null);
         }
 
         Pattern patternEmail = Pattern.compile(regEmail);
         Matcher matcherEmail = patternEmail.matcher(newUser.getEmail());
-        if (!matcherEmail.matches()){
+        if (!matcherEmail.matches()) {
             return UnifiedResult.build(400, "邮箱格式错误", null);
         }
 
-        if (newUser.getGender()!=0&&newUser.getGender()!=1&&newUser.getGender()!=2){
+        if (newUser.getGender() != 0 && newUser.getGender() != 1 && newUser.getGender() != 2) {
             return UnifiedResult.build(400, "未知选项", null);
         }
 
+        User accountVali = userService.getUserByAccount(newUser.getAccount());
+        if (accountVali != null) {
+            return UnifiedResult.build(400, "账号已被注册", null);
+        }
+
+        User usernameVali = userService.getUserByUsername(newUser.getUsername());
+        if (usernameVali != null) {
+            return UnifiedResult.build(400, "用户名已被注册", null);
+        }
 
         newUser.setRegistertime(new Date());
         User user = userService.addUser(newUser);
@@ -74,7 +83,7 @@ public class UserController {
         String account = request.getParameter("account");
         String password = request.getParameter("password");
 
-        User user = userService.getUser(account);
+        User user = userService.getUserByAccount(account);
         if (user == null || !user.getPassword().equals(password)) {
             return UnifiedResult.build(400, "账号或密码错误", null);
         }

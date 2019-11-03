@@ -30,10 +30,22 @@ public class UserService {
     }
 
     //根据账号获取用户
-    public User getUser(String account) {
+    public User getUserByAccount(String account) {
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andAccountEqualTo(account);
+        List<User> listUser = userMapper.selectByExample(example);
+        if (listUser.isEmpty()) {
+            return null;
+        }
+        User user = listUser.get(0);
+        return user;
+    }
+
+    public User getUserByUsername(String username){
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andUsernameEqualTo(username);
         List<User> listUser = userMapper.selectByExample(example);
         if (listUser.isEmpty()) {
             return null;
