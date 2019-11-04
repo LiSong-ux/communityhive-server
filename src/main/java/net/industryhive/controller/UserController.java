@@ -1,6 +1,8 @@
 package net.industryhive.controller;
 
+import net.industryhive.bean.Access;
 import net.industryhive.bean.User;
+import net.industryhive.service.AccessService;
 import net.industryhive.service.UserService;
 import net.industryhive.utils.UnifiedResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AccessService accessService;
 
     @RequestMapping("/register")
     @ResponseBody
@@ -87,11 +92,19 @@ public class UserController {
         if (user == null || !user.getPassword().equals(password)) {
             return UnifiedResult.build(400, "账号或密码错误", null);
         }
+
         session.setAttribute("user", user);
 
         // 用户登录次数+1
         user.setLogincount(user.getLogincount() + 1);
         userService.updateUser(user);
+
+        //记录用户登录ip、时间
+        Access access = new Access();
+        access.setIp(request.getRemoteAddr());
+        access.setUserId(user.getId());
+        access.setAccesstime(new Date());
+        accessService.addAccess(access);
 
         return UnifiedResult.ok(user);
     }

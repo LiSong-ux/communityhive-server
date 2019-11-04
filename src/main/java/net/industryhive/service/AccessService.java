@@ -1,5 +1,8 @@
 package net.industryhive.service;
 
+import net.industryhive.bean.Access;
+import net.industryhive.dao.AccessMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,4 +12,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AccessService {
+
+    @Autowired
+    private AccessMapper accessMapper;
+
+    public void addAccess(Access access){
+        accessMapper.insert(access);
+    }
+
 }
