@@ -106,15 +106,17 @@
             order by ${orderByClause}
         </if>
     </select>
-    <select id="findListWithUsername" resultMap="ResultMapWithUsername">
+    <!--=============================================================================================================-->
+    <select id="findListWithUsername" parameterType="java.lang.Integer" resultMap="ResultMapWithUsername">
         SELECT a.*,IFNULL(b.lastSubmit,a.submitTime) lastSubmit,IFNULL(b.lastReply,a.username) lastReply FROM
         (SELECT topic.*,user.username FROM topic,USER WHERE topic.user_id=user.id) a
         LEFT JOIN
         (SELECT lastSubmit,user.username lastReply,reply.topic_id rti FROM
         (SELECT MAX(reply.submitTime) lastSubmit FROM reply GROUP BY reply.topic_id) ma,reply,USER
         WHERE lastSubmit=reply.submitTime AND reply.user_id=user.id) b
-        ON a.id=b.rti ORDER BY lastSubmit DESC
+        ON a.id=b.rti ORDER BY lastSubmit DESC limit #{startRow},10
     </select>
+    <!--=============================================================================================================-->
     <select id="selectByExample" parameterType="net.industryhive.bean.TopicExample" resultMap="BaseResultMap">
         select
         <if test="distinct">

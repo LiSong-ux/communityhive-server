@@ -3,6 +3,7 @@ package net.industryhive.service;
 import net.industryhive.bean.Reply;
 import net.industryhive.bean.ReplyExample;
 import net.industryhive.bean.Topic;
+import net.industryhive.bean.TopicExample;
 import net.industryhive.been.wrap.WrapReply;
 import net.industryhive.been.wrap.WrapTopic;
 import net.industryhive.dao.ReplyMapper;
@@ -43,9 +44,17 @@ public class ContentService {
     }
 
 
-    public List<WrapTopic> getWrapTopicList() {
-        List<WrapTopic> wrapTopicList = topicMapper.findListWithUsername();
+    public List<WrapTopic> getWrapTopicList(int page) {
+        int startRow = (page-1)*10;
+        List<WrapTopic> wrapTopicList = topicMapper.findListWithUsername(startRow);
         return wrapTopicList;
+    }
+
+
+    public long getTopicCount(){
+        TopicExample example = new TopicExample();
+        long topicCount = topicMapper.countByExample(example);
+        return topicCount;
     }
 
 

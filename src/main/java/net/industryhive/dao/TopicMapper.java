@@ -20,7 +20,7 @@ public interface TopicMapper {
 
     List<Topic> selectByExampleWithBLOBs(TopicExample example);
 
-    List<WrapTopic> findListWithUsername();
+    List<WrapTopic> findListWithUsername(int startRow);
 
     List<Topic> selectByExample(TopicExample example);
 

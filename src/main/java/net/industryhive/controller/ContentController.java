@@ -141,9 +141,13 @@ public class ContentController {
      */
     @RequestMapping("/topicList")
     @ResponseBody
-    public UnifiedResult getTopicList(){
-        List<WrapTopic> wrapTopicList = contentService.getWrapTopicList();
-        return UnifiedResult.ok(wrapTopicList);
+    public UnifiedResult getTopicList(int page){
+        Map<String, Object> map = new HashMap<>();
+        List<WrapTopic> wrapTopicList = contentService.getWrapTopicList(page);
+        long topicCount = contentService.getTopicCount();
+        map.put("topicList", wrapTopicList);
+        map.put("topicCount", topicCount);
+        return UnifiedResult.ok(map);
     }
 
 }
