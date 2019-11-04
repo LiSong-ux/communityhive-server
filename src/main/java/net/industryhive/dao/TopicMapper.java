@@ -39,4 +39,6 @@ public interface TopicMapper {
     int updateByPrimaryKeyWithBLOBs(Topic record);
 
     int updateByPrimaryKey(Topic record);
+
+    int updateViewCountByPrimaryKey(int id);
 }

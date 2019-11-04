@@ -38,8 +38,15 @@ public class ContentService {
         return topic;
     }
 
+    /**
+     * 获取帖子详情，携带帖子作者名
+     * 同时将帖子的查看量+1
+     * @param id
+     * @return
+     */
     public WrapTopic getWrapTopic(int id){
         WrapTopic wrapTopic = topicMapper.findWithUsername(id);
+        topicMapper.updateViewCountByPrimaryKey(wrapTopic.getId());
         return wrapTopic;
     }
 

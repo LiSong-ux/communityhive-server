@@ -380,4 +380,7 @@
           deleted = #{deleted,jdbcType=BIT}
         where id = #{id,jdbcType=INTEGER}
     </update>
+    <update id="updateViewCountByPrimaryKey" parameterType="java.lang.Integer">
+        update topic set viewCount=viewCount+1 where id=#{id}
+    </update>
 </mapper>
