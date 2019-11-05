@@ -77,7 +77,12 @@ public class UserController {
         //记录用户登录ip、时间
         Login newLogin = new Login();
         newLogin.setIp(request.getRemoteAddr());
+        newLogin.setUserId(user.getId());
         newLogin.setTime(new Date());
+
+        String terminal = request.getParameter("terminal");
+        newLogin.setTerminal(terminal);
+
         loginService.addLogin(newLogin);
 
         return UnifiedResult.ok(user);
@@ -110,7 +115,12 @@ public class UserController {
         //记录用户登录ip、时间
         Login newLogin = new Login();
         newLogin.setIp(request.getRemoteAddr());
+        newLogin.setUserId(user.getId());
         newLogin.setTime(new Date());
+
+        String terminal = request.getParameter("terminal");
+        newLogin.setTerminal(terminal);
+
         loginService.addLogin(newLogin);
 
         return UnifiedResult.ok(user);
