@@ -39,5 +39,4 @@ public interface ReplyMapper {
 
     List<WrapReply> findWithUsername(int topicId);
 
-
 }

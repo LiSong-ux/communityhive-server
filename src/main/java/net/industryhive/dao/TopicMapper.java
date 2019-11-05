@@ -35,8 +35,6 @@ public interface TopicMapper {
 
     int updateByPrimaryKey(Topic record);
 
-
-
     /**********************************************************************************/
 
     List<WrapTopic> findListWithUsername(int startRow);

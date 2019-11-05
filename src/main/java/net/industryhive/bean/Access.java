@@ -1,5 +1,7 @@
 package net.industryhive.bean;
 
+import java.util.Date;
+
 public class Access {
     private Integer id;
 
@@ -12,6 +14,8 @@ public class Access {
     private Integer ios;
 
     private Integer others;
+
+    private Date time;
 
     public Integer getId() {
         return id;
@@ -59,5 +63,13 @@ public class Access {
 
     public void setOthers(Integer others) {
         this.others = others;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }
