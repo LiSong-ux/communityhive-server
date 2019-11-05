@@ -24,7 +24,7 @@ public class UserService {
     }
 
     //根据id获取用户
-    public User getUser(int id){
+    public User getUser(int id) {
         User user = userMapper.selectByPrimaryKey(id);
         return user;
     }
@@ -42,7 +42,7 @@ public class UserService {
         return user;
     }
 
-    public User getUserByUsername(String username){
+    public User getUserByUsername(String username) {
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andUsernameEqualTo(username);

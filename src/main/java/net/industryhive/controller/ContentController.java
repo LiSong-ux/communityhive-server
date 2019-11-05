@@ -34,6 +34,7 @@ public class ContentController {
 
     /**
      * 发帖
+     *
      * @param session
      * @param newTopic
      * @return
@@ -49,25 +50,25 @@ public class ContentController {
         String regLabel = "^[\\u4e00-\\u9fa5]{2,4}$";
         Pattern pattern = Pattern.compile(regLabel);
         Matcher matcher = pattern.matcher(newTopic.getLabel());
-        if (!matcher.matches()){
+        if (!matcher.matches()) {
             return UnifiedResult.build(400, "帖子标签为2至4位汉字", null);
         }
 
-        if (newTopic.getTitle().length()<4||newTopic.getTitle().length()>35){
+        if (newTopic.getTitle().length() < 4 || newTopic.getTitle().length() > 35) {
             return UnifiedResult.build(400, "帖子标题的长度为4至35个字符", null);
         }
 
         String validate = newTopic.getContent();
-        String validateA = validate.replaceAll(" ","");
-        String validateB = validateA.replaceAll("<p>","");
-        String validateC = validateB.replaceAll("</p>","");
-        String validateD = validateC.replaceAll("&nbsp;","");
-        String validateE = validateD.replaceAll("<br>","");
-        if (validateE.length()==0){
+        String validateA = validate.replaceAll(" ", "");
+        String validateB = validateA.replaceAll("<p>", "");
+        String validateC = validateB.replaceAll("</p>", "");
+        String validateD = validateC.replaceAll("&nbsp;", "");
+        String validateE = validateD.replaceAll("<br>", "");
+        if (validateE.length() == 0) {
             return UnifiedResult.build(400, "帖子内容不能为空！", null);
         }
 
-        if (newTopic.getContent().length()>16384){
+        if (newTopic.getContent().length() > 16384) {
             return UnifiedResult.build(400, "帖子内容的长度不得超过16000个字符", null);
         }
 
@@ -79,6 +80,7 @@ public class ContentController {
 
     /**
      * 回复
+     *
      * @param session
      * @param newReply
      * @return
@@ -92,17 +94,17 @@ public class ContentController {
         }
 
         String validate = newReply.getContent();
-        String validateA = validate.replaceAll(" ","");
-        String validateB = validateA.replaceAll("<p>","");
-        String validateC = validateB.replaceAll("</p>","");
-        String validateD = validateC.replaceAll("&nbsp;","");
-        String validateE = validateD.replaceAll("<br>","");
-        if (validateE.length()==0){
+        String validateA = validate.replaceAll(" ", "");
+        String validateB = validateA.replaceAll("<p>", "");
+        String validateC = validateB.replaceAll("</p>", "");
+        String validateD = validateC.replaceAll("&nbsp;", "");
+        String validateE = validateD.replaceAll("<br>", "");
+        if (validateE.length() == 0) {
             return UnifiedResult.build(400, "回复内容不能为空！", null);
         }
 
 
-        if (newReply.getContent().length()>11264){
+        if (newReply.getContent().length() > 11264) {
             return UnifiedResult.build(400, "回复的长度不得超过11000个字符", null);
         }
 
@@ -114,13 +116,14 @@ public class ContentController {
 
     /**
      * 获取帖子详情
+     *
      * @param id
      * @return
      */
     @RequestMapping("/topic")
     @ResponseBody
     public UnifiedResult getTopic(Integer id) {
-        if (id==null){
+        if (id == null) {
             return UnifiedResult.build(400, "参数错误", null);
         }
         Map<String, Object> topicMap = new HashMap<>();
@@ -140,12 +143,13 @@ public class ContentController {
 
     /**
      * 获取帖子列表
+     *
      * @return
      */
     @RequestMapping("/topicList")
     @ResponseBody
-    public UnifiedResult getTopicList(Integer page){
-        if (page==null){
+    public UnifiedResult getTopicList(Integer page) {
+        if (page == null) {
             page = 1;
         }
         Map<String, Object> map = new HashMap<>();

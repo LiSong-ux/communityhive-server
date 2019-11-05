@@ -22,7 +22,7 @@ public class AccessTimerTask {
     @Autowired
     private ServletContext context;
 
-    @Scheduled(cron = " 0 0/2 * * * ? ")
+    @Scheduled(cron = " 0 0/15 * * * ? ")
     public void saveAccessCount() {
 
         Integer totalAccess = (Integer) context.getAttribute("totalAccess");
@@ -31,19 +31,19 @@ public class AccessTimerTask {
         Integer iosAccess = (Integer) context.getAttribute("iosAccess");
         Integer othersAccess = (Integer) context.getAttribute("othersAccess");
 
-        if (totalAccess==null){
+        if (totalAccess == null) {
             totalAccess = 0;
         }
-        if (pcAccess==null){
-            pcAccess=0;
+        if (pcAccess == null) {
+            pcAccess = 0;
         }
-        if (androidAccess==null){
+        if (androidAccess == null) {
             androidAccess = 0;
         }
-        if (iosAccess==null){
+        if (iosAccess == null) {
             iosAccess = 0;
         }
-        if (othersAccess==null){
+        if (othersAccess == null) {
             othersAccess = 0;
         }
 

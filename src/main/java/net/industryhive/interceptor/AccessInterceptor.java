@@ -1,7 +1,5 @@
 package net.industryhive.interceptor;
 
-import net.industryhive.service.AccessService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,10 +27,13 @@ public class AccessInterceptor implements HandlerInterceptor {
         if (totalAccess == null) {
             context.setAttribute("totalAccess", 1);
         } else {
-            context.setAttribute("totalAccess", androidAccess + 1);
+            context.setAttribute("totalAccess", totalAccess + 1);
         }
 
         String terminal = request.getParameter("terminal");
+        if (terminal == null) {
+            terminal = "";
+        }
 
         if (terminal.indexOf("Android") > -1 || terminal.indexOf("Adr") > -1 || terminal.indexOf("android") > -1) {
             if (androidAccess == null) {

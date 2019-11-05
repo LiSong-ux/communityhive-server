@@ -41,10 +41,11 @@ public class ContentService {
     /**
      * 获取帖子详情，携带帖子作者名
      * 同时将帖子的查看量+1
+     *
      * @param id
      * @return
      */
-    public WrapTopic getWrapTopic(int id){
+    public WrapTopic getWrapTopic(int id) {
         WrapTopic wrapTopic = topicMapper.findWithUsername(id);
         topicMapper.updateViewCountByPrimaryKey(wrapTopic.getId());
         return wrapTopic;
@@ -52,30 +53,31 @@ public class ContentService {
 
 
     public List<WrapTopic> getWrapTopicList(Integer page) {
-        int startRow = (page-1)*10;
+        int startRow = (page - 1) * 10;
         List<WrapTopic> wrapTopicList = topicMapper.findListWithUsername(startRow);
         return wrapTopicList;
     }
 
 
-    public long getTopicCount(){
+    public long getTopicCount() {
         TopicExample example = new TopicExample();
         long topicCount = topicMapper.countByExample(example);
         return topicCount;
     }
 
 
-    public List<WrapReply> getWrapReplyList(int topicId){
+    public List<WrapReply> getWrapReplyList(int topicId) {
         List<WrapReply> wrapReplyList = replyMapper.findWithUsername(topicId);
         return wrapReplyList;
     }
 
     /**
      * 获取帖子回复列表
+     *
      * @param topicId
      * @return
      */
-    public List<Reply> getReplyList(int topicId){
+    public List<Reply> getReplyList(int topicId) {
         ReplyExample example = new ReplyExample();
         ReplyExample.Criteria criteria = example.createCriteria();
         criteria.andTopicIdEqualTo(topicId);
@@ -85,16 +87,17 @@ public class ContentService {
 
     /**
      * 新增回复
+     *
      * @param newReply
      */
     public void addReply(Reply newReply) {
         Topic topic = topicMapper.selectByPrimaryKey(newReply.getTopicId());
         int replyCount = topic.getReplycount();
 
-        newReply.setFloor(replyCount+1);
+        newReply.setFloor(replyCount + 1);
         replyMapper.insertSelective(newReply);
 
-        topic.setReplycount(replyCount+1);
+        topic.setReplycount(replyCount + 1);
         topicMapper.updateByPrimaryKeySelective(topic);
     }
 }

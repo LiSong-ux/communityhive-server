@@ -15,7 +15,7 @@ public class LoginService {
     @Autowired
     private LoginMapper loginMapper;
 
-    public void addLogin(Login newLogin){
+    public void addLogin(Login newLogin) {
         loginMapper.insert(newLogin);
     }
 
