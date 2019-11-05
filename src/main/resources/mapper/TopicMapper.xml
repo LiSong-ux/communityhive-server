@@ -138,7 +138,7 @@
       #{viewcount,jdbcType=INTEGER}, #{locked,jdbcType=BIT}, #{hided,jdbcType=BIT}, #{deleted,jdbcType=BIT},
       #{content,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="net.industryhive.bean.Topic">
+  <insert id="insertSelective" parameterType="net.industryhive.bean.Topic" useGeneratedKeys="true" keyProperty="id">
     insert into topic
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -372,5 +372,8 @@
   <select id="findWithUsername" parameterType="java.lang.Integer" resultType="net.industryhive.been.wrap.WrapTopic">
       select topic.*,user.username from topic,user where topic.id=#{id} and topic.user_id=user.id
   </select>
+  <update id="updateViewCountByPrimaryKey" parameterType="java.lang.Integer">
+        update topic set viewCount=viewCount+1 where id=#{id}
+  </update>
   <!--============================================================================================-->
 </mapper>

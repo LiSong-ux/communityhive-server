@@ -119,7 +119,10 @@ public class ContentController {
      */
     @RequestMapping("/topic")
     @ResponseBody
-    public UnifiedResult getTopic(int id) {
+    public UnifiedResult getTopic(Integer id) {
+        if (id==null){
+            return UnifiedResult.build(400, "参数错误", null);
+        }
         Map<String, Object> topicMap = new HashMap<>();
 
         WrapTopic wrapTopic = contentService.getWrapTopic(id);
@@ -142,7 +145,6 @@ public class ContentController {
     @RequestMapping("/topicList")
     @ResponseBody
     public UnifiedResult getTopicList(Integer page){
-        System.out.println(page);
         if (page==null){
             page = 1;
         }
