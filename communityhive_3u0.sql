@@ -27,6 +27,7 @@ CREATE TABLE `access` (
   `Android` int(11) NOT NULL COMMENT '安卓端',
   `ios` int(11) NOT NULL COMMENT 'ios端',
   `others` int(11) NOT NULL COMMENT '其他',
+  `time` datetime(6) NOT NULL COMMENT '保存时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

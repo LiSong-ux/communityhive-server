@@ -20,13 +20,11 @@ public class AccessInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
-//        String clientIP = request.getRemoteAddr();
-//
-//        Access newAccess = new Access();
-//        newAccess.setIp(clientIP);
-//        newAccess.setAccesstime(new Date());
-//
-//
+        String terminal = request.getParameter("terminal");
+        if (terminal.indexOf("Android")>-1||terminal.indexOf("Adr")>-1||terminal.indexOf("android")>-1){
+
+        }
+
         return false;
     }
 

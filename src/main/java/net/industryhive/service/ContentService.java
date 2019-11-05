@@ -51,7 +51,7 @@ public class ContentService {
     }
 
 
-    public List<WrapTopic> getWrapTopicList(int page) {
+    public List<WrapTopic> getWrapTopicList(Integer page) {
         int startRow = (page-1)*10;
         List<WrapTopic> wrapTopicList = topicMapper.findListWithUsername(startRow);
         return wrapTopicList;
