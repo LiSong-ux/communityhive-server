@@ -1,8 +1,8 @@
 package net.industryhive.controller;
 
-import net.industryhive.bean.Access;
+import net.industryhive.bean.Login;
 import net.industryhive.bean.User;
-import net.industryhive.service.AccessService;
+import net.industryhive.service.LoginService;
 import net.industryhive.service.UserService;
 import net.industryhive.utils.UnifiedResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +27,11 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private AccessService accessService;
+    private LoginService loginService;
 
     @RequestMapping("/register")
     @ResponseBody
-    public UnifiedResult register(HttpSession session, User newUser) {
+    public UnifiedResult register(HttpServletRequest request, User newUser) {
         String regAccount = "^[a-zA-Z]([-_a-zA-Z0-9]{8,31})$";
         String regEmail = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
 
@@ -71,7 +71,15 @@ public class UserController {
         newUser.setRegistertime(new Date());
         User user = userService.addUser(newUser);
 
-        session.setAttribute("user", user);
+        //用户登录
+        request.getSession().setAttribute("user", user);
+
+        //记录用户登录ip、时间
+        Login newLogin = new Login();
+        newLogin.setIp(request.getRemoteAddr());
+        newLogin.setTime(new Date());
+        loginService.addLogin(newLogin);
+
         return UnifiedResult.ok(user);
     }
 
@@ -100,11 +108,10 @@ public class UserController {
         userService.updateUser(user);
 
         //记录用户登录ip、时间
-//        Access access = new Access();
-//        access.setIp(request.getRemoteAddr());
-//        access.setUserId(user.getId());
-//
-//        accessService.addAccess(access);
+        Login newLogin = new Login();
+        newLogin.setIp(request.getRemoteAddr());
+        newLogin.setTime(new Date());
+        loginService.addLogin(newLogin);
 
         return UnifiedResult.ok(user);
     }

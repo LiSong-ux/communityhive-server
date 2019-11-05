@@ -16,8 +16,8 @@ public class AccessService {
     @Autowired
     private AccessMapper accessMapper;
 
-    public void addAccess(Access access){
-        accessMapper.insert(access);
+    public void addAccess(Access newAccess){
+        accessMapper.insert(newAccess);
     }
 
 }
