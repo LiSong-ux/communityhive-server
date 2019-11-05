@@ -1,15 +1,17 @@
 package net.industryhive.bean;
 
-import java.util.Date;
-
 public class Access {
     private Integer id;
 
-    private String ip;
+    private Integer total;
 
-    private Integer userId;
+    private Integer pc;
 
-    private Date accesstime;
+    private Integer android;
+
+    private Integer ios;
+
+    private Integer others;
 
     public Integer getId() {
         return id;
@@ -19,27 +21,43 @@ public class Access {
         this.id = id;
     }
 
-    public String getIp() {
-        return ip;
+    public Integer getTotal() {
+        return total;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip == null ? null : ip.trim();
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getPc() {
+        return pc;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setPc(Integer pc) {
+        this.pc = pc;
     }
 
-    public Date getAccesstime() {
-        return accesstime;
+    public Integer getAndroid() {
+        return android;
     }
 
-    public void setAccesstime(Date accesstime) {
-        this.accesstime = accesstime;
+    public void setAndroid(Integer android) {
+        this.android = android;
+    }
+
+    public Integer getIos() {
+        return ios;
+    }
+
+    public void setIos(Integer ios) {
+        this.ios = ios;
+    }
+
+    public Integer getOthers() {
+        return others;
+    }
+
+    public void setOthers(Integer others) {
+        this.others = others;
     }
 }

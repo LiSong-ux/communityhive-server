@@ -13,11 +13,6 @@
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.industryhive.bean.Reply">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
-  <!--=========================================================================================================================-->
-  <resultMap extends="ResultMapWithBLOBs" id="ResultMapWithUsername" type="net.industryhive.been.wrap.WrapReply">
-    <result column="username" jdbcType="VARCHAR" property="username"/>
-  </resultMap>
-  <!--=========================================================================================================================-->
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -98,11 +93,6 @@
       order by ${orderByClause}
     </if>
   </select>
-  <!--===============================================================================================================-->
-  <select id="findWithUsername" parameterType="java.lang.Integer" resultMap="ResultMapWithUsername">
-      select reply.*,user.username from reply,user where reply.topic_id=#{id} and reply.user_id=user.id
-  </select>
-  <!--===============================================================================================================-->
   <select id="selectByExample" parameterType="net.industryhive.bean.ReplyExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -118,7 +108,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -136,11 +126,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.industryhive.bean.Reply">
-    insert into reply (id, topic_id, user_id, 
-      submitTime, floor, quote, 
+    insert into reply (id, topic_id, user_id,
+      submitTime, floor, quote,
       deleted, content)
-    values (#{id,jdbcType=INTEGER}, #{topicId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{submittime,jdbcType=TIMESTAMP}, #{floor,jdbcType=INTEGER}, #{quote,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{topicId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
+      #{submittime,jdbcType=TIMESTAMP}, #{floor,jdbcType=INTEGER}, #{quote,jdbcType=INTEGER},
       #{deleted,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.industryhive.bean.Reply">
@@ -311,4 +301,12 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!--========================================================================================-->
+  <resultMap extends="ResultMapWithBLOBs" id="ResultMapWithUsername" type="net.industryhive.been.wrap.WrapReply">
+    <result column="username" jdbcType="VARCHAR" property="username"/>
+  </resultMap>
+  <select id="findWithUsername" parameterType="java.lang.Integer" resultMap="ResultMapWithUsername">
+      select reply.*,user.username from reply,user where reply.topic_id=#{id} and reply.user_id=user.id
+  </select>
+  <!--========================================================================================-->
 </mapper>

@@ -1,11 +1,10 @@
 package net.industryhive.dao;
 
+import java.util.List;
 import net.industryhive.bean.Topic;
 import net.industryhive.bean.TopicExample;
 import net.industryhive.been.wrap.WrapTopic;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 public interface TopicMapper {
     long countByExample(TopicExample example);
@@ -20,13 +19,9 @@ public interface TopicMapper {
 
     List<Topic> selectByExampleWithBLOBs(TopicExample example);
 
-    List<WrapTopic> findListWithUsername(int startRow);
-
     List<Topic> selectByExample(TopicExample example);
 
     Topic selectByPrimaryKey(Integer id);
-
-    WrapTopic findWithUsername(Integer id);
 
     int updateByExampleSelective(@Param("record") Topic record, @Param("example") TopicExample example);
 
@@ -40,5 +35,14 @@ public interface TopicMapper {
 
     int updateByPrimaryKey(Topic record);
 
+
+
+    /**********************************************************************************/
+
+    List<WrapTopic> findListWithUsername(int startRow);
+
+    WrapTopic findWithUsername(Integer id);
+
     int updateViewCountByPrimaryKey(int id);
+
 }

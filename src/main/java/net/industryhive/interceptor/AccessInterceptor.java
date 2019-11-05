@@ -1,6 +1,5 @@
 package net.industryhive.interceptor;
 
-import net.industryhive.bean.Access;
 import net.industryhive.service.AccessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -8,7 +7,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 
 /**
  * 访问统计拦截器
@@ -22,13 +20,13 @@ public class AccessInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
-        String clientIP = request.getRemoteAddr();
-
-        Access newAccess = new Access();
-        newAccess.setIp(clientIP);
-        newAccess.setAccesstime(new Date());
-
-
+//        String clientIP = request.getRemoteAddr();
+//
+//        Access newAccess = new Access();
+//        newAccess.setIp(clientIP);
+//        newAccess.setAccesstime(new Date());
+//
+//
         return false;
     }
 

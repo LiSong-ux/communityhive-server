@@ -100,11 +100,11 @@ public class UserController {
         userService.updateUser(user);
 
         //记录用户登录ip、时间
-        Access access = new Access();
-        access.setIp(request.getRemoteAddr());
-        access.setUserId(user.getId());
-        access.setAccesstime(new Date());
-        accessService.addAccess(access);
+//        Access access = new Access();
+//        access.setIp(request.getRemoteAddr());
+//        access.setUserId(user.getId());
+//
+//        accessService.addAccess(access);
 
         return UnifiedResult.ok(user);
     }

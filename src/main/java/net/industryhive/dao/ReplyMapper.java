@@ -1,11 +1,10 @@
 package net.industryhive.dao;
 
+import java.util.List;
 import net.industryhive.bean.Reply;
 import net.industryhive.bean.ReplyExample;
 import net.industryhive.been.wrap.WrapReply;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 public interface ReplyMapper {
     long countByExample(ReplyExample example);
@@ -19,8 +18,6 @@ public interface ReplyMapper {
     int insertSelective(Reply record);
 
     List<Reply> selectByExampleWithBLOBs(ReplyExample example);
-
-    List<WrapReply> findWithUsername(int topicId);
 
     List<Reply> selectByExample(ReplyExample example);
 
@@ -37,4 +34,10 @@ public interface ReplyMapper {
     int updateByPrimaryKeyWithBLOBs(Reply record);
 
     int updateByPrimaryKey(Reply record);
+
+    /******************************************************************/
+
+    List<WrapReply> findWithUsername(int topicId);
+
+
 }

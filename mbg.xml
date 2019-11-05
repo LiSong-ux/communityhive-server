@@ -50,6 +50,7 @@
         <table tableName="reply" domainObjectName="Reply"></table>
         <table tableName="authority" domainObjectName="Authority"></table>
         <table tableName="access" domainObjectName="Access"></table>
+        <table tableName="login" domainObjectName="Login"></table>
 
     </context>
 </generatorConfiguration>
