@@ -22,12 +22,12 @@ DROP TABLE IF EXISTS `access`;
 
 CREATE TABLE `access` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键自增',
-  `ip` varchar(255) NOT NULL COMMENT 'ip地址',
-  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
-  `accessTime` datetime(6) NOT NULL COMMENT '访问时间',
-  PRIMARY KEY (`id`),
-  KEY `access_user_id` (`user_id`),
-  CONSTRAINT `access_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  `total` int(11) NOT NULL COMMENT '总访问量',
+  `PC` int(11) NOT NULL COMMENT 'PC端',
+  `Android` int(11) NOT NULL COMMENT '安卓端',
+  `ios` int(11) NOT NULL COMMENT 'ios端',
+  `others` int(11) NOT NULL COMMENT '其他',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `access` */
@@ -51,6 +51,23 @@ CREATE TABLE `authority` (
 /*Data for the table `authority` */
 
 insert  into `authority`(`id`,`banAccount`,`banSubmitTopic`,`banSubmitReply`,`banMessage`,`deleteTopic`,`deleteReply`,`lockTopic`) values (1,0,0,0,0,0,0,0);
+
+/*Table structure for table `login` */
+
+DROP TABLE IF EXISTS `login`;
+
+CREATE TABLE `login` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键自增',
+  `ip` varchar(255) NOT NULL COMMENT 'IP地址',
+  `user_id` int(11) NOT NULL COMMENT '用户账号',
+  `time` datetime(6) NOT NULL COMMENT '登录时间',
+  `terminal` varchar(255) NOT NULL COMMENT '登录终端',
+  PRIMARY KEY (`id`),
+  KEY `login_user_id` (`user_id`),
+  CONSTRAINT `login_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `login` */
 
 /*Table structure for table `reply` */
 
