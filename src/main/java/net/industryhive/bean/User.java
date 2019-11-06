@@ -11,7 +11,7 @@ public class User {
 
     private String username;
 
-    private Integer mobile;
+    private String mobile;
 
     private String email;
 
@@ -75,12 +75,12 @@ public class User {
         this.username = username == null ? null : username.trim();
     }
 
-    public Integer getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(Integer mobile) {
-        this.mobile = mobile;
+    public void setMobile(String mobile) {
+        this.mobile = mobile == null ? null : mobile.trim();
     }
 
     public String getEmail() {

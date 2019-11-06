@@ -6,7 +6,7 @@
     <result column="account" jdbcType="VARCHAR" property="account" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="mobile" jdbcType="INTEGER" property="mobile" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="gender" jdbcType="INTEGER" property="gender" />
     <result column="authority_id" jdbcType="INTEGER" property="authorityId" />
@@ -125,7 +125,7 @@
       loginCount, registerTime, photo,
       comeFrom, introduction)
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-      #{username,jdbcType=VARCHAR}, #{mobile,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR},
+      #{username,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
       #{gender,jdbcType=INTEGER}, #{authorityId,jdbcType=INTEGER}, #{bannedtopic,jdbcType=BIT},
       #{bannedreply,jdbcType=BIT}, #{bannedmessage,jdbcType=BIT}, #{locded,jdbcType=BIT},
       #{deleted,jdbcType=BIT}, #{topiccount,jdbcType=INTEGER}, #{replycount,jdbcType=INTEGER},
@@ -210,7 +210,7 @@
         #{username,jdbcType=VARCHAR},
       </if>
       <if test="mobile != null">
-        #{mobile,jdbcType=INTEGER},
+        #{mobile,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
@@ -281,7 +281,7 @@
         username = #{record.username,jdbcType=VARCHAR},
       </if>
       <if test="record.mobile != null">
-        mobile = #{record.mobile,jdbcType=INTEGER},
+        mobile = #{record.mobile,jdbcType=VARCHAR},
       </if>
       <if test="record.email != null">
         email = #{record.email,jdbcType=VARCHAR},
@@ -339,7 +339,7 @@
       account = #{record.account,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
-      mobile = #{record.mobile,jdbcType=INTEGER},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       gender = #{record.gender,jdbcType=INTEGER},
       authority_id = #{record.authorityId,jdbcType=INTEGER},
@@ -372,7 +372,7 @@
         username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="mobile != null">
-        mobile = #{mobile,jdbcType=INTEGER},
+        mobile = #{mobile,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
@@ -427,7 +427,7 @@
     set account = #{account,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=INTEGER},
+      mobile = #{mobile,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=INTEGER},
       authority_id = #{authorityId,jdbcType=INTEGER},
