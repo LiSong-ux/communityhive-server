@@ -124,6 +124,7 @@ CREATE TABLE `user` (
   `account` varchar(32) NOT NULL COMMENT '账号',
   `password` varchar(32) NOT NULL COMMENT '密码',
   `username` varchar(24) NOT NULL COMMENT '用户名',
+  `mobile` int(11) NOT NULL COMMENT '手机号',
   `email` varchar(48) NOT NULL COMMENT '邮箱',
   `gender` int(1) NOT NULL COMMENT '性别',
   `authority_id` int(11) NOT NULL DEFAULT '1' COMMENT '外键，权限id',

@@ -6,6 +6,7 @@
     <result column="account" jdbcType="VARCHAR" property="account" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="mobile" jdbcType="INTEGER" property="mobile" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="gender" jdbcType="INTEGER" property="gender" />
     <result column="authority_id" jdbcType="INTEGER" property="authorityId" />
@@ -81,9 +82,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, account, password, username, email, gender, authority_id, bannedTopic, bannedReply,
-    bannedMessage, locded, deleted, topicCount, replyCount, loginCount, registerTime,
-    photo, comeFrom, introduction
+    id, account, password, username, mobile, email, gender, authority_id, bannedTopic, 
+    bannedReply, bannedMessage, locded, deleted, topicCount, replyCount, loginCount, 
+    registerTime, photo, comeFrom, introduction
   </sql>
   <select id="selectByExample" parameterType="net.industryhive.bean.UserExample" resultMap="BaseResultMap">
     select
@@ -100,7 +101,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from user
     where id = #{id,jdbcType=INTEGER}
@@ -116,22 +117,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.industryhive.bean.User">
-    insert into user (id, account, password,
-      username, email, gender,
-      authority_id, bannedTopic, bannedReply,
-      bannedMessage, locded, deleted,
-      topicCount, replyCount, loginCount,
-      registerTime, photo, comeFrom,
-      introduction)
-    values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-      #{username,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER},
-      #{authorityId,jdbcType=INTEGER}, #{bannedtopic,jdbcType=BIT}, #{bannedreply,jdbcType=BIT},
-      #{bannedmessage,jdbcType=BIT}, #{locded,jdbcType=BIT}, #{deleted,jdbcType=BIT},
-      #{topiccount,jdbcType=INTEGER}, #{replycount,jdbcType=INTEGER}, #{logincount,jdbcType=INTEGER},
-      #{registertime,jdbcType=TIMESTAMP}, #{photo,jdbcType=VARCHAR}, #{comefrom,jdbcType=VARCHAR},
-      #{introduction,jdbcType=VARCHAR})
+    insert into user (id, account, password, 
+      username, mobile, email, 
+      gender, authority_id, bannedTopic, 
+      bannedReply, bannedMessage, locded, 
+      deleted, topicCount, replyCount, 
+      loginCount, registerTime, photo, 
+      comeFrom, introduction)
+    values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{mobile,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=INTEGER}, #{authorityId,jdbcType=INTEGER}, #{bannedtopic,jdbcType=BIT}, 
+      #{bannedreply,jdbcType=BIT}, #{bannedmessage,jdbcType=BIT}, #{locded,jdbcType=BIT}, 
+      #{deleted,jdbcType=BIT}, #{topiccount,jdbcType=INTEGER}, #{replycount,jdbcType=INTEGER}, 
+      #{logincount,jdbcType=INTEGER}, #{registertime,jdbcType=TIMESTAMP}, #{photo,jdbcType=VARCHAR}, 
+      #{comefrom,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="net.industryhive.bean.User" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="net.industryhive.bean.User">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -145,6 +146,9 @@
       </if>
       <if test="username != null">
         username,
+      </if>
+      <if test="mobile != null">
+        mobile,
       </if>
       <if test="email != null">
         email,
@@ -204,6 +208,9 @@
       </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=INTEGER},
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
@@ -273,6 +280,9 @@
       <if test="record.username != null">
         username = #{record.username,jdbcType=VARCHAR},
       </if>
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=INTEGER},
+      </if>
       <if test="record.email != null">
         email = #{record.email,jdbcType=VARCHAR},
       </if>
@@ -329,6 +339,7 @@
       account = #{record.account,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=INTEGER},
       email = #{record.email,jdbcType=VARCHAR},
       gender = #{record.gender,jdbcType=INTEGER},
       authority_id = #{record.authorityId,jdbcType=INTEGER},
@@ -359,6 +370,9 @@
       </if>
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=INTEGER},
       </if>
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
@@ -413,6 +427,7 @@
     set account = #{account,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=INTEGER},
       email = #{email,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=INTEGER},
       authority_id = #{authorityId,jdbcType=INTEGER},
