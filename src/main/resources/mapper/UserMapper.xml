@@ -82,8 +82,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, account, password, username, mobile, email, gender, authority_id, bannedTopic, 
-    bannedReply, bannedMessage, locded, deleted, topicCount, replyCount, loginCount, 
+    id, account, password, username, mobile, email, gender, authority_id, bannedTopic,
+    bannedReply, bannedMessage, locded, deleted, topicCount, replyCount, loginCount,
     registerTime, photo, comeFrom, introduction
   </sql>
   <select id="selectByExample" parameterType="net.industryhive.bean.UserExample" resultMap="BaseResultMap">
@@ -101,7 +101,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from user
     where id = #{id,jdbcType=INTEGER}
@@ -117,22 +117,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.industryhive.bean.User">
-    insert into user (id, account, password, 
-      username, mobile, email, 
-      gender, authority_id, bannedTopic, 
-      bannedReply, bannedMessage, locded, 
-      deleted, topicCount, replyCount, 
-      loginCount, registerTime, photo, 
+    insert into user (id, account, password,
+      username, mobile, email,
+      gender, authority_id, bannedTopic,
+      bannedReply, bannedMessage, locded,
+      deleted, topicCount, replyCount,
+      loginCount, registerTime, photo,
       comeFrom, introduction)
-    values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{username,jdbcType=VARCHAR}, #{mobile,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=INTEGER}, #{authorityId,jdbcType=INTEGER}, #{bannedtopic,jdbcType=BIT}, 
-      #{bannedreply,jdbcType=BIT}, #{bannedmessage,jdbcType=BIT}, #{locded,jdbcType=BIT}, 
-      #{deleted,jdbcType=BIT}, #{topiccount,jdbcType=INTEGER}, #{replycount,jdbcType=INTEGER}, 
-      #{logincount,jdbcType=INTEGER}, #{registertime,jdbcType=TIMESTAMP}, #{photo,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{username,jdbcType=VARCHAR}, #{mobile,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR},
+      #{gender,jdbcType=INTEGER}, #{authorityId,jdbcType=INTEGER}, #{bannedtopic,jdbcType=BIT},
+      #{bannedreply,jdbcType=BIT}, #{bannedmessage,jdbcType=BIT}, #{locded,jdbcType=BIT},
+      #{deleted,jdbcType=BIT}, #{topiccount,jdbcType=INTEGER}, #{replycount,jdbcType=INTEGER},
+      #{logincount,jdbcType=INTEGER}, #{registertime,jdbcType=TIMESTAMP}, #{photo,jdbcType=VARCHAR},
       #{comefrom,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="net.industryhive.bean.User">
+  <insert id="insertSelective" parameterType="net.industryhive.bean.User" useGeneratedKeys="true" keyProperty="id">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
