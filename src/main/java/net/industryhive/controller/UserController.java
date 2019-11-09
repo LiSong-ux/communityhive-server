@@ -34,7 +34,7 @@ public class UserController {
     public UnifiedResult register(HttpServletRequest request, User newUser) {
         String regAccount = "^[a-zA-Z]([-_a-zA-Z0-9]{8,31})$";
         String regEmail = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
-        String regMobile = "^1[34578]\\d{9}$";
+//        String regMobile = "^1[34578]\\d{9}$";
 
         Pattern pattern = Pattern.compile(regAccount);
         Matcher matcher = pattern.matcher(newUser.getAccount());
@@ -49,11 +49,11 @@ public class UserController {
             return UnifiedResult.build(400, "用户名长度不得低于2位且不得超过24位", null);
         }
 
-        Pattern patternMobile = Pattern.compile(regMobile);
-        Matcher matcherMobile = patternMobile.matcher(newUser.getMobile());
-        if (!matcherMobile.matches()) {
-            return UnifiedResult.build(400, "手机号格式错误", null);
-        }
+//        Pattern patternMobile = Pattern.compile(regMobile);
+//        Matcher matcherMobile = patternMobile.matcher(newUser.getMobile());
+//        if (!matcherMobile.matches()) {
+//            return UnifiedResult.build(400, "手机号格式错误", null);
+//        }
 
         Pattern patternEmail = Pattern.compile(regEmail);
         Matcher matcherEmail = patternEmail.matcher(newUser.getEmail());

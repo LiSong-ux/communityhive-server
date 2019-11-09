@@ -1,0 +1,67 @@
+package net.industryhive.utils;
+
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
+import java.util.Properties;
+
+/**
+ * @author 未央
+ * @create 2019-11-09 10:28
+ */
+public class EmailUtil {
+
+    private static final String HOST = Email.host;
+    private static final Integer PORT = Email.port;
+    private static final String USERNAME = Email.userName;
+    private static final String PASSWORD = Email.passWord;
+    private static final String emailForm = Email.emailForm;
+    private static final String timeout = Email.timeout;
+    private static final String personal = Email.personal;
+    private static final String subject = Email.subject;
+    private static final String html = Email.html;
+    private static JavaMailSenderImpl mailSender = createMailSender();
+
+    /**
+     * 邮件发送器
+     *
+     * @return
+     */
+    private static JavaMailSenderImpl createMailSender() {
+        JavaMailSenderImpl sender = new JavaMailSenderImpl();
+        sender.setHost(HOST);
+        sender.setPort(PORT);
+        sender.setUsername(USERNAME);
+        sender.setPassword(PASSWORD);
+        sender.setDefaultEncoding("Utf-8");
+        Properties properties = new Properties();
+        properties.setProperty("mail.smtp.timeout", timeout);
+        properties.setProperty("mail.smtp.auth", "false");
+        sender.setJavaMailProperties(properties);
+        return sender;
+    }
+
+    /**
+     * 发送邮件
+     *
+     * @param to 接收人
+     * @param html 发送内容
+     * @throws MessagingException
+     * @throws UnsupportedEncodingException
+     */
+    public static void sendMail(String to, String html) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        // 设置utf-8或GBK编码，否则邮件会有乱码
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+        messageHelper.setFrom(emailForm, personal);
+        messageHelper.setTo(to);
+        messageHelper.setSubject(subject);
+        messageHelper.setText(html, true);
+//      messageHelper.addAttachment("", new File(""));//附件
+        mailSender.send(mimeMessage);
+    }
+
+}

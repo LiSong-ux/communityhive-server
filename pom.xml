@@ -53,6 +53,19 @@
             <!-- <scope>test</scope> -->
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <!--
+                <scope>test</scope>规定了junit只能在测试阶段可用
+                eclipse可能无法准确区分开发和测试，所以如果不将<scope>注释掉
+                    在项目打包成war包时，将会出现“程序包org.junit不存在”的错误
+             -->
+            <!--<scope>test</scope>-->
+        </dependency>
+
         <!-- mybatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
         <dependency>
@@ -125,6 +138,19 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.9</version>
+        </dependency>
+
+        <!--mail-->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>4.0.4.RELEASE</version>
         </dependency>
 
     </dependencies>
