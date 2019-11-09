@@ -11,6 +11,8 @@ public class User {
 
     private String username;
 
+    private String countrycode;
+
     private String mobile;
 
     private String email;
@@ -73,6 +75,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
+    }
+
+    public String getCountrycode() {
+        return countrycode;
+    }
+
+    public void setCountrycode(String countrycode) {
+        this.countrycode = countrycode == null ? null : countrycode.trim();
     }
 
     public String getMobile() {
