@@ -76,7 +76,7 @@ public class ContentService {
 
 
     public List<WrapReply> getWrapReplyList(int topicId, int page) {
-        int startRow = (page - 1) * 10;
+        int startRow = (page - 1) * 50;
         List<WrapReply> wrapReplyList = replyMapper.findWithUsername(topicId, startRow);
         return wrapReplyList;
     }

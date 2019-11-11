@@ -307,7 +307,7 @@
   </resultMap>
   <select id="findWithUsername" resultMap="ResultMapWithUsername">
       select reply.*,user.username from reply,user
-      where reply.topic_id=#{id} and reply.user_id=user.id limit #{startRow},10
+      where reply.topic_id=#{id} and reply.user_id=user.id limit #{startRow},50
   </select>
   <!--========================================================================================-->
 </mapper>
