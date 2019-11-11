@@ -367,7 +367,7 @@
         (SELECT lastSubmit,user.username lastReply,reply.topic_id rti FROM
         (SELECT MAX(reply.submitTime) lastSubmit FROM reply GROUP BY reply.topic_id) ma,reply,USER
         WHERE lastSubmit=reply.submitTime AND reply.user_id=user.id) b
-        ON a.id=b.rti ORDER BY lastSubmit DESC limit #{startRow},10
+        ON a.id=b.rti ORDER BY lastSubmit DESC limit #{startRow},45
     </select>
   <select id="findWithUsername" parameterType="java.lang.Integer" resultType="net.industryhive.been.wrap.WrapTopic">
       select topic.*,user.username from topic,user where topic.id=#{id} and topic.user_id=user.id
