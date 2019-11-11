@@ -2,8 +2,10 @@ package net.industryhive.controller;
 
 import net.industryhive.bean.Login;
 import net.industryhive.bean.User;
+import net.industryhive.been.wrap.WrapUser;
 import net.industryhive.service.LoginService;
 import net.industryhive.service.UserService;
+import net.industryhive.utils.EmailUtil;
 import net.industryhive.utils.UnifiedResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,7 +34,7 @@ public class UserController {
 
     @RequestMapping("/register")
     @ResponseBody
-    public UnifiedResult register(HttpServletRequest request, User newUser) {
+    public UnifiedResult register(HttpServletRequest request, WrapUser newUser) {
         String regAccount = "^[a-zA-Z]([-_a-zA-Z0-9]{8,31})$";
         String regEmail = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
 //        String regMobile = "^1[34578]\\d{9}$";
@@ -64,6 +67,10 @@ public class UserController {
         if (newUser.getGender() != 0 && newUser.getGender() != 1 && newUser.getGender() != 2) {
             return UnifiedResult.build(400, "未知选项", null);
         }
+        //验证邮箱验证码
+        if (newUser.getEmailCode() != request.getSession().getAttribute("emailCode")) {
+            return UnifiedResult.build(400, "验证码错误", null);
+        }
 
         User accountVali = userService.getUserByAccount(newUser.getAccount());
         if (accountVali != null) {
@@ -93,6 +100,33 @@ public class UserController {
         loginService.addLogin(newLogin);
 
         return UnifiedResult.ok(user);
+    }
+
+    @RequestMapping("/getEmailCode")
+    @ResponseBody
+    public UnifiedResult getEmailCode(HttpSession session, String email) {
+        String emailCode = (String) session.getAttribute("emailCode");
+        if (emailCode != null) {
+            return UnifiedResult.build(400, "请不要频繁获取验证码", null);
+        }
+        // 生成6位随机验证码
+        String code = "";
+        Random random = new Random();
+        for (int i = 0; i < 6; i++) {
+            int r = random.nextInt();
+            code = code + r;
+        }
+        // 发送邮箱验证码
+        String content = "您的邮箱验证码为：" + code + "，此验证码十分钟内有效。";
+        try {
+            EmailUtil.sendMail(email, content);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return UnifiedResult.build(500, "发送验证码失败，请再次尝试...", null);
+        }
+        session.setAttribute("emailCode", code);
+        session.setMaxInactiveInterval(600);
+        return UnifiedResult.ok();
     }
 
     @RequestMapping("/login")
