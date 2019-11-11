@@ -1,10 +1,11 @@
 package net.industryhive.dao;
 
-import java.util.List;
 import net.industryhive.bean.Topic;
 import net.industryhive.bean.TopicExample;
 import net.industryhive.been.wrap.WrapTopic;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface TopicMapper {
     long countByExample(TopicExample example);
@@ -41,6 +42,10 @@ public interface TopicMapper {
 
     WrapTopic findWithUsername(Integer id);
 
+    Topic selectByPrimaryKeyForUpdate (int id);
+
     int updateViewCountByPrimaryKey(int id);
+
+    int updateReplyCountByPrimaryKey(int id);
 
 }

@@ -372,8 +372,14 @@
   <select id="findWithUsername" parameterType="java.lang.Integer" resultType="net.industryhive.been.wrap.WrapTopic">
       select topic.*,user.username from topic,user where topic.id=#{id} and topic.user_id=user.id
   </select>
+  <select id="selectByPrimaryKeyForUpdate" parameterType="java.lang.Integer" resultType="net.industryhive.bean.Topic">
+      select id,replyCount from topic where id=#{id} for update;
+  </select>
   <update id="updateViewCountByPrimaryKey" parameterType="java.lang.Integer">
-        update topic set viewCount=viewCount+1 where id=#{id}
+      update topic set viewCount=viewCount+1 where id=#{id}
+  </update>
+  <update id="updateReplyCountByPrimaryKey" parameterType="java.lang.Integer">
+      update topic set replyCount=replyCount+1 where id=#{id}
   </update>
   <!--============================================================================================-->
 </mapper>

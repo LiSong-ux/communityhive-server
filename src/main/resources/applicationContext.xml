@@ -60,22 +60,25 @@
         <property name="dataSource" ref="pooledDataSource"></property>
     </bean>
 
+    <!-- tx:annotation-driven 启用@Transactional 注解 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
     <!-- 开启基于注解的事务，使用xml配置形式的事务（主要的都是使用配置式） -->
-    <aop:config>
-        <!-- 切入点表达式 -->
+    <!--<aop:config>
+        &lt;!&ndash; 切入点表达式 &ndash;&gt;
         <aop:pointcut expression="execution(* net.industryhive.service..*(..))" id="txPoint"/>
-        <!-- 配置事务增强 -->
+        &lt;!&ndash; 配置事务增强 &ndash;&gt;
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
     </aop:config>
 
-    <!-- 配置事务增强，事务如何切入 -->
+    &lt;!&ndash; 配置事务增强，事务如何切入 &ndash;&gt;
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <!-- 所有方法都是事务方法 -->
+            &lt;!&ndash; 所有方法都是事务方法 &ndash;&gt;
             <tx:method name="*"/>
-            <!-- 以get开始的所有方法，都是查询，可以调优 -->
-            <!--<tx:method name="get*" read-only="true"/>-->
+            &lt;!&ndash; 以get开始的所有方法，都是查询，可以调优 &ndash;&gt;
+            &lt;!&ndash;<tx:method name="get*" read-only="true"/>&ndash;&gt;
         </tx:attributes>
-    </tx:advice>
+    </tx:advice>-->
 
 </beans>

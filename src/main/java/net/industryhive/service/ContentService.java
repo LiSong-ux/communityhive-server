@@ -10,6 +10,7 @@ import net.industryhive.dao.ReplyMapper;
 import net.industryhive.dao.TopicMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -90,14 +91,15 @@ public class ContentService {
      *
      * @param newReply
      */
+    @Transactional
     public void addReply(Reply newReply) {
-        Topic topic = topicMapper.selectByPrimaryKey(newReply.getTopicId());
+        Topic topic = topicMapper.selectByPrimaryKeyForUpdate(newReply.getTopicId());
         int replyCount = topic.getReplycount();
 
         newReply.setFloor(replyCount + 1);
         replyMapper.insertSelective(newReply);
 
-        topic.setReplycount(replyCount + 1);
-        topicMapper.updateByPrimaryKeySelective(topic);
+//        topic.setReplycount(replyCount + 1);
+        topicMapper.updateReplyCountByPrimaryKey(topic.getId());
     }
 }
