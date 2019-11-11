@@ -91,7 +91,7 @@ public class ContentService {
      *
      * @param newReply
      */
-    @Transactional
+    @Transactional(timeout = 5)
     public void addReply(Reply newReply) {
         Topic topic = topicMapper.selectByPrimaryKeyForUpdate(newReply.getTopicId());
         int replyCount = topic.getReplycount();
