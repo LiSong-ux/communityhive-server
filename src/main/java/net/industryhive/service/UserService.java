@@ -34,11 +34,24 @@ public class UserService {
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andAccountEqualTo(account);
-        List<User> listUser = userMapper.selectByExample(example);
-        if (listUser.isEmpty()) {
+        List<User> userList = userMapper.selectByExample(example);
+        if (userList.isEmpty()) {
             return null;
         }
-        User user = listUser.get(0);
+        User user = userList.get(0);
+        return user;
+    }
+
+    //根据邮箱获取用户
+    public User getUserByEmail(String email) {
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andEmailEqualTo(email);
+        List<User> userList = userMapper.selectByExample(example);
+        if (userList.isEmpty()) {
+            return null;
+        }
+        User user = userList.get(0);
         return user;
     }
 

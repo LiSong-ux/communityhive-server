@@ -118,6 +118,11 @@ public class UserController {
             return UnifiedResult.build(400, "邮箱格式错误", null);
         }
 
+        User emailVali = userService.getUserByEmail(email);
+        if (emailVali != null) {
+            return UnifiedResult.build(400, "该邮箱已被绑定，无法注册", null);
+        }
+
         // 生成6位随机验证码
         String code = "";
         Random random = new Random();
