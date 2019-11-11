@@ -99,7 +99,6 @@ public class ContentService {
         newReply.setFloor(replyCount + 1);
         replyMapper.insertSelective(newReply);
 
-//        topic.setReplycount(replyCount + 1);
         topicMapper.updateReplyCountByPrimaryKey(topic.getId());
     }
 }
