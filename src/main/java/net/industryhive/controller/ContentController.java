@@ -122,14 +122,15 @@ public class ContentController {
      */
     @RequestMapping("/topic")
     @ResponseBody
-    public UnifiedResult getTopic(Integer id) {
-        if (id == null) {
+    public UnifiedResult getTopic(Integer id, Integer page) {
+        if (id == null || page==null) {
             return UnifiedResult.build(400, "参数错误", null);
         }
         Map<String, Object> topicMap = new HashMap<>();
 
         WrapTopic wrapTopic = contentService.getWrapTopic(id);
-        List<WrapReply> wrapReplyList = contentService.getWrapReplyList(id);
+        List<WrapReply> wrapReplyList = contentService.getWrapReplyList(id, page);
+        long replyCount = contentService.getReplyCountByTopicId(id);
         for (WrapReply wrapReply : wrapReplyList) {
             if (wrapReply.getQuote() != 0) {
                 wrapReply.setQuoteIndex(wrapReply.getQuote() - 1);
@@ -138,6 +139,7 @@ public class ContentController {
 
         topicMap.put("topic", wrapTopic);
         topicMap.put("replyList", wrapReplyList);
+        topicMap.put("replyCount", replyCount);
         return UnifiedResult.ok(topicMap);
     }
 

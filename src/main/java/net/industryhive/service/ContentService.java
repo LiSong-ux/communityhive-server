@@ -54,7 +54,7 @@ public class ContentService {
 
 
     public List<WrapTopic> getWrapTopicList(Integer page) {
-        int startRow = (page - 1) * 10;
+        int startRow = (page - 1) * 45;
         List<WrapTopic> wrapTopicList = topicMapper.findListWithUsername(startRow);
         return wrapTopicList;
     }
@@ -66,9 +66,18 @@ public class ContentService {
         return topicCount;
     }
 
+    public long getReplyCountByTopicId(int topicId) {
+        ReplyExample example = new ReplyExample();
+        ReplyExample.Criteria criteria = example.createCriteria();
+        criteria.andTopicIdEqualTo(topicId);
+        long replyCount = replyMapper.countByExample(example);
+        return replyCount;
+    }
 
-    public List<WrapReply> getWrapReplyList(int topicId) {
-        List<WrapReply> wrapReplyList = replyMapper.findWithUsername(topicId);
+
+    public List<WrapReply> getWrapReplyList(int topicId, int page) {
+        int startRow = (page - 1) * 10;
+        List<WrapReply> wrapReplyList = replyMapper.findWithUsername(topicId, startRow);
         return wrapReplyList;
     }
 
