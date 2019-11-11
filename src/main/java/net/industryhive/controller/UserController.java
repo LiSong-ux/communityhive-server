@@ -68,9 +68,10 @@ public class UserController {
             return UnifiedResult.build(400, "未知选项", null);
         }
         //验证邮箱验证码
-        if (newUser.getEmailCode() != request.getSession().getAttribute("emailCode")) {
+        if (!newUser.getEmailCode().equals(request.getSession().getAttribute("emailCode"))) {
             return UnifiedResult.build(400, "验证码错误", null);
         }
+        request.getSession().setAttribute("emailCode", null);
 
         User accountVali = userService.getUserByAccount(newUser.getAccount());
         if (accountVali != null) {
@@ -109,11 +110,19 @@ public class UserController {
         if (emailCode != null) {
             return UnifiedResult.build(400, "请不要频繁获取验证码", null);
         }
+
+        String regEmail = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
+        Pattern patternEmail = Pattern.compile(regEmail);
+        Matcher matcherEmail = patternEmail.matcher(email);
+        if (!matcherEmail.matches()) {
+            return UnifiedResult.build(400, "邮箱格式错误", null);
+        }
+
         // 生成6位随机验证码
         String code = "";
         Random random = new Random();
         for (int i = 0; i < 6; i++) {
-            int r = random.nextInt();
+            int r = random.nextInt(10);
             code = code + r;
         }
         // 发送邮箱验证码
