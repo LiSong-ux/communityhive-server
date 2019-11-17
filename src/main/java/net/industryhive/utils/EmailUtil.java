@@ -40,6 +40,10 @@ public class EmailUtil {
         Properties properties = new Properties();
         properties.setProperty("mail.smtp.timeout", timeout);
         properties.setProperty("mail.smtp.auth", "false");
+        properties.setProperty("mail.smtp.port", Integer.toString(PORT));//设置端口
+        properties.setProperty("mail.smtp.socketFactory.port", Integer.toString(PORT));//设置ssl端口
+        properties.setProperty("mail.smtp.socketFactory.fallback", "false");
+        properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         sender.setJavaMailProperties(properties);
         return sender;
     }

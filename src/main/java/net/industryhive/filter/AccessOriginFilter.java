@@ -30,17 +30,25 @@ public class AccessOriginFilter implements Filter {
         Set allowOrigins = new HashSet(Arrays.asList(allowDomains));
 
         //获取发起当前请求的域名
-        String originHeads = req.getHeader("Origin");
+//        String originHeads = req.getHeader("Origin");
 
         // 判断发起当前请求的域名 是否包含在允许访问当前服务的域名之内
-        if (allowOrigins.contains(originHeads)) {
-            //设置允许跨域的配置
-            // 这里填写你允许进行跨域的主机ip（正式上线时可以动态配置具体允许的域名和IP）
-            rep.setHeader("Access-Control-Allow-Origin", originHeads);
-            // 允许携带cookie跨域
-            rep.setHeader("Access-Control-Allow-Credentials", "true");
-            chain.doFilter(request, response);
-        }
+//        if (allowOrigins.contains(originHeads)) {
+//            //设置允许跨域的配置
+//            // 这里填写你允许进行跨域的主机ip（正式上线时可以动态配置具体允许的域名和IP）
+//            rep.setHeader("Access-Control-Allow-Origin", originHeads);
+//            // 允许携带cookie跨域
+//            rep.setHeader("Access-Control-Allow-Credentials", "true");
+//            chain.doFilter(request, response);
+//        }
+
+        //设置允许跨域的配置
+        // 这里填写你允许进行跨域的主机ip（正式上线时可以动态配置具体允许的域名和IP），允许所有ip访问
+        rep.setHeader("Access-Control-Allow-Origin", req.getHeader("origin"));
+        // 允许携带cookie跨域
+        rep.setHeader("Access-Control-Allow-Credentials", "true");
+        chain.doFilter(request, response);
+
     }
 
     @Override
