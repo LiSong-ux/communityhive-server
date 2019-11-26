@@ -110,8 +110,8 @@ public class ContentController {
 
         newReply.setUserId(user.getId());
         newReply.setSubmittime(new Date());
-        contentService.addReply(newReply);
-        return UnifiedResult.ok();
+        UnifiedResult result = contentService.addReply(newReply);
+        return result;
     }
 
     /**

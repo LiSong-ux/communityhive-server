@@ -8,6 +8,7 @@ import net.industryhive.been.wrap.WrapReply;
 import net.industryhive.been.wrap.WrapTopic;
 import net.industryhive.dao.ReplyMapper;
 import net.industryhive.dao.TopicMapper;
+import net.industryhive.utils.UnifiedResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,7 +49,8 @@ public class ContentService {
      */
     public WrapTopic getWrapTopic(int id) {
         WrapTopic wrapTopic = topicMapper.findWithUsername(id);
-        if (wrapTopic.getDeleted() == true) {
+        //如果帖子已被删除，则返回空
+        if (wrapTopic.getDeleted()) {
             return null;
         }
         topicMapper.updateViewCountByPrimaryKey(wrapTopic.getId());
@@ -104,13 +106,23 @@ public class ContentService {
      * @param newReply
      */
     @Transactional(timeout = 5)
-    public void addReply(Reply newReply) {
+    public UnifiedResult addReply(Reply newReply) {
         Topic topic = topicMapper.selectByPrimaryKeyForUpdate(newReply.getTopicId());
+        //如果帖子被锁定，则禁止回复
+        if (topic.getDeleted()) {
+            return UnifiedResult.build(400, "帖子不存在", null);
+        }
+        //如果帖子被删除，则禁止回复
+        if (topic.getLocked()) {
+            return UnifiedResult.build(400, "帖子已被锁定，无法回复", null);
+        }
+
         int replyCount = topic.getReplycount();
 
         newReply.setFloor(replyCount + 1);
         replyMapper.insertSelective(newReply);
 
         topicMapper.updateReplyCountByPrimaryKey(topic.getId());
+        return UnifiedResult.ok();
     }
 }
