@@ -123,12 +123,15 @@ public class ContentController {
     @RequestMapping("/topic")
     @ResponseBody
     public UnifiedResult getTopic(Integer id, Integer page) {
-        if (id == null || page==null) {
+        if (id == null || page == null) {
             return UnifiedResult.build(400, "参数错误", null);
         }
         Map<String, Object> topicMap = new HashMap<>();
 
         WrapTopic wrapTopic = contentService.getWrapTopic(id);
+        if (wrapTopic == null) {
+            return UnifiedResult.build(400, "帖子不存在", null);
+        }
         List<WrapReply> wrapReplyList = contentService.getWrapReplyList(id, page);
         long replyCount = contentService.getReplyCountByTopicId(id);
         for (WrapReply wrapReply : wrapReplyList) {

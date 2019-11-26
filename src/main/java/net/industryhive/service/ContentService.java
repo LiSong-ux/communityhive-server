@@ -48,6 +48,9 @@ public class ContentService {
      */
     public WrapTopic getWrapTopic(int id) {
         WrapTopic wrapTopic = topicMapper.findWithUsername(id);
+        if (wrapTopic.getDeleted() == true) {
+            return null;
+        }
         topicMapper.updateViewCountByPrimaryKey(wrapTopic.getId());
         return wrapTopic;
     }
