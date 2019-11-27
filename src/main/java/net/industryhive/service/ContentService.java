@@ -57,14 +57,21 @@ public class ContentService {
         return wrapTopic;
     }
 
-
+    /**
+     * 获取包装帖子列表
+     * @param page
+     * @return
+     */
     public List<WrapTopic> getWrapTopicList(Integer page) {
         int startRow = (page - 1) * 45;
         List<WrapTopic> wrapTopicList = topicMapper.findListWithUsername(startRow);
         return wrapTopicList;
     }
 
-
+    /**
+     * 获取帖子数量
+     * @return
+     */
     public long getTopicCount() {
         TopicExample example = new TopicExample();
         long topicCount = topicMapper.countByExample(example);
@@ -79,7 +86,12 @@ public class ContentService {
         return replyCount;
     }
 
-
+    /**
+     * 获取帖子回复列表
+     * @param topicId
+     * @param page
+     * @return
+     */
     public List<WrapReply> getWrapReplyList(int topicId, int page) {
         int startRow = (page - 1) * 50;
         List<WrapReply> wrapReplyList = replyMapper.findWithUsername(topicId, startRow);
@@ -108,11 +120,11 @@ public class ContentService {
     @Transactional(timeout = 5)
     public UnifiedResult addReply(Reply newReply) {
         Topic topic = topicMapper.selectByPrimaryKeyForUpdate(newReply.getTopicId());
-        //如果帖子被锁定，则禁止回复
-        if (topic.getDeleted()) {
+        //如果帖子不存在或已被删除，则禁止回复
+        if (topic == null || topic.getDeleted()) {
             return UnifiedResult.build(400, "帖子不存在", null);
         }
-        //如果帖子被删除，则禁止回复
+        //如果帖子被锁定，则禁止回复
         if (topic.getLocked()) {
             return UnifiedResult.build(400, "帖子已被锁定，无法回复", null);
         }
