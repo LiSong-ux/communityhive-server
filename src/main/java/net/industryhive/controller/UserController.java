@@ -32,6 +32,12 @@ public class UserController {
     @Autowired
     private LoginService loginService;
 
+    /**
+     * 用户注册
+     * @param request
+     * @param newUser
+     * @return
+     */
     @RequestMapping("/register")
     @ResponseBody
     public UnifiedResult register(HttpServletRequest request, WrapUser newUser) {
@@ -103,6 +109,12 @@ public class UserController {
         return UnifiedResult.ok(user);
     }
 
+    /**
+     * 发送邮箱验证码
+     * @param session
+     * @param email
+     * @return
+     */
     @RequestMapping("/getEmailCode")
     @ResponseBody
     public UnifiedResult getEmailCode(HttpSession session, String email) {
@@ -138,11 +150,18 @@ public class UserController {
             e.printStackTrace();
             return UnifiedResult.build(500, "发送验证码失败，请再次尝试...", null);
         }
+        //将邮箱验证码保存到session中
         session.setAttribute("emailCode", code);
+        //设置验证码的有效期为10分钟
         session.setMaxInactiveInterval(600);
         return UnifiedResult.ok();
     }
 
+    /**
+     * 用户登录
+     * @param request
+     * @return
+     */
     @RequestMapping("/login")
     @ResponseBody
     public UnifiedResult login(HttpServletRequest request) {
@@ -172,7 +191,7 @@ public class UserController {
         newLogin.setIp(request.getRemoteAddr());
         newLogin.setUserId(user.getId());
         newLogin.setTime(new Date());
-
+        //记录用户登录终端
         String terminal = request.getParameter("terminal");
         newLogin.setTerminal(terminal);
 
