@@ -134,11 +134,11 @@ public class ContentController {
         }
         List<WrapReply> wrapReplyList = contentService.getWrapReplyList(id, page);
         long replyCount = contentService.getReplyCountByTopicId(id);
-        for (WrapReply wrapReply : wrapReplyList) {
-            if (wrapReply.getQuote() != 0) {
-                wrapReply.setQuoteIndex(wrapReply.getQuote() - 1);
-            }
-        }
+//        for (WrapReply wrapReply : wrapReplyList) {
+//            if (wrapReply.getQuote() != 0) {
+//                wrapReply.setQuoteIndex(wrapReply.getQuote() - 1);
+//            }
+//        }
 
         topicMap.put("topic", wrapTopic);
         topicMap.put("replyList", wrapReplyList);
