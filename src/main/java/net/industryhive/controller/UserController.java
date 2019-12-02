@@ -1,5 +1,6 @@
 package net.industryhive.controller;
 
+import cn.hutool.core.date.DateUtil;
 import net.industryhive.bean.Login;
 import net.industryhive.bean.User;
 import net.industryhive.been.wrap.WrapUser;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,7 +36,15 @@ public class UserController {
     private LoginService loginService;
 
     /**
+     * 用来存储发送过验证码的邮箱账号和发送时间
+     * 如果验证码发送时间在两分钟之前了，可以再次发送验证码
+     * 否则不允许发送验证码
+     */
+    private Map<String, Date> emailMap = new HashMap<>();
+
+    /**
      * 用户注册
+     *
      * @param request
      * @param newUser
      * @return
@@ -111,6 +122,7 @@ public class UserController {
 
     /**
      * 发送邮箱验证码
+     *
      * @param session
      * @param email
      * @return
@@ -118,8 +130,12 @@ public class UserController {
     @RequestMapping("/getEmailCode")
     @ResponseBody
     public UnifiedResult getEmailCode(HttpSession session, String email) {
-        String emailCode = (String) session.getAttribute("emailCode");
-        if (emailCode != null) {
+//        String emailCode = (String) session.getAttribute("emailCode");
+//        if (emailCode != null) {
+//            return UnifiedResult.build(400, "请不要频繁获取验证码", null);
+//        }
+        Date date = emailMap.get(email);
+        if (date != null && DateUtil.betweenMs(date, new Date()) < 120000) {
             return UnifiedResult.build(400, "请不要频繁获取验证码", null);
         }
 
@@ -150,6 +166,10 @@ public class UserController {
             e.printStackTrace();
             return UnifiedResult.build(500, "发送验证码失败，请再次尝试...", null);
         }
+
+        //将邮箱账号和发送时间保存到Map中
+        emailMap.put(email, new Date());
+
         //将邮箱验证码保存到session中
         session.setAttribute("emailCode", code);
         //设置验证码的有效期为10分钟
@@ -159,6 +179,7 @@ public class UserController {
 
     /**
      * 用户登录
+     *
      * @param request
      * @return
      */

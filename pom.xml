@@ -153,5 +153,13 @@
             <version>4.0.4.RELEASE</version>
         </dependency>
 
+        <!--Java时间计算工具包-->
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>4.6.13</version>
+        </dependency>
+
     </dependencies>
 </project>
