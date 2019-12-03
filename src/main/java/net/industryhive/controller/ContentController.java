@@ -93,6 +93,8 @@ public class ContentController {
             return UnifiedResult.build(400, "请登录后再回复！", null);
         }
 
+        //对回复内容进行校验，替换富文本编辑器自动添加的html字符为空字符串
+        //如果替换后的内容长度为0，则返回错误信息
         String validate = newReply.getContent();
         String validateA = validate.replaceAll(" ", "");
         String validateB = validateA.replaceAll("<p>", "");
@@ -103,7 +105,7 @@ public class ContentController {
             return UnifiedResult.build(400, "回复内容不能为空！", null);
         }
 
-
+        //对回复内容长度进行校验，如果内容长度超过11264，则返回错误信息
         if (newReply.getContent().length() > 11264) {
             return UnifiedResult.build(400, "回复的长度不得超过11000个字符", null);
         }
@@ -134,6 +136,7 @@ public class ContentController {
         }
         List<WrapReply> wrapReplyList = contentService.getWrapReplyList(id, page);
         long replyCount = contentService.getReplyCountByTopicId(id);
+        //遍历回复列表，如果回复已被删除，则将内容替换为“该回复以被删除”
         for (WrapReply wrapReply : wrapReplyList) {
             if (wrapReply.getDeleted()) {
                 wrapReply.setContent("<p style='font-style:oblique'>该回复已被删除</p>");

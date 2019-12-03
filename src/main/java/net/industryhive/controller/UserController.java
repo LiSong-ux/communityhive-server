@@ -188,7 +188,7 @@ public class UserController {
     public UnifiedResult login(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        // 先判断用户是否已经登录
+        //先判断用户是否已经登录
         if (session.getAttribute("user") != null) {
             return UnifiedResult.build(400, "用户已登录", null);
         }
