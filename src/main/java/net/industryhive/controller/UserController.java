@@ -7,7 +7,7 @@ import net.industryhive.been.wrap.WrapUser;
 import net.industryhive.service.LoginService;
 import net.industryhive.service.UserService;
 import net.industryhive.utils.EmailUtil;
-import net.industryhive.utils.UnifiedResult;
+import net.industryhive.entity.UnifiedResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

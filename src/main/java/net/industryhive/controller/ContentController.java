@@ -6,7 +6,7 @@ import net.industryhive.bean.User;
 import net.industryhive.been.wrap.WrapReply;
 import net.industryhive.been.wrap.WrapTopic;
 import net.industryhive.service.ContentService;
-import net.industryhive.utils.UnifiedResult;
+import net.industryhive.entity.UnifiedResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

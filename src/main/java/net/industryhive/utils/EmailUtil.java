@@ -1,5 +1,6 @@
 package net.industryhive.utils;
 
+import net.industryhive.entity.Email;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 

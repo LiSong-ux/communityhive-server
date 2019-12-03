@@ -8,7 +8,7 @@ import net.industryhive.been.wrap.WrapReply;
 import net.industryhive.been.wrap.WrapTopic;
 import net.industryhive.dao.ReplyMapper;
 import net.industryhive.dao.TopicMapper;
-import net.industryhive.utils.UnifiedResult;
+import net.industryhive.entity.UnifiedResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

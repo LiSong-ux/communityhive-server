@@ -1,4 +1,4 @@
-package net.industryhive.utils;
+package net.industryhive.entity;
 
 /**
  * 蜂巢社区自定义响应结构
