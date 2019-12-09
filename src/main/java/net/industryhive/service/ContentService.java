@@ -12,6 +12,7 @@ import net.industryhive.entity.UnifiedResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -59,6 +60,7 @@ public class ContentService {
 
     /**
      * 获取包装帖子列表
+     *
      * @param page
      * @return
      */
@@ -70,6 +72,7 @@ public class ContentService {
 
     /**
      * 获取帖子数量
+     *
      * @return
      */
     public long getTopicCount() {
@@ -88,6 +91,7 @@ public class ContentService {
 
     /**
      * 获取帖子回复列表
+     *
      * @param topicId
      * @param page
      * @return
@@ -134,6 +138,13 @@ public class ContentService {
         if (topic.getLocked()) {
             return UnifiedResult.build(400, "帖子已被锁定，无法回复", null);
         }
+        //如果引用的回复不存在，则禁止回复
+        if (newReply.getQuote() != 0) {
+            Reply quoteReply = getReplyByTopicIdAndFloor(newReply.getTopicId(), newReply.getQuote());
+            if (quoteReply == null) {
+                return UnifiedResult.build(400, "引用的回复不存在", null);
+            }
+        }
 
         int replyCount = topic.getReplycount();
 
@@ -142,5 +153,17 @@ public class ContentService {
 
         topicMapper.updateReplyCountByPrimaryKey(topic.getId());
         return UnifiedResult.ok();
+    }
+
+    public Reply getReplyByTopicIdAndFloor(int topicId, int floor) {
+        ReplyExample example = new ReplyExample();
+        ReplyExample.Criteria criteria = example.createCriteria();
+        criteria.andTopicIdEqualTo(topicId);
+        criteria.andFloorEqualTo(floor);
+        List<Reply> replyList = replyMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(replyList)) {
+            return null;
+        }
+        return replyList.get(0);
     }
 }
