@@ -37,7 +37,7 @@ public class UserController {
 
     /**
      * 用来存储发送过验证码的邮箱账号和发送时间
-     * 如果验证码发送时间在两分钟之前了，可以再次发送验证码
+     * 如果验证码发送时间在两分钟之前，可以再次发送验证码
      * 否则不允许发送验证码
      */
     private Map<String, Date> emailMap = new HashMap<>();

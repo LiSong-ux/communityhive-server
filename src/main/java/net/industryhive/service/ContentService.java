@@ -95,6 +95,12 @@ public class ContentService {
     public List<WrapReply> getWrapReplyList(int topicId, int page) {
         int startRow = (page - 1) * 50;
         List<WrapReply> wrapReplyList = replyMapper.findWithUsername(topicId, startRow);
+        //遍历回复列表，如果回复已被删除，则将内容替换为“该回复以被删除”
+        for (WrapReply wrapReply : wrapReplyList) {
+            if (wrapReply.getDeleted()) {
+                wrapReply.setContent("<p style='font-style:oblique'>该回复已被删除</p>");
+            }
+        }
         return wrapReplyList;
     }
 

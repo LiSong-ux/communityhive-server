@@ -136,12 +136,6 @@ public class ContentController {
         }
         List<WrapReply> wrapReplyList = contentService.getWrapReplyList(id, page);
         long replyCount = contentService.getReplyCountByTopicId(id);
-        //遍历回复列表，如果回复已被删除，则将内容替换为“该回复以被删除”
-        for (WrapReply wrapReply : wrapReplyList) {
-            if (wrapReply.getDeleted()) {
-                wrapReply.setContent("<p style='font-style:oblique'>该回复已被删除</p>");
-            }
-        }
 
         topicMap.put("topic", wrapTopic);
         topicMap.put("replyList", wrapReplyList);
