@@ -1,8 +1,8 @@
 /*
-SQLyog Ultimate v12.09 (64 bit)
+SQLyog Ultimate v12.4.1 (64 bit)
 MySQL - 5.7.28 : Database - communityhive_3u0
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -51,7 +51,8 @@ CREATE TABLE `authority` (
 
 /*Data for the table `authority` */
 
-insert  into `authority`(`id`,`banAccount`,`banSubmitTopic`,`banSubmitReply`,`banMessage`,`deleteTopic`,`deleteReply`,`lockTopic`) values (1,0,0,0,0,0,0,0);
+insert  into `authority`(`id`,`banAccount`,`banSubmitTopic`,`banSubmitReply`,`banMessage`,`deleteTopic`,`deleteReply`,`lockTopic`) values 
+(1,0,0,0,0,0,0,0);
 
 /*Table structure for table `login` */
 
@@ -121,9 +122,9 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键自增',
-  `account` varchar(32) NOT NULL COMMENT '账号',
+  `account` varchar(20) NOT NULL COMMENT '账号',
   `password` varchar(32) NOT NULL COMMENT '密码',
-  `username` varchar(24) NOT NULL COMMENT '用户名',
+  `username` varchar(12) NOT NULL COMMENT '用户名',
   `countryCode` varchar(8) NOT NULL DEFAULT '+86' COMMENT '国际电话区号',
   `mobile` varchar(11) NOT NULL DEFAULT '00000000000' COMMENT '手机号',
   `email` varchar(48) NOT NULL COMMENT '邮箱',
