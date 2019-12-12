@@ -52,21 +52,25 @@ public class UserController {
     @RequestMapping("/register")
     @ResponseBody
     public UnifiedResult register(HttpServletRequest request, WrapUser newUser) {
-        String regAccount = "^[a-zA-Z]([-_a-zA-Z0-9]{8,31})$";
+        String regAccount = "^[a-zA-Z]([-_a-zA-Z0-9]{8,19})$";
+        String regUsername = "^[a-zA-Z0-9_\\u4e00-\\u9fa5]{2,12}$";
         String regEmail = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
 //        String regMobile = "^1[34578]\\d{9}$";
 
-        Pattern pattern = Pattern.compile(regAccount);
-        Matcher matcher = pattern.matcher(newUser.getAccount());
-        if (!matcher.matches()) {
-            return UnifiedResult.build(400, "账号必须以英文字母开头，为字母、数字、下划线和中划线的组合，长度不得低于9位不得超过32位", null);
+        Pattern patternAccount = Pattern.compile(regAccount);
+        Matcher matcherAccount = patternAccount.matcher(newUser.getAccount());
+        if (!matcherAccount.matches()) {
+            return UnifiedResult.build(400, "账号必须以英文字母开头，为字母、数字、下划线和中划线的组合，长度不得低于9位不得超过20位", null);
         }
 
         if (newUser.getPassword().length() < 9 || newUser.getPassword().length() > 32) {
             return UnifiedResult.build(400, "密码长度不得低于9位且不得超过32位", null);
         }
-        if (newUser.getUsername().length() < 2 || newUser.getUsername().length() > 12) {
-            return UnifiedResult.build(400, "用户名长度不得低于2位且不得超过12位", null);
+
+        Pattern patternUsername = Pattern.compile(regUsername);
+        Matcher matcherUsername = patternUsername.matcher(newUser.getUsername());
+        if (!matcherUsername.matches()) {
+            return UnifiedResult.build(400, "用户名为汉字、字母、数字的组合且长度为2至12位", null);
         }
 
 //        Pattern patternMobile = Pattern.compile(regMobile);
