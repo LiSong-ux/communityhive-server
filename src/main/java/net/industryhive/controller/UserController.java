@@ -65,8 +65,8 @@ public class UserController {
         if (newUser.getPassword().length() < 9 || newUser.getPassword().length() > 32) {
             return UnifiedResult.build(400, "密码长度不得低于9位且不得超过32位", null);
         }
-        if (newUser.getUsername().length() < 2 || newUser.getUsername().length() > 24) {
-            return UnifiedResult.build(400, "用户名长度不得低于2位且不得超过24位", null);
+        if (newUser.getUsername().length() < 2 || newUser.getUsername().length() > 12) {
+            return UnifiedResult.build(400, "用户名长度不得低于2位且不得超过12位", null);
         }
 
 //        Pattern patternMobile = Pattern.compile(regMobile);
