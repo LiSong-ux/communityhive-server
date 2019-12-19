@@ -7,6 +7,7 @@ import net.industryhive.been.wrap.WrapReply;
 import net.industryhive.been.wrap.WrapTopic;
 import net.industryhive.service.ContentService;
 import net.industryhive.entity.UnifiedResult;
+import net.industryhive.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,9 @@ public class ContentController {
 
     @Autowired
     private ContentService contentService;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * 发帖
@@ -75,6 +79,12 @@ public class ContentController {
         newTopic.setUserId(user.getId());
         newTopic.setSubmittime(new Date());
         Topic topic = contentService.addTopic(newTopic);
+
+        //从数据库中获取最新的用户数据，将用户发帖数量+1后存入数据库
+        User userForUpdate = userService.getUser(user.getId());
+        userForUpdate.setTopiccount(userForUpdate.getTopiccount()+1);
+        userService.updateUser(userForUpdate);
+
         return UnifiedResult.ok(topic.getId());
     }
 

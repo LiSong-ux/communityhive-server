@@ -462,4 +462,9 @@
       introduction = #{introduction,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!--===============================================================================================================-->
+  <update id="updateTopicCountByPrimaryKey" parameterType="java.lang.Integer">
+      update user set topicCount=topicCount+1 where id=#{id}
+  </update>
+  <!--===============================================================================================================-->
 </mapper>

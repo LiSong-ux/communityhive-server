@@ -1,13 +1,11 @@
 package net.industryhive.service;
 
-import net.industryhive.bean.Reply;
-import net.industryhive.bean.ReplyExample;
-import net.industryhive.bean.Topic;
-import net.industryhive.bean.TopicExample;
+import net.industryhive.bean.*;
 import net.industryhive.been.wrap.WrapReply;
 import net.industryhive.been.wrap.WrapTopic;
 import net.industryhive.dao.ReplyMapper;
 import net.industryhive.dao.TopicMapper;
+import net.industryhive.dao.UserMapper;
 import net.industryhive.entity.UnifiedResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +29,19 @@ public class ContentService {
     @Autowired
     private ReplyMapper replyMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
+    /**
+     * 发帖
+     * @param newTopic
+     * @return
+     */
+    @Transactional(timeout = 5)
     public Topic addTopic(Topic newTopic) {
         topicMapper.insertSelective(newTopic);
+        //帖子作者的发帖量+1
+        userMapper.updateTopicCountByPrimaryKey(newTopic.getUserId());
         return getTopic(newTopic.getId());
     }
 

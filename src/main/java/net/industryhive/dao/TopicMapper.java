@@ -42,7 +42,7 @@ public interface TopicMapper {
 
     WrapTopic findWithUsername(Integer id);
 
-    Topic selectByPrimaryKeyForUpdate (int id);
+    Topic selectByPrimaryKeyForUpdate(int id);
 
     int updateViewCountByPrimaryKey(int id);
 
