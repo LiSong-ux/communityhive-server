@@ -80,11 +80,6 @@ public class ContentController {
         newTopic.setSubmittime(new Date());
         Topic topic = contentService.addTopic(newTopic);
 
-        //从数据库中获取最新的用户数据，将用户发帖数量+1后存入数据库
-        User userForUpdate = userService.getUser(user.getId());
-        userForUpdate.setTopiccount(userForUpdate.getTopiccount()+1);
-        userService.updateUser(userForUpdate);
-
         return UnifiedResult.ok(topic.getId());
     }
 

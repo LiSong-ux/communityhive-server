@@ -33,4 +33,6 @@ public interface UserMapper {
 
     int updateTopicCountByPrimaryKey(int id);
 
+    int updateReplyCountByPrimaryKey(int id);
+
 }

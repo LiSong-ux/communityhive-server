@@ -90,6 +90,11 @@ public class ContentService {
         return topicCount;
     }
 
+    /**
+     * 根据帖子ID获取该帖子的回复数量
+     * @param topicId
+     * @return
+     */
     public long getReplyCountByTopicId(int topicId) {
         ReplyExample example = new ReplyExample();
         ReplyExample.Criteria criteria = example.createCriteria();
@@ -99,7 +104,7 @@ public class ContentService {
     }
 
     /**
-     * 获取帖子回复列表
+     * 获取帖子包装类型回复列表
      *
      * @param topicId
      * @param page
@@ -156,11 +161,13 @@ public class ContentService {
         }
 
         int replyCount = topic.getReplycount();
-
         newReply.setFloor(replyCount + 1);
         replyMapper.insertSelective(newReply);
 
+        //帖子的回复数量+1
         topicMapper.updateReplyCountByPrimaryKey(topic.getId());
+        //作者的回复数量+1
+        userMapper.updateReplyCountByPrimaryKey(newReply.getUserId());
         return UnifiedResult.ok();
     }
 
