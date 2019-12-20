@@ -76,8 +76,11 @@ public class ContentController {
             return UnifiedResult.build(400, "帖子内容的长度不得超过16000个字符", null);
         }
 
+        //设置帖子作者id
         newTopic.setUserId(user.getId());
+        //设置发布时间
         newTopic.setSubmittime(new Date());
+        //将帖子写入数据库
         Topic topic = contentService.addTopic(newTopic);
 
         return UnifiedResult.ok(topic.getId());
@@ -115,8 +118,11 @@ public class ContentController {
             return UnifiedResult.build(400, "回复的长度不得超过11000个字符", null);
         }
 
+        //设置回复作者id
         newReply.setUserId(user.getId());
+        //设置发布时间
         newReply.setSubmittime(new Date());
+        //将回复写入数据库
         UnifiedResult result = contentService.addReply(newReply);
         return result;
     }
