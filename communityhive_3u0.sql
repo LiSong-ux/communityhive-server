@@ -1,8 +1,8 @@
 /*
-SQLyog Ultimate v12.4.1 (64 bit)
+SQLyog Ultimate v12.09 (64 bit)
 MySQL - 5.7.28 : Database - communityhive_3u0
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -51,8 +51,7 @@ CREATE TABLE `authority` (
 
 /*Data for the table `authority` */
 
-insert  into `authority`(`id`,`banAccount`,`banSubmitTopic`,`banSubmitReply`,`banMessage`,`deleteTopic`,`deleteReply`,`lockTopic`) values 
-(1,0,0,0,0,0,0,0);
+insert  into `authority`(`id`,`banAccount`,`banSubmitTopic`,`banSubmitReply`,`banMessage`,`deleteTopic`,`deleteReply`,`lockTopic`) values (1,0,0,0,0,0,0,0);
 
 /*Table structure for table `login` */
 
@@ -64,6 +63,7 @@ CREATE TABLE `login` (
   `user_id` int(11) NOT NULL COMMENT '用户账号',
   `time` datetime(6) NOT NULL COMMENT '登录时间',
   `terminal` varchar(255) NOT NULL COMMENT '登录终端',
+  `system` int(1) NOT NULL DEFAULT '0' COMMENT '登录系统',
   PRIMARY KEY (`id`),
   KEY `login_user_id` (`user_id`),
   CONSTRAINT `login_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
@@ -133,7 +133,7 @@ CREATE TABLE `user` (
   `bannedTopic` tinyint(1) NOT NULL DEFAULT '0' COMMENT '禁止发帖',
   `bannedReply` tinyint(1) NOT NULL DEFAULT '0' COMMENT '禁止回复',
   `bannedMessage` tinyint(1) NOT NULL DEFAULT '0' COMMENT '禁止私信',
-  `locded` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否封禁',
+  `locked` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否封禁',
   `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
   `topicCount` int(11) NOT NULL DEFAULT '0' COMMENT '发帖数量',
   `replyCount` int(11) NOT NULL DEFAULT '0' COMMENT '回复数量',
