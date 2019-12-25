@@ -1,6 +1,9 @@
 package net.industryhive.service;
 
-import net.industryhive.bean.*;
+import net.industryhive.bean.Reply;
+import net.industryhive.bean.ReplyExample;
+import net.industryhive.bean.Topic;
+import net.industryhive.bean.TopicExample;
 import net.industryhive.been.wrap.WrapReply;
 import net.industryhive.been.wrap.WrapTopic;
 import net.industryhive.dao.ReplyMapper;
