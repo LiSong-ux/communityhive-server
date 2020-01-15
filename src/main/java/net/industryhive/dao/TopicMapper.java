@@ -40,7 +40,7 @@ public interface TopicMapper {
 
     List<WrapTopic> findListWithUsername(int startRow);
 
-    WrapTopic findWithUsername(Integer id);
+    WrapTopic findWithUsername(int id);
 
     Topic selectByPrimaryKeyForUpdate(int id);
 
