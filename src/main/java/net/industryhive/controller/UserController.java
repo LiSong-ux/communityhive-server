@@ -3,7 +3,7 @@ package net.industryhive.controller;
 import cn.hutool.core.date.DateUtil;
 import net.industryhive.bean.Login;
 import net.industryhive.bean.User;
-import net.industryhive.been.wrap.WrapUser;
+import net.industryhive.bean.wrap.WrapUser;
 import net.industryhive.entity.UnifiedResult;
 import net.industryhive.service.LoginService;
 import net.industryhive.service.UserService;
