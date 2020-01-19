@@ -1,10 +1,9 @@
 package net.industryhive.dao;
 
+import java.util.List;
 import net.industryhive.bean.Notice;
 import net.industryhive.bean.NoticeExample;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 public interface NoticeMapper {
     long countByExample(NoticeExample example);
