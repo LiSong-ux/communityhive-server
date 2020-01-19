@@ -83,7 +83,6 @@ CREATE TABLE `notice` (
   `title` varchar(35) NOT NULL COMMENT '公告标题',
   `content` longtext NOT NULL COMMENT '公告内容',
   `position` int(11) NOT NULL COMMENT '公告位置',
-  `replyCount` int(11) NOT NULL DEFAULT '0' COMMENT '回复数量',
   `viewCount` int(11) NOT NULL DEFAULT '0' COMMENT '查看数量',
   `locked` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否锁定',
   `hided` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否隐藏',
