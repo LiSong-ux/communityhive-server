@@ -23,9 +23,11 @@ DROP TABLE IF EXISTS `notice`;
 CREATE TABLE `notice` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键自增',
   `user_id` int(11) NOT NULL COMMENT '作者ID',
-  `submitTime` datetime(6) NOT NULL COMMENT '发布时间',
+  `submitTime` datetime NOT NULL COMMENT '发布时间',
+  `lastUser_id` int(11) NOT NULL COMMENT '最后编辑',
+  `lastSubmitTime` datetime NOT NULL COMMENT '最后发表',
   `label` varchar(4) NOT NULL COMMENT '公告标签',
-  `title` varchar(36) NOT NULL COMMENT '公告标题',
+  `title` varchar(35) NOT NULL COMMENT '公告标题',
   `content` longtext NOT NULL COMMENT '公告内容',
   `position` int(11) NOT NULL COMMENT '公告位置',
   `viewCount` int(11) NOT NULL DEFAULT '0' COMMENT '查看数量',
