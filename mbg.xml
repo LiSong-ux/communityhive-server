@@ -51,6 +51,7 @@
         <table tableName="authority" domainObjectName="Authority"></table>
         <table tableName="access" domainObjectName="Access"></table>
         <table tableName="login" domainObjectName="Login"></table>
+        <table tableName="notice" domainObjectName="Notice"></table>
 
     </context>
 </generatorConfiguration>
