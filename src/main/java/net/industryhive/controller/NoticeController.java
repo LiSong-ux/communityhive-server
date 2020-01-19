@@ -15,7 +15,7 @@ public class NoticeController {
     @Autowired
     private NoticeService noticeService;
 
-    public UnifiedResult getNoticeList(){
+    public UnifiedResult getNoticeList() {
         return UnifiedResult.ok();
     }
 

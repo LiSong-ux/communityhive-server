@@ -1,5 +1,7 @@
 package net.industryhive.service;
 
+import net.industryhive.dao.NoticeMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class NoticeService {
 
-//    @Autowired
-//    private NoticeMapper noticeMapper;
+    @Autowired
+    private NoticeMapper noticeMapper;
 
 }

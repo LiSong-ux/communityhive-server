@@ -1,12 +1,14 @@
 package net.industryhive.bean.wrap;
 
+import net.industryhive.bean.Notice;
+
 import java.util.Date;
 
 /**
  * @author 未央
  * @create 2020-01-19 16:12
  */
-public class WrapNotice {
+public class WrapNotice extends Notice {
 
     private String username;
 
