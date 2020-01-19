@@ -1,5 +1,5 @@
 /*
-SQLyog Ultimate v12.09 (64 bit)
+SQLyog Ultimate v12.08 (64 bit)
 MySQL - 5.7.28 : Database - communityhive_3u0
 *********************************************************************
 */
@@ -70,6 +70,30 @@ CREATE TABLE `login` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `login` */
+
+/*Table structure for table `notice` */
+
+DROP TABLE IF EXISTS `notice`;
+
+CREATE TABLE `notice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键自增',
+  `user_id` int(11) NOT NULL COMMENT '作者ID',
+  `submitTime` datetime NOT NULL COMMENT '发布时间',
+  `label` varchar(4) NOT NULL COMMENT '公告标签',
+  `title` varchar(35) NOT NULL COMMENT '公告标题',
+  `content` longtext NOT NULL COMMENT '公告内容',
+  `position` int(11) NOT NULL COMMENT '公告位置',
+  `replyCount` int(11) NOT NULL DEFAULT '0' COMMENT '回复数量',
+  `viewCount` int(11) NOT NULL DEFAULT '0' COMMENT '查看数量',
+  `locked` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否锁定',
+  `hided` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否隐藏',
+  `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
+  PRIMARY KEY (`id`),
+  KEY `notice_user_id` (`user_id`),
+  CONSTRAINT `notice_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `notice` */
 
 /*Table structure for table `reply` */
 
