@@ -77,9 +77,9 @@ public class ContentController {
         }
 
         //设置帖子作者id
-        newTopic.setUserId(user.getId());
+        newTopic.setUser_id(user.getId());
         //设置发布时间
-        newTopic.setSubmittime(new Date());
+        newTopic.setSubmitTime(new Date());
         //将帖子写入数据库
         Topic topic = contentService.addTopic(newTopic);
 
@@ -119,9 +119,9 @@ public class ContentController {
         }
 
         //设置回复作者id
-        newReply.setUserId(user.getId());
+        newReply.setUser_id(user.getId());
         //设置发布时间
-        newReply.setSubmittime(new Date());
+        newReply.setSubmitTime(new Date());
         //将回复写入数据库
         UnifiedResult result = contentService.addReply(newReply);
         return result;

@@ -104,7 +104,7 @@ public class UserController {
             return UnifiedResult.build(400, "用户名已被注册", null);
         }
 
-        newUser.setRegistertime(new Date());
+        newUser.setRegisterTime(new Date());
         User user = userService.addUser(newUser);
 
         //用户登录
@@ -208,7 +208,7 @@ public class UserController {
         session.setAttribute("user", user);
 
         // 用户登录次数+1
-        user.setLogincount(user.getLogincount() + 1);
+        user.setLoginCount(user.getLoginCount() + 1);
         userService.updateUser(user);
 
         //记录用户登录ip、时间

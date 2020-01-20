@@ -44,7 +44,7 @@ public class ContentService {
     public Topic addTopic(Topic newTopic) {
         topicMapper.insertSelective(newTopic);
         //帖子作者的发帖量+1
-        userMapper.updateTopicCountByPrimaryKey(newTopic.getUserId());
+        userMapper.updateTopicCountByPrimaryKey(newTopic.getUser_id());
         return getTopic(newTopic.getId());
     }
 
@@ -101,7 +101,7 @@ public class ContentService {
     public long getReplyCountByTopicId(int topicId) {
         ReplyExample example = new ReplyExample();
         ReplyExample.Criteria criteria = example.createCriteria();
-        criteria.andTopicIdEqualTo(topicId);
+        criteria.andTopic_idEqualTo(topicId);
         long replyCount = replyMapper.countByExample(example);
         return replyCount;
     }
@@ -134,7 +134,7 @@ public class ContentService {
     public List<Reply> getReplyList(int topicId) {
         ReplyExample example = new ReplyExample();
         ReplyExample.Criteria criteria = example.createCriteria();
-        criteria.andTopicIdEqualTo(topicId);
+        criteria.andTopic_idEqualTo(topicId);
         List<Reply> replyList = replyMapper.selectByExampleWithBLOBs(example);
         return replyList;
     }
@@ -146,7 +146,7 @@ public class ContentService {
      */
     @Transactional(timeout = 5)
     public UnifiedResult addReply(Reply newReply) {
-        Topic topic = topicMapper.selectByPrimaryKeyForUpdate(newReply.getTopicId());
+        Topic topic = topicMapper.selectByPrimaryKeyForUpdate(newReply.getTopic_id());
         //如果帖子不存在或已被删除，则禁止回复
         if (topic == null || topic.getDeleted()) {
             return UnifiedResult.build(400, "帖子不存在", null);
@@ -157,27 +157,27 @@ public class ContentService {
         }
         //如果引用的回复不存在，则禁止回复
         if (newReply.getQuote() != 0) {
-            Reply quoteReply = getReplyByTopicIdAndFloor(newReply.getTopicId(), newReply.getQuote());
+            Reply quoteReply = getReplyByTopicIdAndFloor(newReply.getTopic_id(), newReply.getQuote());
             if (quoteReply == null) {
                 return UnifiedResult.build(400, "引用的回复不存在", null);
             }
         }
 
-        int replyCount = topic.getReplycount();
+        int replyCount = topic.getReplyCount();
         newReply.setFloor(replyCount + 1);
         replyMapper.insertSelective(newReply);
 
         //帖子的回复数量+1
         topicMapper.updateReplyCountByPrimaryKey(topic.getId());
         //作者的回复数量+1
-        userMapper.updateReplyCountByPrimaryKey(newReply.getUserId());
+        userMapper.updateReplyCountByPrimaryKey(newReply.getUser_id());
         return UnifiedResult.ok();
     }
 
     public Reply getReplyByTopicIdAndFloor(int topicId, int floor) {
         ReplyExample example = new ReplyExample();
         ReplyExample.Criteria criteria = example.createCriteria();
-        criteria.andTopicIdEqualTo(topicId);
+        criteria.andTopic_idEqualTo(topicId);
         criteria.andFloorEqualTo(floor);
         List<Reply> replyList = replyMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(replyList)) {
