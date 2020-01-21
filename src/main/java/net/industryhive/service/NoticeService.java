@@ -1,8 +1,11 @@
 package net.industryhive.service;
 
+import net.industryhive.bean.wrap.WrapNotice;
 import net.industryhive.dao.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 未央
@@ -13,5 +16,10 @@ public class NoticeService {
 
     @Autowired
     private NoticeMapper noticeMapper;
+
+    public List<WrapNotice> getWrapNoticeList() {
+        List<WrapNotice> wrapNoticeList = noticeMapper.findListWithUsername();
+        return wrapNoticeList;
+    }
 
 }

@@ -2,6 +2,7 @@ package net.industryhive.dao;
 
 import net.industryhive.bean.Notice;
 import net.industryhive.bean.NoticeExample;
+import net.industryhive.bean.wrap.WrapNotice;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -34,4 +35,9 @@ public interface NoticeMapper {
     int updateByPrimaryKeyWithBLOBs(Notice record);
 
     int updateByPrimaryKey(Notice record);
+
+    /******************************************************************************************************************/
+
+    List<WrapNotice> findListWithUsername();
+
 }

@@ -1,22 +1,28 @@
 package net.industryhive.controller;
 
+import net.industryhive.bean.wrap.WrapNotice;
 import net.industryhive.entity.UnifiedResult;
 import net.industryhive.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author 未央
  * @create 2020-01-19 16:02
  */
-@Controller
+@RestController
 public class NoticeController {
 
     @Autowired
     private NoticeService noticeService;
 
+    @RequestMapping("/noticeList")
     public UnifiedResult getNoticeList() {
-        return UnifiedResult.ok();
+        List<WrapNotice> wrapNoticeList = noticeService.getWrapNoticeList();
+        return UnifiedResult.ok(wrapNoticeList);
     }
 
 }

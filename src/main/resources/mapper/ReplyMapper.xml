@@ -74,13 +74,12 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    id, topic_id, user_id, submitTime, floor, quote, deleted
-  </sql>
+        id, topic_id, user_id, submitTime, floor, quote, deleted
+    </sql>
     <sql id="Blob_Column_List">
-    content
-  </sql>
-    <select id="selectByExampleWithBLOBs" parameterType="net.industryhive.bean.ReplyExample"
-            resultMap="ResultMapWithBLOBs">
+        content
+    </sql>
+    <select id="selectByExampleWithBLOBs" parameterType="net.industryhive.bean.ReplyExample" resultMap="ResultMapWithBLOBs">
         select
         <if test="distinct">
             distinct
@@ -119,9 +118,9 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from reply
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete from reply
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <delete id="deleteByExample" parameterType="net.industryhive.bean.ReplyExample">
         delete from reply
         <if test="_parameter != null">
@@ -129,13 +128,13 @@
         </if>
     </delete>
     <insert id="insert" parameterType="net.industryhive.bean.Reply">
-    insert into reply (id, topic_id, user_id,
-      submitTime, floor, quote,
-      deleted, content)
-    values (#{id,jdbcType=INTEGER}, #{topic_id,jdbcType=INTEGER}, #{user_id,jdbcType=INTEGER},
-      #{submitTime,jdbcType=TIMESTAMP}, #{floor,jdbcType=INTEGER}, #{quote,jdbcType=INTEGER},
-      #{deleted,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR})
-  </insert>
+        insert into reply (id, topic_id, user_id,
+        submitTime, floor, quote,
+        deleted, content)
+        values (#{id,jdbcType=INTEGER}, #{topic_id,jdbcType=INTEGER}, #{user_id,jdbcType=INTEGER},
+        #{submitTime,jdbcType=TIMESTAMP}, #{floor,jdbcType=INTEGER}, #{quote,jdbcType=INTEGER},
+        #{deleted,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR})
+    </insert>
     <insert id="insertSelective" parameterType="net.industryhive.bean.Reply">
         insert into reply
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -284,33 +283,33 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.industryhive.bean.Reply">
-    update reply
-    set topic_id = #{topic_id,jdbcType=INTEGER},
-      user_id = #{user_id,jdbcType=INTEGER},
-      submitTime = #{submitTime,jdbcType=TIMESTAMP},
-      floor = #{floor,jdbcType=INTEGER},
-      quote = #{quote,jdbcType=INTEGER},
-      deleted = #{deleted,jdbcType=BIT},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update reply
+        set topic_id = #{topic_id,jdbcType=INTEGER},
+        user_id = #{user_id,jdbcType=INTEGER},
+        submitTime = #{submitTime,jdbcType=TIMESTAMP},
+        floor = #{floor,jdbcType=INTEGER},
+        quote = #{quote,jdbcType=INTEGER},
+        deleted = #{deleted,jdbcType=BIT},
+        content = #{content,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <update id="updateByPrimaryKey" parameterType="net.industryhive.bean.Reply">
-    update reply
-    set topic_id = #{topic_id,jdbcType=INTEGER},
-      user_id = #{user_id,jdbcType=INTEGER},
-      submitTime = #{submitTime,jdbcType=TIMESTAMP},
-      floor = #{floor,jdbcType=INTEGER},
-      quote = #{quote,jdbcType=INTEGER},
-      deleted = #{deleted,jdbcType=BIT}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update reply
+        set topic_id = #{topic_id,jdbcType=INTEGER},
+        user_id = #{user_id,jdbcType=INTEGER},
+        submitTime = #{submitTime,jdbcType=TIMESTAMP},
+        floor = #{floor,jdbcType=INTEGER},
+        quote = #{quote,jdbcType=INTEGER},
+        deleted = #{deleted,jdbcType=BIT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <!--========================================================================================-->
     <resultMap extends="ResultMapWithBLOBs" id="ResultMapWithUsername" type="net.industryhive.bean.wrap.WrapReply">
         <result column="username" jdbcType="VARCHAR" property="username"/>
     </resultMap>
-    <select id="findWithUsername" resultMap="ResultMapWithUsername">
-    select reply.*,user.username from reply,user
-    where reply.topic_id=#{id} and reply.user_id=user.id limit #{startRow},50
-  </select>
+    <select id="findWithUsername" parameterType="java.lang.Integer" resultMap="ResultMapWithUsername">
+        select reply.*,user.username from reply,user
+        where reply.topic_id=#{id} and reply.user_id=user.id limit #{startRow},50
+    </select>
     <!--========================================================================================-->
 </mapper>

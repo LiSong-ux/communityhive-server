@@ -36,6 +36,8 @@ CREATE TABLE `notice` (
   `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`),
   KEY `notice_user_id` (`user_id`),
+  KEY `notice_lastUser_id` (`lastUser_id`),
+  CONSTRAINT `notice_lastUser_id` FOREIGN KEY (`lastUser_id`) REFERENCES `user` (`id`),
   CONSTRAINT `notice_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
