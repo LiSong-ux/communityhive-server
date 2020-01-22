@@ -398,10 +398,14 @@
         <result column="username" jdbcType="VARCHAR" property="username"/>
     </resultMap>
     <select id="findListWithUsername" resultMap="ResultMapWithUsername">
-        SELECT n.id,n.submitTime,n.lastSubmitTime,n.label,n.title,n.content,n.position,n.viewCount,b.username,b.lastEdit FROM notice n LEFT JOIN
-        (SELECT u.username,a.id,a.lastEdit FROM user u LEFT JOIN
-        (SELECT notice.id,notice.user_id uid,user.username lastEdit FROM notice,user WHERE notice.lastUser_id=user.id) a ON u.id=a.uid
-        ) b ON n.id=b.id
+        SELECT n.id,n.submitTime,n.lastSubmitTime,n.label,n.title,n.content,n.position,n.viewCount,a.username,b.lastEdit
+        FROM notice n,(SELECT user.id,user.username FROM USER) a,(SELECT user.id,user.username lastEdit FROM USER) b
+        WHERE n.user_id=a.id AND n.lastUser_id=b.id
+    </select>
+    <select id="findWithUsername" parameterType="java.lang.Integer" resultType="net.industryhive.bean.wrap.WrapNotice">
+        SELECT n.id,n.submitTime,n.lastSubmitTime,n.label,n.title,n.content,n.position,n.viewCount,a.username,b.lastEdit
+        FROM notice n,(SELECT user.id,user.username FROM USER) a,(SELECT user.id,user.username lastEdit FROM USER) b
+        WHERE n.id=#{id} AND n.user_id=a.id AND n.lastUser_id=b.id
     </select>
     <!--=============================================================================================================-->
 </mapper>

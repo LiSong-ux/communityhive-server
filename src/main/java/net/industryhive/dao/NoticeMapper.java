@@ -40,4 +40,6 @@ public interface NoticeMapper {
 
     List<WrapNotice> findListWithUsername();
 
+    WrapNotice findWithUsername(int id);
+
 }

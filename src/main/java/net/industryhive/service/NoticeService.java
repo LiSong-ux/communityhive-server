@@ -22,4 +22,9 @@ public class NoticeService {
         return wrapNoticeList;
     }
 
+    public WrapNotice getWrapNotice(int id){
+        WrapNotice wrapNotice = noticeMapper.findWithUsername(id);
+        return wrapNotice;
+    }
+
 }
