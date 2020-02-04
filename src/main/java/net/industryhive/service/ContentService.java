@@ -66,7 +66,7 @@ public class ContentService {
         if (wrapTopic == null || wrapTopic.getDeleted()) {
             return null;
         }
-        topicMapper.updateViewCountByPrimaryKey(wrapTopic.getId());
+        topicMapper.updateViewCountByPrimaryKey(id);
         return wrapTopic;
     }
 

@@ -42,4 +42,6 @@ public interface NoticeMapper {
 
     WrapNotice findWithUsername(int id);
 
+    int updateViewCountByPrimaryKey(int id);
+
 }

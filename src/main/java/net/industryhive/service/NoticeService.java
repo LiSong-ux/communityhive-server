@@ -22,8 +22,12 @@ public class NoticeService {
         return wrapNoticeList;
     }
 
-    public WrapNotice getWrapNotice(int id){
+    public WrapNotice getWrapNotice(int id) {
         WrapNotice wrapNotice = noticeMapper.findWithUsername(id);
+        if (wrapNotice == null || wrapNotice.getDeleted()) {
+            return null;
+        }
+        noticeMapper.updateViewCountByPrimaryKey(id);
         return wrapNotice;
     }
 
