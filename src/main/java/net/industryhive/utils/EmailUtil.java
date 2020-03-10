@@ -40,11 +40,19 @@ public class EmailUtil {
         sender.setDefaultEncoding("Utf-8");
         Properties properties = new Properties();
         properties.setProperty("mail.smtp.timeout", timeout);
-        properties.setProperty("mail.smtp.auth", "false");
+        //properties.setProperty("mail.smtp.auth", "false");
+        properties.setProperty("mail.smtp.auth", "true");
         properties.setProperty("mail.smtp.port", Integer.toString(PORT));//设置端口
-        properties.setProperty("mail.smtp.socketFactory.port", Integer.toString(PORT));//设置ssl端口
-        properties.setProperty("mail.smtp.socketFactory.fallback", "false");
-        properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        /*
+            2020/3/9
+            发现亿速云把465端口封了，系统不能自动发送邮件
+            从网上找了文章发现SMTP端口除了25和465外，还可以用587端口
+            但是如果只是简单地把端口从465换成587，那邮件还是发不出去
+            经过尝试，发现把以下三行代码注释掉可以发送成功
+         */
+        //properties.setProperty("mail.smtp.socketFactory.port", Integer.toString(PORT));//设置ssl端口
+        //properties.setProperty("mail.smtp.socketFactory.fallback", "false");
+        //properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         sender.setJavaMailProperties(properties);
         return sender;
     }
