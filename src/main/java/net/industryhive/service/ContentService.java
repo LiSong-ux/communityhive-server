@@ -37,6 +37,7 @@ public class ContentService {
 
     /**
      * 发帖
+     *
      * @param newTopic
      * @return
      */
@@ -63,7 +64,7 @@ public class ContentService {
     public WrapTopic getWrapTopic(int id) {
         WrapTopic wrapTopic = topicMapper.findWithUsername(id);
         //如果帖子不存在或已被删除，则返回空
-        if (wrapTopic == null || wrapTopic.getDeleted()) {
+        if (wrapTopic == null || wrapTopic.getHided() || wrapTopic.getDeleted()) {
             return null;
         }
         topicMapper.updateViewCountByPrimaryKey(id);
@@ -95,6 +96,7 @@ public class ContentService {
 
     /**
      * 根据帖子ID获取该帖子的回复数量
+     *
      * @param topicId
      * @return
      */
