@@ -50,6 +50,9 @@ public class ContentController {
         if (user == null) {
             return UnifiedResult.build(400, "请登录后再发帖！", null);
         }
+        if (user.getLocked()) {
+            return UnifiedResult.build(400, "您已被封禁，无法发帖", null);
+        }
 
         String regLabel = "^[\\u4e00-\\u9fa5]{2,4}$";
         Pattern pattern = Pattern.compile(regLabel);
@@ -99,6 +102,9 @@ public class ContentController {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             return UnifiedResult.build(400, "请登录后再回复！", null);
+        }
+        if (user.getLocked()) {
+            return UnifiedResult.build(400, "您已被封禁，无法回复", null);
         }
 
         //对回复内容进行校验，替换富文本编辑器自动添加的html字符为空字符串
