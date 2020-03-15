@@ -1,5 +1,6 @@
 package net.industryhive.controller;
 
+import net.industryhive.bean.model.NoticeModel;
 import net.industryhive.bean.wrap.WrapNotice;
 import net.industryhive.entity.UnifiedResult;
 import net.industryhive.service.NoticeService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +24,22 @@ public class NoticeController {
     @RequestMapping("/noticeList")
     public UnifiedResult getNoticeList() {
         List<WrapNotice> wrapNoticeList = noticeService.getWrapNoticeList();
-        return UnifiedResult.ok(wrapNoticeList);
+
+        ArrayList<NoticeModel> noticeModelList = new ArrayList<>();
+        wrapNoticeList.forEach(wrapNotice -> {
+            NoticeModel noticeModel = new NoticeModel();
+            noticeModel.setId(wrapNotice.getId());
+            noticeModel.setLabel(wrapNotice.getLabel());
+            noticeModel.setTitle(wrapNotice.getTitle());
+            noticeModel.setUsername(wrapNotice.getUsername());
+            noticeModel.setSubmitTime(wrapNotice.getSubmitTime());
+            noticeModel.setLastEdit(wrapNotice.getLastEdit());
+            noticeModel.setLastSubmitTime(wrapNotice.getLastSubmitTime());
+            noticeModel.setViewCount(wrapNotice.getViewCount());
+            noticeModelList.add(noticeModel);
+        });
+
+        return UnifiedResult.ok(noticeModelList);
     }
 
     @RequestMapping("/notice")
@@ -34,7 +51,19 @@ public class NoticeController {
         if (wrapNotice == null) {
             return UnifiedResult.build(400, "公告不存在", null);
         }
-        return UnifiedResult.ok(wrapNotice);
+
+        NoticeModel noticeModel = new NoticeModel();
+        noticeModel.setId(wrapNotice.getId());
+        noticeModel.setLabel(wrapNotice.getLabel());
+        noticeModel.setTitle(wrapNotice.getTitle());
+        noticeModel.setContent(wrapNotice.getContent());
+        noticeModel.setUsername(wrapNotice.getUsername());
+        noticeModel.setSubmitTime(wrapNotice.getSubmitTime());
+        noticeModel.setLastEdit(wrapNotice.getLastEdit());
+        noticeModel.setLastSubmitTime(wrapNotice.getLastSubmitTime());
+        noticeModel.setViewCount(wrapNotice.getViewCount());
+
+        return UnifiedResult.ok(noticeModel);
     }
 
 }

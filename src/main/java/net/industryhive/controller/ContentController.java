@@ -3,6 +3,7 @@ package net.industryhive.controller;
 import net.industryhive.bean.Reply;
 import net.industryhive.bean.Topic;
 import net.industryhive.bean.User;
+import net.industryhive.bean.model.ReplyModel;
 import net.industryhive.bean.model.TopicModel;
 import net.industryhive.bean.wrap.WrapReply;
 import net.industryhive.bean.wrap.WrapTopic;
@@ -149,11 +150,37 @@ public class ContentController {
         if (wrapTopic == null) {
             return UnifiedResult.build(400, "帖子不存在", null);
         }
+
+        TopicModel topicModel = new TopicModel();
+        topicModel.setId(wrapTopic.getId());
+        topicModel.setLabel(wrapTopic.getLabel());
+        topicModel.setTitle(wrapTopic.getTitle());
+        topicModel.setContent(wrapTopic.getContent());
+        topicModel.setUsername(wrapTopic.getUsername());
+        topicModel.setSubmitTime(wrapTopic.getSubmitTime());
+        topicModel.setLastReply(wrapTopic.getLastReply());
+        topicModel.setLastSubmit(wrapTopic.getLastSubmit());
+        topicModel.setReplyCount(wrapTopic.getReplyCount());
+        topicModel.setViewCount(wrapTopic.getViewCount());
+
         List<WrapReply> wrapReplyList = contentService.getWrapReplyList(id, page);
+
+        ArrayList<ReplyModel> replyModelList = new ArrayList<>();
+        wrapReplyList.forEach(wrapReply -> {
+            ReplyModel replyModel = new ReplyModel();
+            replyModel.setTopic_id(wrapReply.getTopic_id());
+            replyModel.setUsername(wrapReply.getUsername());
+            replyModel.setSubmitTime(wrapReply.getSubmitTime());
+            replyModel.setFloor(wrapReply.getFloor());
+            replyModel.setQuote(wrapReply.getQuote());
+            replyModel.setContent(wrapReply.getContent());
+            replyModelList.add(replyModel);
+        });
+
         long replyCount = contentService.getReplyCountByTopicId(id);
 
-        topicMap.put("topic", wrapTopic);
-        topicMap.put("replyList", wrapReplyList);
+        topicMap.put("topic", topicModel);
+        topicMap.put("replyList", replyModelList);
         topicMap.put("replyCount", replyCount);
         return UnifiedResult.ok(topicMap);
     }

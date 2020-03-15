@@ -3,6 +3,7 @@ package net.industryhive.controller;
 import cn.hutool.core.date.DateUtil;
 import net.industryhive.bean.Login;
 import net.industryhive.bean.User;
+import net.industryhive.bean.model.UserModel;
 import net.industryhive.bean.wrap.WrapUser;
 import net.industryhive.entity.UnifiedResult;
 import net.industryhive.service.LoginService;
@@ -222,7 +223,10 @@ public class UserController {
 
         loginService.addLogin(newLogin);
 
-        return UnifiedResult.ok(user);
+        UserModel userModel = new UserModel();
+        userModel.setUsername(user.getUsername());
+
+        return UnifiedResult.ok(userModel);
     }
 
 }

@@ -5,32 +5,28 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 响应实体类模型
- *
  * @author 未央
- * @create 2020-03-15 13:34
+ * @create 2020-03-15 14:15
  */
 @Data
-public class TopicModel {
+public class NoticeModel {
+
     private Integer id;
 
     private Date submitTime;
+
+    private Date lastSubmitTime;
 
     private String label;
 
     private String title;
 
-    private String content;
-
-    private Integer replyCount;
-
     private Integer viewCount;
+
+    private String content;
 
     private String username;
 
-    //最后回复者
-    private String lastReply;
+    private String lastEdit;
 
-    //最后回复时间
-    private Date lastSubmit;
 }
