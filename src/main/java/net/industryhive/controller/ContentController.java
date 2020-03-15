@@ -3,6 +3,7 @@ package net.industryhive.controller;
 import net.industryhive.bean.Reply;
 import net.industryhive.bean.Topic;
 import net.industryhive.bean.User;
+import net.industryhive.bean.model.TopicModel;
 import net.industryhive.bean.wrap.WrapReply;
 import net.industryhive.bean.wrap.WrapTopic;
 import net.industryhive.entity.UnifiedResult;
@@ -14,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -173,8 +171,27 @@ public class ContentController {
         }
         Map<String, Object> map = new HashMap<>();
         List<WrapTopic> wrapTopicList = contentService.getWrapTopicList(page);
+
+        /*
+            将包装类中的一部分属性封装到响应实体模型中返回
+         */
+        ArrayList<TopicModel> topicModelList = new ArrayList<>();
+        wrapTopicList.forEach(wrapTopic -> {
+            TopicModel topicModel = new TopicModel();
+            topicModel.setId(wrapTopic.getId());
+            topicModel.setLabel(wrapTopic.getLabel());
+            topicModel.setTitle(wrapTopic.getTitle());
+            topicModel.setUsername(wrapTopic.getUsername());
+            topicModel.setSubmitTime(wrapTopic.getSubmitTime());
+            topicModel.setLastReply(wrapTopic.getLastReply());
+            topicModel.setLastSubmit(wrapTopic.getLastSubmit());
+            topicModel.setReplyCount(wrapTopic.getReplyCount());
+            topicModel.setViewCount(wrapTopic.getViewCount());
+            topicModelList.add(topicModel);
+        });
+
         long topicCount = contentService.getTopicCount();
-        map.put("topicList", wrapTopicList);
+        map.put("topicList", topicModelList);
         map.put("topicCount", topicCount);
         return UnifiedResult.ok(map);
     }
