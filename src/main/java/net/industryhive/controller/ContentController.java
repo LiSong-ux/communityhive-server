@@ -194,6 +194,12 @@ public class ContentController {
         return UnifiedResult.ok(map);
     }
 
+    /**
+     * 将WrapTopic封装到TopicModel
+     *
+     * @param wrapTopic
+     * @return
+     */
     public TopicModel getTopicModel(WrapTopic wrapTopic) {
         TopicModel topicModel = new TopicModel();
         topicModel.setId(wrapTopic.getId());
@@ -215,6 +221,12 @@ public class ContentController {
         return topicModel;
     }
 
+    /**
+     * 将WrapReply封装到ReplyModel
+     *
+     * @param wrapReply
+     * @return
+     */
     public ReplyModel getReplyModel(WrapReply wrapReply) {
         ReplyModel replyModel = new ReplyModel();
         replyModel.setUsername(wrapReply.getUsername());
