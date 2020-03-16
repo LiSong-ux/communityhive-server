@@ -147,29 +147,13 @@ public class ContentController {
             return UnifiedResult.build(400, "帖子不存在", null);
         }
 
-        TopicModel topicModel = new TopicModel();
-        topicModel.setId(wrapTopic.getId());
-        topicModel.setLabel(wrapTopic.getLabel());
-        topicModel.setTitle(wrapTopic.getTitle());
-        topicModel.setContent(wrapTopic.getContent());
-        topicModel.setUsername(wrapTopic.getUsername());
-        topicModel.setSubmitTime(wrapTopic.getSubmitTime());
-        topicModel.setLastReply(wrapTopic.getLastReply());
-        topicModel.setLastSubmit(wrapTopic.getLastSubmit());
-        topicModel.setReplyCount(wrapTopic.getReplyCount());
-        topicModel.setViewCount(wrapTopic.getViewCount());
+        TopicModel topicModel = getTopicModel(wrapTopic);
 
         List<WrapReply> wrapReplyList = contentService.getWrapReplyList(id, page);
 
         ArrayList<ReplyModel> replyModelList = new ArrayList<>();
         wrapReplyList.forEach(wrapReply -> {
-            ReplyModel replyModel = new ReplyModel();
-            replyModel.setTopic_id(wrapReply.getTopic_id());
-            replyModel.setUsername(wrapReply.getUsername());
-            replyModel.setSubmitTime(wrapReply.getSubmitTime());
-            replyModel.setFloor(wrapReply.getFloor());
-            replyModel.setQuote(wrapReply.getQuote());
-            replyModel.setContent(wrapReply.getContent());
+            ReplyModel replyModel = getReplyModel(wrapReply);
             replyModelList.add(replyModel);
         });
 
@@ -200,16 +184,7 @@ public class ContentController {
          */
         ArrayList<TopicModel> topicModelList = new ArrayList<>();
         wrapTopicList.forEach(wrapTopic -> {
-            TopicModel topicModel = new TopicModel();
-            topicModel.setId(wrapTopic.getId());
-            topicModel.setLabel(wrapTopic.getLabel());
-            topicModel.setTitle(wrapTopic.getTitle());
-            topicModel.setUsername(wrapTopic.getUsername());
-            topicModel.setSubmitTime(wrapTopic.getSubmitTime());
-            topicModel.setLastReply(wrapTopic.getLastReply());
-            topicModel.setLastSubmit(wrapTopic.getLastSubmit());
-            topicModel.setReplyCount(wrapTopic.getReplyCount());
-            topicModel.setViewCount(wrapTopic.getViewCount());
+            TopicModel topicModel = getTopicModel(wrapTopic);
             topicModelList.add(topicModel);
         });
 
@@ -217,6 +192,37 @@ public class ContentController {
         map.put("topicList", topicModelList);
         map.put("topicCount", topicCount);
         return UnifiedResult.ok(map);
+    }
+
+    public TopicModel getTopicModel(WrapTopic wrapTopic) {
+        TopicModel topicModel = new TopicModel();
+        topicModel.setId(wrapTopic.getId());
+        topicModel.setLabel(wrapTopic.getLabel());
+        topicModel.setTitle(wrapTopic.getTitle());
+        if (wrapTopic.getContent() != null) {
+            topicModel.setContent(wrapTopic.getContent());
+        }
+        topicModel.setUsername(wrapTopic.getUsername());
+        topicModel.setSubmitTime(wrapTopic.getSubmitTime());
+        if (wrapTopic.getLastReply() != null) {
+            topicModel.setLastReply(wrapTopic.getLastReply());
+        }
+        if (wrapTopic.getLastSubmit() != null) {
+            topicModel.setLastSubmit(wrapTopic.getLastSubmit());
+        }
+        topicModel.setReplyCount(wrapTopic.getReplyCount());
+        topicModel.setViewCount(wrapTopic.getViewCount());
+        return topicModel;
+    }
+
+    public ReplyModel getReplyModel(WrapReply wrapReply) {
+        ReplyModel replyModel = new ReplyModel();
+        replyModel.setUsername(wrapReply.getUsername());
+        replyModel.setSubmitTime(wrapReply.getSubmitTime());
+        replyModel.setFloor(wrapReply.getFloor());
+        replyModel.setQuote(wrapReply.getQuote());
+        replyModel.setContent(wrapReply.getContent());
+        return replyModel;
     }
 
 }

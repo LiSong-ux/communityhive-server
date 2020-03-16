@@ -308,8 +308,8 @@
         <result column="username" jdbcType="VARCHAR" property="username"/>
     </resultMap>
     <select id="findWithUsername" parameterType="java.lang.Integer" resultMap="ResultMapWithUsername">
-        select reply.*,user.username from reply,user
-        where reply.topic_id=#{id} and reply.user_id=user.id limit #{startRow},50
+        SELECT reply.topic_id,reply.submitTime,reply.floor,reply.quote,reply.content,reply.deleted,user.username
+        FROM reply,user WHERE reply.topic_id=#{topicId} AND reply.user_id=user.id LIMIT #{startRow},50
     </select>
     <!--========================================================================================-->
 </mapper>

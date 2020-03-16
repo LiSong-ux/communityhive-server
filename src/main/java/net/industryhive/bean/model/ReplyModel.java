@@ -11,8 +11,6 @@ import java.util.Date;
 @Data
 public class ReplyModel {
 
-    private Integer topic_id;
-
     private Date submitTime;
 
     private Integer floor;
