@@ -27,15 +27,7 @@ public class NoticeController {
 
         ArrayList<NoticeModel> noticeModelList = new ArrayList<>();
         wrapNoticeList.forEach(wrapNotice -> {
-            NoticeModel noticeModel = new NoticeModel();
-            noticeModel.setId(wrapNotice.getId());
-            noticeModel.setLabel(wrapNotice.getLabel());
-            noticeModel.setTitle(wrapNotice.getTitle());
-            noticeModel.setUsername(wrapNotice.getUsername());
-            noticeModel.setSubmitTime(wrapNotice.getSubmitTime());
-            noticeModel.setLastEdit(wrapNotice.getLastEdit());
-            noticeModel.setLastSubmitTime(wrapNotice.getLastSubmitTime());
-            noticeModel.setViewCount(wrapNotice.getViewCount());
+            NoticeModel noticeModel = getNoticeModel(wrapNotice);
             noticeModelList.add(noticeModel);
         });
 
@@ -52,18 +44,24 @@ public class NoticeController {
             return UnifiedResult.build(400, "公告不存在", null);
         }
 
+        NoticeModel noticeModel = getNoticeModel(wrapNotice);
+        return UnifiedResult.ok(noticeModel);
+    }
+
+    public NoticeModel getNoticeModel(WrapNotice wrapNotice) {
         NoticeModel noticeModel = new NoticeModel();
         noticeModel.setId(wrapNotice.getId());
         noticeModel.setLabel(wrapNotice.getLabel());
         noticeModel.setTitle(wrapNotice.getTitle());
-        noticeModel.setContent(wrapNotice.getContent());
+        if (wrapNotice.getContent() != null) {
+            noticeModel.setContent(wrapNotice.getContent());
+        }
         noticeModel.setUsername(wrapNotice.getUsername());
         noticeModel.setSubmitTime(wrapNotice.getSubmitTime());
         noticeModel.setLastEdit(wrapNotice.getLastEdit());
         noticeModel.setLastSubmitTime(wrapNotice.getLastSubmitTime());
         noticeModel.setViewCount(wrapNotice.getViewCount());
-
-        return UnifiedResult.ok(noticeModel);
+        return noticeModel;
     }
 
 }

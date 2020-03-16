@@ -373,10 +373,11 @@
         ON a.id=b.rti ORDER BY lastSubmit DESC limit #{startRow},45
     </select>
     <select id="findWithUsername" parameterType="java.lang.Integer" resultType="net.industryhive.bean.wrap.WrapTopic">
-        select topic.*,user.username from topic,user where topic.id=#{id} and topic.user_id=user.id
+        SELECT topic.id,topic.submitTime,topic.label,topic.title,topic.content,topic.replyCount,topic.viewCount,user.username
+        FROM topic,user WHERE topic.id=#{id} AND topic.hided=0 AND topic.deleted=0 AND topic.user_id=user.id
     </select>
     <select id="selectByPrimaryKeyForUpdate" parameterType="java.lang.Integer" resultType="net.industryhive.bean.Topic">
-        select id,replyCount,locked,deleted from topic where id=#{id} for update;
+        select id,replyCount,locked,deleted from topic where id=#{id} for update
     </select>
     <update id="updateViewCountByPrimaryKey" parameterType="java.lang.Integer">
         update topic set viewCount=viewCount+1 where id=#{id}
