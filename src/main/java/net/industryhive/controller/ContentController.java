@@ -9,7 +9,6 @@ import net.industryhive.bean.wrap.WrapReply;
 import net.industryhive.bean.wrap.WrapTopic;
 import net.industryhive.entity.UnifiedResult;
 import net.industryhive.service.ContentService;
-import net.industryhive.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,9 +30,6 @@ public class ContentController {
 
     @Autowired
     private ContentService contentService;
-
-    @Autowired
-    private UserService userService;
 
     /**
      * 发帖
