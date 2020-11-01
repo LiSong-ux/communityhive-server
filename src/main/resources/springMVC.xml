@@ -18,8 +18,8 @@
 
     <!-- 配置视图解析器，方便页面返回 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/"></property>
-        <property name="suffix" value=".jsp"></property>
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
 
     <!-- 两个标准配置 -->
