@@ -22,6 +22,12 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!--配置文件解析器对象-->
+    <!--此处的id必须为multipartResolver，否则在控制器无法得到MultipartFile对象-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="104857600"/>
+    </bean>
+
     <!-- 两个标准配置 -->
     <!-- 将springmvc不能处理的请求交给tomcat -->
     <mvc:default-servlet-handler/>
