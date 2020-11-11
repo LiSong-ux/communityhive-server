@@ -30,7 +30,7 @@ public class FileOperateController {
             for (MultipartFile uploadImg : uploadImgs) {
                 FileInputStream fis = (FileInputStream) uploadImg.getInputStream();
                 String filePath = FileOperator.upload(uploadImg.getOriginalFilename(), fis);
-                data.add(filePath);
+                data.add("http://inhive.net/" + filePath);
             }
         } catch (IOException e) {
             e.printStackTrace();
