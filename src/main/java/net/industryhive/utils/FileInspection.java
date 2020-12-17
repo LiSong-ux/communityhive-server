@@ -21,7 +21,7 @@ public class FileInspection {
      * @return boolean值【true：校验通过；false:校验不通过】
      */
     public static boolean inspect(String filename) {
-        String extension = filename.substring(filename.lastIndexOf('.'));
+        String extension = filename.substring(filename.lastIndexOf('.') + 1);
         for (String validExtension : validExtensions) {
             if (extension.equalsIgnoreCase(validExtension)) {
                 return true;

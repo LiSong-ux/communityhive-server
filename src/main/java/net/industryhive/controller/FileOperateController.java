@@ -38,6 +38,7 @@ public class FileOperateController {
                 FileInputStream fis = (FileInputStream) uploadImg.getInputStream();
 
                 String filename = uploadImg.getOriginalFilename();
+
                 if (!FileInspection.inspect(filename)) {
                     return new UploadResult(3, null);
                 }

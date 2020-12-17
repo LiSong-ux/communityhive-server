@@ -166,7 +166,7 @@ public class UserController {
         // 发送邮箱验证码
         String content = "您的邮箱验证码为：" + code + "，此验证码十分钟内有效。";
         try {
-            EmailSender.sendMail(email, content);
+            EmailSender.send(email, content);
         } catch (Exception e) {
             e.printStackTrace();
             return UnifiedResult.build(500, "发送验证码失败，请再次尝试...", null);

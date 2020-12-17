@@ -14,7 +14,7 @@ public class EmailTest {
     public void sendEmail() throws UnsupportedEncodingException, MessagingException {
         String to = "546993317@qq.com";
         String html = "您的邮箱验证码为：116303";
-        EmailSender.sendMail(to, html);
+        EmailSender.send(to, html);
     }
 
 }

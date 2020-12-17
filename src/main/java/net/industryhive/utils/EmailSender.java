@@ -10,6 +10,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 /**
+ * 邮件发送工具类
+ *
  * @author 未央
  * @create 2019-11-09 10:28
  */
@@ -24,7 +26,7 @@ public class EmailSender {
     private static final String personal = Email.personal;
     private static final String subject = Email.subject;
     private static final String html = Email.html;
-    private static JavaMailSenderImpl mailSender = createMailSender();
+    private static final JavaMailSenderImpl mailSender = createMailSender();
 
     /**
      * 邮件发送器
@@ -60,12 +62,12 @@ public class EmailSender {
     /**
      * 发送邮件
      *
-     * @param to 接收人
+     * @param to   接收人
      * @param html 发送内容
      * @throws MessagingException
      * @throws UnsupportedEncodingException
      */
-    public static void sendMail(String to, String html) throws MessagingException, UnsupportedEncodingException {
+    public static void send(String to, String html) throws MessagingException, UnsupportedEncodingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         // 设置utf-8或GBK编码，否则邮件会有乱码
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
