@@ -1,6 +1,6 @@
 package net.industryhive.test;
 
-import net.industryhive.utils.EmailUtil;
+import net.industryhive.utils.EmailSender;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
@@ -14,7 +14,7 @@ public class EmailTest {
     public void sendEmail() throws UnsupportedEncodingException, MessagingException {
         String to = "546993317@qq.com";
         String html = "您的邮箱验证码为：116303";
-        EmailUtil.sendMail(to, html);
+        EmailSender.sendMail(to, html);
     }
 
 }

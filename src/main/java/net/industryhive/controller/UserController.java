@@ -8,7 +8,7 @@ import net.industryhive.bean.wrap.WrapUser;
 import net.industryhive.entity.UnifiedResult;
 import net.industryhive.service.LoginService;
 import net.industryhive.service.UserService;
-import net.industryhive.utils.EmailUtil;
+import net.industryhive.utils.EmailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -166,7 +166,7 @@ public class UserController {
         // 发送邮箱验证码
         String content = "您的邮箱验证码为：" + code + "，此验证码十分钟内有效。";
         try {
-            EmailUtil.sendMail(email, content);
+            EmailSender.sendMail(email, content);
         } catch (Exception e) {
             e.printStackTrace();
             return UnifiedResult.build(500, "发送验证码失败，请再次尝试...", null);

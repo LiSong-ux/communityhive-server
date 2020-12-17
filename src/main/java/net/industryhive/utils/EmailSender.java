@@ -13,7 +13,7 @@ import java.util.Properties;
  * @author 未央
  * @create 2019-11-09 10:28
  */
-public class EmailUtil {
+public class EmailSender {
 
     private static final String HOST = Email.host;
     private static final Integer PORT = Email.port;
